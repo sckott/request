@@ -30,7 +30,10 @@ install.packages("devtools")
 devtools::install_github("sckott/httsnap")
 ```
 
+And load `dplyr` for parsing data.frame's
+
 ```{r}
+library("dplyr")
 library("httsnap")
 ```
 
@@ -71,7 +74,10 @@ Default
 
 ```{r message=TRUE}
 "http://api.crossref.org/works" %>%
-  Get()
+  Get() %>% 
+  .$message %>% 
+  .$items %>% 
+  select(DOI, page)
 ```
 
 Use query parameters
