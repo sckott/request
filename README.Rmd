@@ -23,6 +23,12 @@ knitr::opts_chunk$set(
 
 All of the default just mentioned can be changed. 
 
+## Philosophy in gif
+
+> the new way
+
+![](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
+
 ## Install
 
 ```{r eval=FALSE}

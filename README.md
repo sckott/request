@@ -16,6 +16,12 @@ httsnap
 
 All of the default just mentioned can be changed. 
 
+## Philosophy in gif
+
+> the new way
+
+![](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
+
 ## Install
 
 
@@ -223,7 +229,7 @@ Use body parameters
 #> [1] "148"
 #> 
 #> $headers$`Content-Type`
-#> [1] "multipart/form-data; boundary=------------------------a0a271ba7e5809da"
+#> [1] "multipart/form-data; boundary=------------------------b76173d892c55e3f"
 #> 
 #> $headers$Host
 #> [1] "httpbin.org"
