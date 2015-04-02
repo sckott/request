@@ -34,14 +34,24 @@
 Get <- function(.data, ...)
 {
   .data <- as.request(.data)
+  .data$config <- c(user_agent(make_ua()), verbose())
   hu <- httr:::handle_url(NULL, .data$url, query=.data$query)
-  res <- httr:::make_request("get", hu$handle, hu$url, .data$config)
+  res <- httr:::make_request(method="get", handle=hu$handle, url=hu$url, config=.data$config)
   stop_for_status(res)
   if(grepl("json", res$headers$`content-type`)){
-    jsonlite::fromJSON(content(res, "text"))
+    txt <- content(res, "text")
+    jsonlite::fromJSON(txt, .data$parse)
   } else {
     content(res)
   }
+}
+
+make_ua <- function() {
+  versions <- c(curl = RCurl::curlVersion()$version,
+                Rcurl = as.character(packageVersion("RCurl")),
+                httr = as.character(packageVersion("httr")),
+                httsnap = as.character(packageVersion("httsnap")))
+  paste0(names(versions), "/", versions, collapse = " ")
 }
 
 Put <- function(.data, ...)

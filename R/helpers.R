@@ -60,6 +60,7 @@ query <- function(.data, ...){
   .data <- as.request(.data)
   args <- list(...)
   .data <- modifyList(.data, list(query = args))
+  .data$parse <- TRUE
   Get(.data)
 }
 
@@ -69,7 +70,29 @@ body <- function(.data, ...){
   .data <- as.request(.data)
   args <- list(...)
   .data <- modifyList(.data, list(body = args))
+  .data$parse <- TRUE
   Put(.data)
+}
+
+# #' @export
+# #' @rdname helpers
+# raw <- function(.data, ...){
+#   .data <- as.request(.data)
+#   .data$parse <- FALSE
+#   Get(.data)
+# }
+
+#' @export
+#' @rdname raw
+raw <- function(.obj=list(), ...){
+  raw_(.obj, .dots = lazyeval::lazy_dots(...), parse=TRUE)
+}
+
+#' @export
+#' @rdname raw
+raw_ <- function(.data=list(), ..., .dots, parse=TRUE){
+  dots <- lazyeval::all_dots(.dots, ...)
+  Get(.data, dots)
 }
 
 

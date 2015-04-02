@@ -93,6 +93,14 @@ Use query parameters
   query(q="*:*", wt="json", fl="id,journal,counter_total_all")
 ```
 
+Give back raw json
+
+```{r message=TRUE}
+"http://api.plos.org/search" %>%
+  query(q="*:*", wt="json", fl="id,journal,counter_total_all") %>% 
+  raw()
+```
+
 Use body parameters
 
 ```{r message=TRUE}
