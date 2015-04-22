@@ -3,6 +3,8 @@ httsnap
 
 
 
+[![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
+
 `httsnap` is an attempt to replicate the awesomeness of [httpie](https://github.com/jakubroztocil/httpie)
 
 ## Philosophy
@@ -65,7 +67,7 @@ A simple GET request
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "curl/7.37.1 Rcurl/1.95.4.5 httr/0.6.1"
+#> [1] "curl/7.37.1 Rcurl/1.95.4.1 httr/0.6.1 httsnap/0.0.1.99"
 #> 
 #> 
 #> $origin
@@ -101,7 +103,6 @@ Then eventually execute the GET request
   Progress() %>%
   Verbose() %>%
   Get()
-#>   |                                                                         |                                                                 |   0%  |                                                                         |=================================================================| 100%
 #> $args
 #> named list()
 #> 
@@ -116,7 +117,7 @@ Then eventually execute the GET request
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "curl/7.37.1 Rcurl/1.95.4.5 httr/0.6.1"
+#> [1] "curl/7.37.1 Rcurl/1.95.4.1 httr/0.6.1 httsnap/0.0.1.99"
 #> 
 #> 
 #> $origin
@@ -132,32 +133,21 @@ Default
 
 
 ```r
-"http://api.crossref.org/works" %>%
+tmp <- "http://api.crossref.org/works" %>%
   Get() %>% 
   .$message %>% 
-  .$items %>% 
-  select(DOI, page)
-#>                                 DOI    page
-#> 1  10.1111/j.1742-4658.2011.08468.x   no-no
-#> 2                10.1007/bf01282823 290-293
-#> 3                10.1007/bf01282809 255-257
-#> 4                10.1007/bf01282850 378-381
-#> 5                10.1007/bf01282844 358-360
-#> 6                10.1007/bf01282851 381-386
-#> 7                10.1007/bf01282852 386-387
-#> 8                10.1007/bf01282853 387-388
-#> 9                10.1007/bf01282832 317-320
-#> 10               10.1007/bf01282828 303-305
-#> 11               10.1007/bf01282829 307-308
-#> 12               10.1007/bf01282818 274-279
-#> 13               10.1007/bf01282822 287-290
-#> 14               10.1007/bf01282806 241-247
-#> 15               10.1007/bf01282839 343-344
-#> 16               10.1007/bf01282826 297-302
-#> 17               10.1007/bf01282825 295-297
-#> 18               10.1007/bf01282813 268-269
-#> 19               10.1007/bf01282820 282-284
-#> 20               10.1007/bf01282843 353-358
+  .$items
+sapply(tmp, "[[", "DOI")
+#>  [1] "10.1111/j.1742-4658.2011.08468.x" "10.1007/bf01282823"              
+#>  [3] "10.1007/bf01282809"               "10.1007/bf01282850"              
+#>  [5] "10.1007/bf01282844"               "10.1007/bf01282851"              
+#>  [7] "10.1007/bf01282852"               "10.1007/bf01282853"              
+#>  [9] "10.1007/bf01282832"               "10.1007/bf01282828"              
+#> [11] "10.1007/bf01282829"               "10.1007/bf01282818"              
+#> [13] "10.1007/bf01282822"               "10.1007/bf01282806"              
+#> [15] "10.1007/bf01282839"               "10.1007/bf01282826"              
+#> [17] "10.1007/bf01282825"               "10.1007/bf01282813"              
+#> [19] "10.1007/bf01282820"               "10.1007/bf01282843"
 ```
 
 Use query parameters
@@ -168,34 +158,34 @@ Use query parameters
   query(q="*:*", wt="json", fl="id,journal,counter_total_all")
 #> $response
 #> $response$numFound
-#> [1] 1219309
+#> [1] 1274217
 #> 
 #> $response$start
 #> [1] 0
 #> 
 #> $response$docs
-#>                                                     id counter_total_all
-#> 1                         10.1371/journal.pone.0074638               784
-#> 2                   10.1371/journal.pone.0074638/title               784
-#> 3                10.1371/journal.pone.0074638/abstract               784
-#> 4              10.1371/journal.pone.0074638/references               784
-#> 5                    10.1371/journal.pone.0074638/body               784
-#> 6            10.1371/journal.pone.0074638/introduction               784
-#> 7  10.1371/journal.pone.0074638/results_and_discussion               784
-#> 8   10.1371/journal.pone.0074638/materials_and_methods               784
-#> 9                         10.1371/journal.pone.0074637               631
-#> 10                  10.1371/journal.pone.0074637/title               631
-#>     journal
-#> 1  PLoS ONE
-#> 2  PLoS ONE
-#> 3  PLoS ONE
-#> 4  PLoS ONE
-#> 5  PLoS ONE
-#> 6  PLoS ONE
-#> 7  PLoS ONE
-#> 8  PLoS ONE
-#> 9  PLoS ONE
-#> 10 PLoS ONE
+#>                                                                    id
+#> 1             10.1371/annotation/98908e14-e9fd-458f-9cea-ba4bec139f20
+#> 2             10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c
+#> 3       10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/title
+#> 4    10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/abstract
+#> 5  10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/references
+#> 6        10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/body
+#> 7       10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/title
+#> 8    10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/abstract
+#> 9  10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/references
+#> 10       10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/body
+#>    counter_total_all  journal
+#> 1                  0 PLoS ONE
+#> 2                  0 PLoS ONE
+#> 3                  0 PLoS ONE
+#> 4                  0 PLoS ONE
+#> 5                  0 PLoS ONE
+#> 6                  0 PLoS ONE
+#> 7                  0 PLoS ONE
+#> 8                  0 PLoS ONE
+#> 9                  0 PLoS ONE
+#> 10                 0 PLoS ONE
 ```
 
 Use body parameters
@@ -229,13 +219,13 @@ Use body parameters
 #> [1] "148"
 #> 
 #> $headers$`Content-Type`
-#> [1] "multipart/form-data; boundary=------------------------b76173d892c55e3f"
+#> [1] "multipart/form-data; boundary=------------------------83534311b2d1a3ff"
 #> 
 #> $headers$Host
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "curl/7.37.1 Rcurl/1.95.4.5 httr/0.6.1"
+#> [1] "curl/7.37.1 Rcurl/1.95.4.1 httr/0.6.1"
 #> 
 #> 
 #> $json

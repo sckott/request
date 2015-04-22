@@ -10,6 +10,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
+
 `httsnap` is an attempt to replicate the awesomeness of [httpie](https://github.com/jakubroztocil/httpie)
 
 ## Philosophy
@@ -79,11 +81,11 @@ Then eventually execute the GET request
 Default 
 
 ```{r message=TRUE}
-"http://api.crossref.org/works" %>%
+tmp <- "http://api.crossref.org/works" %>%
   Get() %>% 
   .$message %>% 
-  .$items %>% 
-  select(DOI, page)
+  .$items
+sapply(tmp, "[[", "DOI")
 ```
 
 Use query parameters
@@ -91,14 +93,6 @@ Use query parameters
 ```{r message=TRUE}
 "http://api.plos.org/search" %>%
   query(q="*:*", wt="json", fl="id,journal,counter_total_all")
-```
-
-Give back raw json
-
-```{r message=TRUE}
-"http://api.plos.org/search" %>%
-  query(q="*:*", wt="json", fl="id,journal,counter_total_all") %>% 
-  raw()
 ```
 
 Use body parameters
