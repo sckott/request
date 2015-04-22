@@ -74,27 +74,6 @@ body <- function(.data, ...){
   Put(.data)
 }
 
-# #' @export
-# #' @rdname helpers
-# raw <- function(.data, ...){
-#   .data <- as.request(.data)
-#   .data$parse <- FALSE
-#   Get(.data)
-# }
-
-#' @export
-#' @rdname raw
-raw <- function(.obj=list(), ...){
-  raw_(.obj, .dots = lazyeval::lazy_dots(...), parse=TRUE)
-}
-
-#' @export
-#' @rdname raw
-raw_ <- function(.data=list(), ..., .dots, parse=TRUE){
-  dots <- lazyeval::all_dots(.dots, ...)
-  Get(.data, dots)
-}
-
 
 # #' @export
 # #' @rdname query
