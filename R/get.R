@@ -1,5 +1,6 @@
 #' Get a url, with sensible defaults
 #'
+#' @import httr
 #' @export
 #' @param .data A request object
 #' @param ... Curl options passed on to \code{\link[httr]{GET}}.

@@ -38,6 +38,8 @@ not be less than 1 ms (aka: 0.001 seconds).}
 \item{password}{A password}
 
 \item{type}{Type of authenticaion. Default: basic}
+
+\item{...}{Further args}
 }
 \description{
 Various helpers as functions that allow chaining together options to

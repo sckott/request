@@ -10,6 +10,7 @@
 #' @param user A user name
 #' @param password A password
 #' @param type Type of authenticaion. Default: basic
+#' @param ... Further args
 #'
 #' @name helpers
 NULL
