@@ -1,8 +1,8 @@
 Package: httsnap
 Title: Easy http
 Description: Easy http for R.
-Version: 0.0.1.999
-Date: 2015-04-22
+Version: 0.0.2.99
+Date: 2015-04-29
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE

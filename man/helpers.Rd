@@ -2,13 +2,13 @@
 % Please edit documentation in R/helpers.R
 \name{helpers}
 \alias{Authenticate}
+\alias{Body}
 \alias{Progress}
+\alias{Query}
 \alias{Timeout}
 \alias{User_agent}
 \alias{Verbose}
-\alias{body}
 \alias{helpers}
-\alias{query}
 \title{http request helpers}
 \usage{
 Progress(.data)
@@ -21,9 +21,9 @@ User_agent(.data, agent)
 
 Authenticate(.data, user, password, type = "basic")
 
-query(.data, ...)
+Query(.data, ...)
 
-body(.data, ...)
+Body(.data, ...)
 }
 \arguments{
 \item{.data}{A request object}

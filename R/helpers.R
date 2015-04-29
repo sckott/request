@@ -57,7 +57,7 @@ Authenticate <- function(.data, user, password, type="basic"){
 
 #' @export
 #' @rdname helpers
-query <- function(.data, ...){
+Query <- function(.data, ...){
   .data <- as.request(.data)
   args <- list(...)
   .data <- modifyList(.data, list(query = args))
@@ -67,7 +67,7 @@ query <- function(.data, ...){
 
 #' @export
 #' @rdname helpers
-body <- function(.data, ...){
+Body <- function(.data, ...){
   .data <- as.request(.data)
   args <- list(...)
   .data <- modifyList(.data, list(body = args))
