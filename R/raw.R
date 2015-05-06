@@ -11,13 +11,13 @@ NULL
 
 #' @export
 #' @rdname raw
-raw <- function(.obj=list(), ...){
-  raw_(.obj, .dots = lazyeval::lazy_dots(...), parse=TRUE)
+raw <- function(.obj = list(), ...){
+  raw_(.obj, .dots = lazyeval::lazy_dots(...), parse = TRUE)
 }
 
 #' @export
 #' @rdname raw
-raw_ <- function(.data=list(), ..., .dots, parse=TRUE){
+raw_ <- function(.data = list(), ..., .dots, parse = TRUE){
   dots <- lazyeval::all_dots(.dots, ...)
   Get(.data, dots)
 }

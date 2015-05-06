@@ -32,14 +32,13 @@
 #'    .$docs
 #' }
 
-Get <- function(.data, ...)
-{
+Get <- function(.data, ...) {
   .data <- as.request(.data)
   .data$config <- c(user_agent(make_ua()), verbose())
-  hu <- httr:::handle_url(NULL, .data$url, query=.data$query)
-  res <- httr:::make_request(method="get", handle=hu$handle, url=hu$url, config=.data$config)
+  hu <- httr:::handle_url(NULL, .data$url, query = .data$query)
+  res <- httr:::make_request(method = "get", handle = hu$handle, url = hu$url, config = .data$config)
   stop_for_status(res)
-  if(grepl("json", res$headers$`content-type`)){
+  if (grepl("json", res$headers$`content-type`)) {
     txt <- content(res, "text")
     jsonlite::fromJSON(txt, .data$parse)
   } else {
@@ -55,12 +54,11 @@ make_ua <- function() {
   paste0(names(versions), "/", versions, collapse = " ")
 }
 
-Put <- function(.data, ...)
-{
+Put <- function(.data, ...) {
   .data <- as.request(.data)
   res <- PUT(.data$url, body = .data$body, ...)
   stop_for_status(res)
-  if(grepl("json", res$headers$`content-type`)){
+  if (grepl("json", res$headers$`content-type`)) {
     jsonlite::fromJSON(content(res, "text"))
   } else {
     content(res)
@@ -69,7 +67,7 @@ Put <- function(.data, ...)
 
 request <- function(.data){
   x <- as.url(.data)
-  structure(list(url=.data), class="request")
+  structure(list(url = .data), class = "request")
 }
 
 #' @export
@@ -78,13 +76,4 @@ print.request <- function(x, ...){
   cat(paste0("  url: ", x$url), sep = "\n")
   cat("  config: ", sep = "\n")
   print(x$config, sep = "\n")
-}
-
-as.request <- function(x) UseMethod("as.request")
-as.request.request <- function(x) x
-# as.request.list <- function(x){
-#
-# }
-as.request.character <- function(x){
-  if( is_url(tryCatch(as.url(x), error=function(e) e)) ) request(x)  else stop("error ...")
 }

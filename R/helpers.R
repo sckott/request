@@ -19,7 +19,7 @@ NULL
 #' @rdname helpers
 Progress <- function(.data){
   .data <- as.request(.data)
-  .data <- modifyList(.data, list(config = c( progress() )))
+  .data <- modifyList(.data, list(config = c(progress())))
   .data
 }
 
@@ -27,7 +27,7 @@ Progress <- function(.data){
 #' @rdname helpers
 Verbose <- function(.data){
   .data <- as.request(.data)
-  .data <- modifyList(.data, list(config = c( verbose() )))
+  .data <- modifyList(.data, list(config = c(verbose())))
   .data
 }
 
@@ -35,7 +35,7 @@ Verbose <- function(.data){
 #' @rdname helpers
 Timeout <- function(.data, seconds){
   .data <- as.request(.data)
-  .data <- modifyList(.data, list(config = c( timeout(seconds = seconds) )))
+  .data <- modifyList(.data, list(config = c(timeout(seconds = seconds) )))
   .data
 }
 
@@ -43,15 +43,15 @@ Timeout <- function(.data, seconds){
 #' @rdname helpers
 User_agent <- function(.data, agent){
   .data <- as.request(.data)
-  .data <- modifyList(.data, list(config = c( user_agent(agent = agent) )))
+  .data <- modifyList(.data, list(config = c(user_agent(agent = agent))))
   .data
 }
 
 #' @export
 #' @rdname helpers
-Authenticate <- function(.data, user, password, type="basic"){
+Authenticate <- function(.data, user, password, type = "basic"){
   .data <- as.request(.data)
-  .data <- modifyList(.data, list(config = c( authenticate(user=user, password=password, type=type) )))
+  .data <- modifyList(.data, list(config = c( authenticate(user = user, password = password, type = type) )))
   .data
 }
 
@@ -74,7 +74,6 @@ Body <- function(.data, ...){
   .data$parse <- TRUE
   Put(.data)
 }
-
 
 # #' @export
 # #' @rdname query
