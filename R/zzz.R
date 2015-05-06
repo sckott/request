@@ -19,3 +19,5 @@ add_http <- function(x) {
     x
   }
 }
+
+comp <- function(l) Filter(Negate(is.null), l)

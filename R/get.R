@@ -64,16 +64,3 @@ Put <- function(.data, ...) {
     content(res)
   }
 }
-
-request <- function(.data){
-  x <- as.url(.data)
-  structure(list(url = .data), class = "request")
-}
-
-#' @export
-print.request <- function(x, ...){
-  cat("<http request> ", sep = "\n")
-  cat(paste0("  url: ", x$url), sep = "\n")
-  cat("  config: ", sep = "\n")
-  print(x$config, sep = "\n")
-}
