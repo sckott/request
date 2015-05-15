@@ -18,7 +18,7 @@ NULL
 #' @export
 #' @rdname helpers
 Progress <- function(.data){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   .data <- modifyList(.data, list(config = c(progress())))
   .data
 }
@@ -26,7 +26,7 @@ Progress <- function(.data){
 #' @export
 #' @rdname helpers
 Verbose <- function(.data){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   .data <- modifyList(.data, list(config = c(verbose())))
   .data
 }
@@ -34,7 +34,7 @@ Verbose <- function(.data){
 #' @export
 #' @rdname helpers
 Timeout <- function(.data, seconds){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   .data <- modifyList(.data, list(config = c(timeout(seconds = seconds) )))
   .data
 }
@@ -42,7 +42,7 @@ Timeout <- function(.data, seconds){
 #' @export
 #' @rdname helpers
 User_agent <- function(.data, agent){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   .data <- modifyList(.data, list(config = c(user_agent(agent = agent))))
   .data
 }
@@ -50,7 +50,7 @@ User_agent <- function(.data, agent){
 #' @export
 #' @rdname helpers
 Authenticate <- function(.data, user, password, type = "basic"){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   .data <- modifyList(.data, list(config = c( authenticate(user = user, password = password, type = type) )))
   .data
 }
@@ -58,7 +58,7 @@ Authenticate <- function(.data, user, password, type = "basic"){
 #' @export
 #' @rdname helpers
 Query <- function(.data, ...){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   args <- list(...)
   .data <- modifyList(.data, list(query = args))
   .data$parse <- TRUE
@@ -68,23 +68,19 @@ Query <- function(.data, ...){
 #' @export
 #' @rdname helpers
 Body <- function(.data, ...){
-  .data <- as.request(.data)
+  .data <- as.req(.data)
   args <- list(...)
   .data <- modifyList(.data, list(body = args))
   .data$parse <- TRUE
   Put(.data)
 }
 
-# #' @export
-# #' @rdname query
 # query  <- function(.data=list(), ...){
 #   query_(.data, .dots = lazyeval::lazy_dots(...))
 # }
 #
-# #' @export
-# #' @rdname query
 # query_  <- function(.data=list(), ..., .dots){
 #   dots <- lazyeval::all_dots(.dots, ...)
-# #   qry <- structure(dots, class=c("query","lazy_dots"))
-# #   Get(.data, qry)
+#   args <- sapply(bb, "[[", "expr")
+#   structure(args, class = "query")
 # }

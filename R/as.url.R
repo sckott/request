@@ -10,9 +10,10 @@ as.url.character <- function(x) {
   if (is_url(x)) {
     x <- add_http(x)
   } else if ( is_port(x) ) {
-    x <- paste0("http://localhost:", x)
+    x <- paste0("http://localhost:", sub("^:", "", x))
   } else {
-    stop("url or port not detected", call. = FALSE)
+    x
+    # stop("url or port not detected", call. = FALSE)
   }
   structure(x, class = "url")
 }
