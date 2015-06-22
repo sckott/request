@@ -18,21 +18,17 @@
 #' dd %>% api_body(body_value = upload_file("~/httsnap_test.txt"))
 #'
 #' # A named list
-#' dd %>% api_body(x = "A simple text string", y = "stuff")
+#' dd %>% api_body(x = hello, y = stuff)
 #'
 #' ## SE
-#' api("http://api.plos.org/search") %>%
-#'   api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal')
+#' dd %>% api_body_(x = "hello", y = "stuff")
 #'
 #' \dontrun{
+#' ###### not working yet
 #' ## NSE
-#' api("http://api.plos.org/search") %>%
-#'   api_query(q = ecology, wt = json, fl = 'id,journal') %>%
-#'   Get()
-#' ## SE
-#' api("http://api.plos.org/search") %>%
-#'   api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') %>%
-#'   Get()
+#' api("http://httpbin.org/post") %>%
+#'    api_body(body_value = FALSE) %>%
+#'    Post()
 #' }
 api_body <- function(.data, ..., body_value = NULL){
   api_body_(.data, .dots = lazyeval::lazy_dots(...), body_value = body_value)
@@ -40,7 +36,7 @@ api_body <- function(.data, ..., body_value = NULL){
 
 #' @export
 #' @rdname api_body
-api_body_ <- function(.data, ..., .dots, body_value){
+api_body_ <- function(.data, ..., .dots, body_value = NULL){
   .data <- as.req(.data)
   if (is.null(body_value)) {
     dots <- lazyeval::all_dots(.dots, ...)

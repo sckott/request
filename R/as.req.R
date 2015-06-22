@@ -44,7 +44,12 @@ check_body <- function(x) {
   } else {
     out <- list()
     for (i in seq_along(x)) {
-      out[[i]] <- sprintf("    %s: %s", names(x)[i], x[[i]])
+      val <- if (is(x[[i]], "name")) {
+        deparse(x[[i]])
+      } else {
+        x[[i]]
+      }
+      out[[i]] <- sprintf("    %s: %s", names(x)[i], val)
     }
     return(paste0("\n", paste0(out, collapse = "\n")))
   }

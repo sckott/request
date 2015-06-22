@@ -7,7 +7,7 @@
 \usage{
 api_body(.data, ..., body_value = NULL)
 
-api_body_(.data, ..., .dots, body_value)
+api_body_(.data, ..., .dots, body_value = NULL)
 }
 \arguments{
 \item{.data}{Result of a call to \code{api}}
@@ -32,21 +32,17 @@ cat("hello, world", file = file)
 dd \%>\% api_body(body_value = upload_file("~/httsnap_test.txt"))
 
 # A named list
-dd \%>\% api_body(x = "A simple text string", y = "stuff")
+dd \%>\% api_body(x = hello, y = stuff)
 
 ## SE
-api("http://api.plos.org/search") \%>\%
-  api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal')
+dd \%>\% api_body_(x = "hello", y = "stuff")
 
 \dontrun{
+###### not working yet
 ## NSE
-api("http://api.plos.org/search") \%>\%
-  api_query(q = ecology, wt = json, fl = 'id,journal') \%>\%
-  Get()
-## SE
-api("http://api.plos.org/search") \%>\%
-  api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') \%>\%
-  Get()
+api("http://httpbin.org/post") \%>\%
+   api_body(body_value = FALSE) \%>\%
+   Post()
 }
 }
 \seealso{
@@ -54,7 +50,8 @@ Other dsl: \code{\link{api_config}};
   \code{\link{api_error_handler}};
   \code{\link{api_oauth1}}, \code{\link{api_oauth2}},
   \code{\link{api_simple_auth}}, \code{\link{auth}};
-  \code{\link{api_query}}, \code{\link{api_query_}};
+  \code{\link{api_query}}, \code{\link{api_query}},
+  \code{\link{api_query_}}, \code{\link{api_query_}};
   \code{\link{api}}, \code{\link{api_path}},
   \code{\link{api_path_}}, \code{\link{api_template}}
 }

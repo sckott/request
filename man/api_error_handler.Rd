@@ -49,6 +49,7 @@ Other dsl: \code{\link{api_body}}, \code{\link{api_body_}};
   \code{\link{api_config}}; \code{\link{api_oauth1}},
   \code{\link{api_oauth2}}, \code{\link{api_simple_auth}},
   \code{\link{auth}}; \code{\link{api_query}},
+  \code{\link{api_query}}, \code{\link{api_query_}},
   \code{\link{api_query_}}; \code{\link{api}},
   \code{\link{api_path}}, \code{\link{api_path_}},
   \code{\link{api_template}}
