@@ -62,7 +62,8 @@ Query <- function(.data, ...){
   args <- list(...)
   .data <- modifyList(.data, list(query = args))
   .data$parse <- TRUE
-  Get(.data)
+  .data
+  # Get(.data)
 }
 
 #' @export

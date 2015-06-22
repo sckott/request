@@ -4,10 +4,12 @@
 \alias{Get}
 \title{Get a url, with sensible defaults}
 \usage{
-Get(.data, ...)
+Get(.data, parse = TRUE, ...)
 }
 \arguments{
 \item{.data}{A request object}
+
+\item{parse}{(logical) Attempt to parse data to data.frame if possible. Default: TRUE}
 
 \item{...}{Curl options passed on to \code{\link[httr]{GET}}.}
 }
@@ -39,7 +41,8 @@ Attempts to simplify the http request process by using sensible defaults:
    User_agent("howdydoodie") \%>\%
    Get()
 
-"http://api.plos.org/search?q=*:*&wt=json" \%>\%
+"http://api.plos.org/search" \%>\%
+   Query(q = "*:*", wt = "json") \%>\%
    Get() \%>\%
    .$response \%>\%
    .$docs

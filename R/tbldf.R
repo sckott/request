@@ -9,8 +9,6 @@ trunc_mat <- function(x, n = NULL){
   df <- as.data.frame(head(x, n))
   if (nrow(df) == 0)
     return()
-  #   is_list <- vapply(df, is.list, logical(1))
-  #   df[is_list] <- lapply(df[is_list], function(x) vapply(x, obj_type, character(1)))
   mat <- format(df, justify = "left")
   width <- getOption("width")
   values <- c(format(rownames(mat))[[1]], unlist(mat[1, ]))
@@ -34,11 +32,11 @@ trunc_mat <- function(x, n = NULL){
     vars <- colnames(mat)[too_wide]
     types <- vapply(df[too_wide], type_sum, character(1))
     var_types <- paste0(vars, " (", types, ")", collapse = ", ")
-    cat(noaa_wrap("Variables not shown: ", var_types), "\n", sep = "")
+    cat(snap_wrap("Variables not shown: ", var_types), "\n", sep = "")
   }
 }
 
-noaa_wrap <- function (..., indent = 0, width = getOption("width")){
+snap_wrap <- function(..., indent = 0, width = getOption("width")){
   x <- paste0(..., collapse = "")
   wrapped <- strwrap(x, indent = indent, exdent = indent + 5, width = width)
   paste0(wrapped, collapse = "\n")
@@ -47,42 +45,42 @@ noaa_wrap <- function (..., indent = 0, width = getOption("width")){
 #' Type summary
 #' @export
 #' @keywords internal
-type_sum <- function (x) UseMethod("type_sum")
+type_sum <- function(x) UseMethod("type_sum")
 
 #' @method type_sum default
 #' @export
 #' @rdname type_sum
-type_sum.default <- function (x) unname(abbreviate(class(x)[1], 4))
+type_sum.default <- function(x) unname(abbreviate(class(x)[1], 4))
 
 #' @method type_sum character
 #' @export
 #' @rdname type_sum
-type_sum.character <- function (x) "chr"
+type_sum.character <- function(x) "chr"
 
 #' @method type_sum Date
 #' @export
 #' @rdname type_sum
-type_sum.Date <- function (x) "date"
+type_sum.Date <- function(x) "date"
 
 #' @method type_sum factor
 #' @export
 #' @rdname type_sum
-type_sum.factor <- function (x) "fctr"
+type_sum.factor <- function(x) "fctr"
 
 #' @method type_sum integer
 #' @export
 #' @rdname type_sum
-type_sum.integer <- function (x) "int"
+type_sum.integer <- function(x) "int"
 
 #' @method type_sum logical
 #' @export
 #' @rdname type_sum
-type_sum.logical <- function (x) "lgl"
+type_sum.logical <- function(x) "lgl"
 
 #' @method type_sum array
 #' @export
 #' @rdname type_sum
-type_sum.array <- function (x){
+type_sum.array <- function(x){
   paste0(NextMethod(), "[", paste0(dim(x), collapse = ","),
          "]")
 }
@@ -90,7 +88,7 @@ type_sum.array <- function (x){
 #' @method type_sum matrix
 #' @export
 #' @rdname type_sum
-type_sum.matrix <- function (x){
+type_sum.matrix <- function(x){
   paste0(NextMethod(), "[", paste0(dim(x), collapse = ","),
          "]")
 }
@@ -98,15 +96,14 @@ type_sum.matrix <- function (x){
 #' @method type_sum numeric
 #' @export
 #' @rdname type_sum
-type_sum.numeric <- function (x) "dbl"
+type_sum.numeric <- function(x) "dbl"
 
 #' @method type_sum POSIXt
 #' @export
 #' @rdname type_sum
-type_sum.POSIXt <- function (x) "time"
+type_sum.POSIXt <- function(x) "time"
 
-obj_type <- function (x)
-{
+obj_type <- function(x) {
   if (!is.object(x)) {
     paste0("<", type_sum(x), if (!is.array(x))
       paste0("[", length(x), "]"), ">")
