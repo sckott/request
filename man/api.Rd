@@ -59,7 +59,8 @@ api('https://api.github.com/') \%>\%
   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
 }
 \seealso{
-Other dsl: \code{\link{api_config}};
+Other dsl: \code{\link{api_body}}, \code{\link{api_body_}};
+  \code{\link{api_config}};
   \code{\link{api_error_handler}};
   \code{\link{api_oauth1}}, \code{\link{api_oauth2}},
   \code{\link{api_simple_auth}}, \code{\link{auth}};

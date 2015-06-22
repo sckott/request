@@ -38,9 +38,3 @@ api_query_ <- function(.data, ..., .dots){
   .data <- as.req(.data)
   modifyList(.data, list(query = args))
 }
-
-# api_query <- function(.data, ...){
-#   .data <- as.req(.data)
-#   args <- list(...)
-#   modifyList(.data, list(query = args))
-# }

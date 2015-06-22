@@ -28,7 +28,8 @@ api('https://api.github.com/') \%>\%
 }
 }
 \seealso{
-Other dsl: \code{\link{api_error_handler}};
+Other dsl: \code{\link{api_body}}, \code{\link{api_body_}};
+  \code{\link{api_error_handler}};
   \code{\link{api_oauth1}}, \code{\link{api_oauth2}},
   \code{\link{api_simple_auth}}, \code{\link{auth}};
   \code{\link{api_query}}, \code{\link{api_query_}};
