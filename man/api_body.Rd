@@ -12,7 +12,20 @@ api_body_(.data, ..., .dots, body_value = NULL)
 \arguments{
 \item{.data}{Result of a call to \code{api}}
 
-\item{...}{Comma separated list of unquoted variable names}
+\item{...}{Comma separated list of unquoted variable names. These are combined into
+a list and passed to whatever http method is used downstream}
+
+\item{body_value}{one of the following:
+\itemize{
+ \item FALSE: No body
+ \item NULL: An empty body
+ \item "": A length 0 body
+ \item upload_file("path/"): The contents of a file. The mime type will be guessed
+ from the extension, or can be supplied explicitly as the second argument
+ to upload_file()
+ \item A character or raw vector: sent as is in body. Use content_type to tell the
+ server what sort of data you are sending.
+}}
 
 \item{.dots}{Used to work around non-standard evaluation}
 }
