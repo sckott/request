@@ -30,6 +30,7 @@ print.req <- function(x, ...){
   cat(paste0("  paths: ", paste(unlist(x$paths), collapse = "/")), sep = "\n")
   cat(paste0("  query: ", paste(names(x$query), unname(unlist(x$query)), sep = "=", collapse = ", ")), sep = "\n")
   cat(paste0("  body: ", check_body(x$body)), sep = "\n")
+  cat(paste0("  paging: ", paste(names(x$paging), unname(unlist(x$paging)), sep = "=", collapse = ", ")), sep = "\n")
   cat(paste0("  error handler: ", names(x$error)), sep = "\n")
   cat("  config: ", sep = "\n")
   if (!is.null(x$config)) print(x$config, sep = "\n")

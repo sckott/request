@@ -28,6 +28,22 @@ comp <- function(l) {
   Filter(Negate(is.null), l)
 }
 
+empty <- function(l) {
+  is_length_zero <- function(z) {
+    length(z) == 0
+  }
+  tmp <- Filter(Negate(is_length_zero), l)
+  if (length(tmp) == 1 && is(tmp, "list")) {
+    tmp[[1]]
+  } else {
+    tmp
+  }
+}
+
 strextract <- function(str, pattern) {
   regmatches(str, regexpr(pattern, str))
+}
+
+strtrim <- function(str) {
+  gsub("^\\s+|\\s+$", "", str)
 }

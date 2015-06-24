@@ -1,12 +1,16 @@
 Package: httsnap
 Title: Easy 'http'
 Description: Easy 'http' for 'R'. Provides functions for building http queries.
-Version: 0.0.5.9200
+Version: 0.0.5.9300
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
 Depends:
     httr
 Imports:
+    curl,
     jsonlite,
-    magrittr
+    magrittr,
+    lazyeval,
+    whisker,
+    R6
