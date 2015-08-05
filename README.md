@@ -4,6 +4,7 @@ httsnap
 
 
 [![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
+[![codecov.io](https://codecov.io/github/sckott/httsnap/coverage.svg?branch=master)](https://codecov.io/github/sckott/httsnap?branch=master)
 
 `httsnap` is an attempt to replicate the awesomeness of [httpie](https://github.com/jakubroztocil/httpie)
 
