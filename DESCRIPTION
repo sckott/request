@@ -1,7 +1,7 @@
 Package: httsnap
 Title: Easy 'http'
 Description: Easy 'http' for 'R'. Provides functions for building http queries.
-Version: 0.0.5.9300
+Version: 0.0.5.9400
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
@@ -14,3 +14,5 @@ Imports:
     lazyeval,
     whisker,
     R6
+Suggests:
+    testthat
