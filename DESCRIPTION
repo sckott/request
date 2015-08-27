@@ -1,6 +1,8 @@
 Package: httsnap
-Title: Easy 'http'
-Description: Easy 'http' for 'R'. Provides functions for building http queries.
+Title: An http DSL
+Description: Easy 'http' for 'R'. Provides functions for building http queries,
+    including query parameters, body requests, paging, authentication, and
+    various curl options.
 Version: 0.0.5.9400
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
