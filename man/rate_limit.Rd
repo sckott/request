@@ -7,6 +7,8 @@
 rate_limit(.data, value, period, on_limit = with_stop())
 }
 \arguments{
+\item{.data}{Result of a call to \code{api}}
+
 \item{value}{(integer) Value of rate limit, number of requests allowed}
 
 \item{period}{Time period, e.g., 1 min, 60 min, 1 hr, 24 hrs}

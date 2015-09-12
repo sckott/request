@@ -7,6 +7,8 @@
 retry(.data, times)
 }
 \arguments{
+\item{.data}{Result of a call to \code{api}}
+
 \item{times}{(integer) Number of times to retry the request}
 }
 \description{

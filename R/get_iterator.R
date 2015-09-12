@@ -1,6 +1,46 @@
-#' GET iterator
+#' Make a HTTP request
 #'
-#' @import R6
+#' @export
+#' @param req A \code{req} class object
+#' @details By default, a GET request is made.
+#' @examples \dontrun{
+#' # high level - http()
+#' api('https://api.github.com/') %>%
+#'   api_path(repos, ropensci, rgbif, commits) %>%
+#'   http()
+#'
+#' # low level - http_client()
+#' res <- api('https://api.github.com/') %>%
+#'   api_path(repos, ropensci, rgbif, commits) %>%
+#'   api_paging(limit = 220, limit_max = 100) %>%
+#'   http_client()
+#' res$count()
+#' res$result
+#' res$links
+#' res$parse()
+#'
+#'
+#' # with paging
+#' api('https://api.github.com/') %>%
+#'   api_path(repos, ropensci, rgbif, commits) %>%
+#'   api_paging(limit = 220, limit_max = 100) %>%
+#'   http()
+#' }
+http <- function(req) {
+  rr <- GetIter$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
+  rr$GET(req)
+  rr$parse()
+}
+
+#' @export
+#' @rdname http
+http_client <- function(req) {
+  rr <- GetIter$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
+  rr$GET(req)
+  return(rr)
+}
+
+# GET iterator
 GetIter <- R6::R6Class("GetIter",
   public = list(
   result = list(),

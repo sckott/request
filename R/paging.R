@@ -63,11 +63,10 @@ get_by <- function(by, limit, limit_max) {
 # get_links(x$headers)
 get_links <- function(w) {
   lk <- w$link
-  urls <- comp(sapply(w, "[[", "url"))
-  if (is.null(lk) && length(urls) == 0) {
+  if (is.null(lk)) {
     NULL
   } else {
-    if (is(w, "character")) {
+    if (is(lk, "character")) {
       links <- strtrim(strsplit(lk, ",")[[1]])
       lapply(links, each_link)
     } else {
@@ -77,6 +76,22 @@ get_links <- function(w) {
     }
   }
 }
+# get_links <- function(w) {
+#   lk <- w$link
+#   urls <- comp(sapply(w, "[[", "url"))
+#   if (is.null(lk) && length(urls) == 0) {
+#     NULL
+#   } else {
+#     if (is(w, "character")) {
+#       links <- strtrim(strsplit(lk, ",")[[1]])
+#       lapply(links, each_link)
+#     } else {
+#       nms <- sapply(w, "[[", "name")
+#       tmp <- unlist(w[nms %in% "next"])
+#       grep("http", tmp, value = TRUE)
+#     }
+#   }
+# }
 
 each_link <- function(z) {
   tmp <- strtrim(strsplit(z, ";")[[1]])

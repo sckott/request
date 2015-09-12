@@ -2,6 +2,9 @@
 #'
 #' FIXME: still need to implement doing this in the request
 #'
+#' @export
+#'
+#' @param .data Result of a call to \code{api}
 #' @param value (integer) Value of rate limit, number of requests allowed
 #' @param period Time period, e.g., 1 min, 60 min, 1 hr, 24 hrs
 #' @param on_limit What to do on reaching rate limit. See Details.
@@ -13,6 +16,7 @@
 #'  \item warn - and give error message to use
 #'  \item wait - and give max time to wait
 #' }
+#'
 #' @examples \dontrun{
 #' qr <- api('https://api.github.com/') %>%
 #'  api_path(repos, ropensci, rgbif, issues)

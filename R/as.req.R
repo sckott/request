@@ -32,9 +32,11 @@ print.req <- function(x, ...){
   cat(paste0("  query: ",
              paste(names(x$query), unname(unlist(x$query)), sep = "=", collapse = ", ")), sep = "\n")
   cat(paste0("  body: ",
-             check_body(x$body)), sep = "\n")
+             print_body(x$body)), sep = "\n")
   cat(paste0("  paging: ",
              paste(names(x$paging), unname(unlist(x$paging)), sep = "=", collapse = ", ")), sep = "\n")
+  cat(paste0("  headers: ",
+             print_heads(x$headers)), sep = "\n")
   cat(paste0("  rate limit: ",
              print_rate(x$rate_limit)), sep = "\n")
   cat(paste0("  retry (times): ",
@@ -52,22 +54,34 @@ print_rate <- function(z) {
   }
 }
 
-check_body <- function(x) {
+print_heads <- function(x) {
+  if (is.logical(x) || is.null(x) || is.character(x)) {
+    return(x)
+  } else {
+    print_lazy(x)
+  }
+}
+
+print_body <- function(x) {
   if ("body_value" %in% names(x) && length(x) == 1) x <- unlist(unname(x))
   if (is.logical(x) || is.null(x) || is.character(x)) {
     return(x)
   } else if (any(grepl("upload_file", x[[1]]))) {
     "  File Upload"
   } else {
-    out <- list()
-    for (i in seq_along(x)) {
-      val <- if (is(x[[i]], "name")) {
-        deparse(x[[i]])
-      } else {
-        x[[i]]
-      }
-      out[[i]] <- sprintf("    %s: %s", names(x)[i], val)
-    }
-    return(paste0("\n", paste0(out, collapse = "\n")))
+    print_lazy(x)
   }
+}
+
+print_lazy <- function(x) {
+  out <- list()
+  for (i in seq_along(x)) {
+    val <- if (is(x[[i]], "name")) {
+      deparse(x[[i]])
+    } else {
+      x[[i]]
+    }
+    out[[i]] <- sprintf("    %s: %s", names(x)[i], val)
+  }
+  return(paste0("\n", paste0(out, collapse = "\n")))
 }
