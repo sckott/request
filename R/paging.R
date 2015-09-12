@@ -21,10 +21,6 @@
 #' quer %>%
 #'   api_paging(per_page = 10, page = 2)
 #'
-#' # per_size & page
-#' quer %>%
-#'   api_paging(per_size = 10, page = 2)
-#'
 #' # limit & offset
 #' quer %>%
 #'   api_paging(limit = 10, offset = 20)
@@ -67,11 +63,18 @@ get_by <- function(by, limit, limit_max) {
 # get_links(x$headers)
 get_links <- function(w) {
   lk <- w$link
-  if (is.null(lk)) {
+  urls <- comp(sapply(w, "[[", "url"))
+  if (is.null(lk) && length(urls) == 0) {
     NULL
   } else {
-    links <- strtrim(strsplit(lk, ",")[[1]])
-    lapply(links, each_link)
+    if (is(w, "character")) {
+      links <- strtrim(strsplit(lk, ",")[[1]])
+      lapply(links, each_link)
+    } else {
+      nms <- sapply(w, "[[", "name")
+      tmp <- unlist(w[nms %in% "next"])
+      grep("http", tmp, value = TRUE)
+    }
   }
 }
 
