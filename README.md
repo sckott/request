@@ -6,24 +6,26 @@ httsnap
 [![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
 [![codecov.io](https://codecov.io/github/sckott/httsnap/coverage.svg?branch=master)](https://codecov.io/github/sckott/httsnap?branch=master)
 
-`httsnap` is an attempt to replicate the awesomeness of [httpie](https://github.com/jakubroztocil/httpie)
+`httsnap` is DSL for http requests for R, and is inspired by the CLI tool  [httpie](https://github.com/jakubroztocil/httpie). 
+
+`httsnap` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
 
 ## Philosophy
 
-* The web is increasingly a JSON world, so we set `content-type` and `accept` headers to `applications/json` by default 
+* The web is increasingly a JSON world, so we set `content-type` and `accept` headers to `applications/json` by default
 * The workflow follows logically, or at least should, from, _hey, I got this url_, to _i need to add some options_, to _execute request_
 * Whenever possible, we transform output to data.frame's - facilitating downstream manipulation via `dplyr`, etc.
 * We do `GET` requests by default. Specify a different type if you don't want `GET`
 * You can use non-standard evaluation to easily pass in query parameters without worrying about `&`'s, URL escaping, etc. (see `query()`)
 * Same for body params (see `body()`)
 
-All of the default just mentioned can be changed. 
+All of the default just mentioned can be changed.
 
 ## Philosophy in gif
 
 > the new way
 
-![](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
+![thenewway](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
 
 ## Install
 
@@ -33,208 +35,234 @@ install.packages("devtools")
 devtools::install_github("sckott/httsnap")
 ```
 
-And load `dplyr` for parsing data.frame's
-
 
 ```r
-library("dplyr")
 library("httsnap")
 ```
 
-## Even simpler verbs
-
-Playing around with this idea. `httr` is already easy, but `Get()`:
-
-* Allows use of an intuitive chaining workflow
-* Parses data for you using `httr` built in format guesser, which should work in most cases
-
-A simple GET request
+## Get request
 
 
 ```r
-"http://httpbin.org/get" %>%
-  Get()
-#> $args
-#> named list()
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, commits) %>%
+  http()
+#> [[1]]
+#> [[1]]$sha
+#> [1] "39792f20d4243a96e267bbbda95efbb6a268aaa7"
 #> 
-#> $headers
-#> $headers$Accept
-#> [1] "application/json, text/xml, application/xml, */*"
+#> [[1]]$commit
+#> [[1]]$commit$author
+#> [[1]]$commit$author$name
+#> [1] "Scott Chamberlain"
 #> 
-#> $headers$`Accept-Encoding`
-#> [1] "gzip"
-#> 
-#> $headers$Host
-#> [1] "httpbin.org"
-#> 
-#> $headers$`User-Agent`
-#> [1] "curl/7.37.1 Rcurl/1.95.4.1 httr/0.6.1 httsnap/0.0.1.99"
-#> 
-#> 
-#> $origin
-#> [1] "24.21.209.71"
-#> 
-#> $url
-#> [1] "http://httpbin.org/get"
+#> [[1]]$commit$author$email
+...
 ```
 
-You can buid up options by calling functions
+## Building API routes
+
+Works with full or partial URLs
 
 
 ```r
-"http://httpbin.org/get" %>%
-  Progress() %>%
-  Verbose()
+api('https://api.github.com/')
+#> URL: https://api.github.com/
+api('http://api.gbif.org/v1')
+#> URL: http://api.gbif.org/v1
+api('api.gbif.org/v1')
+#> URL: api.gbif.org/v1
+```
+
+Works with ports, full or partial
+
+
+```r
+api('http://localhost:9200')
+#> URL: http://localhost:9200
+api('localhost:9200')
+#> URL: http://localhost:9200
+api(':9200')
+#> URL: http://localhost:9200
+api('9200')
+#> URL: http://localhost:9200
+api('9200/stuff')
+#> URL: http://localhost:9200/stuff
+```
+
+Set paths
+
+NSE
+
+
+```r
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues)
 #> <http request> 
-#>   url: http://httpbin.org/get
-#>   config: 
-#> Config: 
-#> List of 4
-#>  $ noprogress      :FALSE
-#>  $ progressfunction:function (...)  
-#>  $ debugfunction   :function (...)  
-#>  $ verbose         :TRUE
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
+#>   retry (times): 
+#>   error handler: 
+#>   config:
 ```
 
-Then eventually execute the GET request
+SE
 
 
 ```r
-"http://httpbin.org/get" %>%
-  Progress() %>%
-  Verbose() %>%
-  Get()
-#> $args
-#> named list()
-#> 
-#> $headers
-#> $headers$Accept
-#> [1] "application/json, text/xml, application/xml, */*"
-#> 
-#> $headers$`Accept-Encoding`
-#> [1] "gzip"
-#> 
-#> $headers$Host
-#> [1] "httpbin.org"
-#> 
-#> $headers$`User-Agent`
-#> [1] "curl/7.37.1 Rcurl/1.95.4.1 httr/0.6.1 httsnap/0.0.1.99"
-#> 
-#> 
-#> $origin
-#> [1] "24.21.209.71"
-#> 
-#> $url
-#> [1] "http://httpbin.org/get"
+api('https://api.github.com/') %>%
+  api_path_('repos', 'ropensci', 'rgbif', 'issues')
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
+#>   retry (times): 
+#>   error handler: 
+#>   config:
 ```
 
-## The new setup
-
-Default 
+Templating
 
 
 ```r
-tmp <- "http://api.crossref.org/works" %>%
-  Get() %>% 
-  .$message %>% 
-  .$items
-sapply(tmp, "[[", "DOI")
-#>  [1] "10.1111/j.1742-4658.2011.08468.x" "10.1007/bf01282823"              
-#>  [3] "10.1007/bf01282809"               "10.1007/bf01282850"              
-#>  [5] "10.1007/bf01282844"               "10.1007/bf01282851"              
-#>  [7] "10.1007/bf01282852"               "10.1007/bf01282853"              
-#>  [9] "10.1007/bf01282832"               "10.1007/bf01282828"              
-#> [11] "10.1007/bf01282829"               "10.1007/bf01282818"              
-#> [13] "10.1007/bf01282822"               "10.1007/bf01282806"              
-#> [15] "10.1007/bf01282839"               "10.1007/bf01282826"              
-#> [17] "10.1007/bf01282825"               "10.1007/bf01282813"              
-#> [19] "10.1007/bf01282820"               "10.1007/bf01282843"
+repo_info <- list(username = 'craigcitro', repo = 'r-travis')
+api('https://api.github.com/') %>%
+  api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: 
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
+#>   retry (times): 
+#>   error handler: 
+#>   config:
 ```
 
-Use query parameters
+## Paging
+
+This may not work in all scenarios, still a work in progress.
+
+Here, set `limit` (no. records you want) with a known `limit_max` so we know how to do paging for you. Most well documented APIs tell you what the max limit is per request, so that info should be easy to get.
 
 
 ```r
-"http://api.plos.org/search" %>%
-  query(q="*:*", wt="json", fl="id,journal,counter_total_all")
-#> $response
-#> $response$numFound
-#> [1] 1274217
-#> 
-#> $response$start
-#> [1] 0
-#> 
-#> $response$docs
-#>                                                                    id
-#> 1             10.1371/annotation/98908e14-e9fd-458f-9cea-ba4bec139f20
-#> 2             10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c
-#> 3       10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/title
-#> 4    10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/abstract
-#> 5  10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/references
-#> 6        10.1371/annotation/98d7baf8-0e73-42d0-adbc-2eeb6a3c1b3c/body
-#> 7       10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/title
-#> 8    10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/abstract
-#> 9  10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/references
-#> 10       10.1371/annotation/834e21b0-6acb-40ae-8735-f7ad120c989a/body
-#>    counter_total_all  journal
-#> 1                  0 PLoS ONE
-#> 2                  0 PLoS ONE
-#> 3                  0 PLoS ONE
-#> 4                  0 PLoS ONE
-#> 5                  0 PLoS ONE
-#> 6                  0 PLoS ONE
-#> 7                  0 PLoS ONE
-#> 8                  0 PLoS ONE
-#> 9                  0 PLoS ONE
-#> 10                 0 PLoS ONE
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues) %>%
+  api_query(state = open) %>%
+  api_paging(limit = 220, limit_max = 100)
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: state=open
+#>   body: 
+#>   paging: limit=220, limit_max=100, offset=0, by=100
+#>   headers: 
+#>   rate limit: 
+#>   retry (times): 
+#>   error handler: 
+#>   config:
 ```
 
-Use body parameters
+## Retry
+
+`curl` has a option `--retry` that lets you retry a request X times. This isn't available in `httr`, but I'm working on a helper.
 
 
 ```r
-"http://httpbin.org/put" %>%
-  body(x = "hello world!")
-#> $args
-#> named list()
-#> 
-#> $data
-#> [1] ""
-#> 
-#> $files
-#> named list()
-#> 
-#> $form
-#> $form$x
-#> [1] "hello world!"
-#> 
-#> 
-#> $headers
-#> $headers$Accept
-#> [1] "application/json, text/xml, application/xml, */*"
-#> 
-#> $headers$`Accept-Encoding`
-#> [1] "gzip"
-#> 
-#> $headers$`Content-Length`
-#> [1] "148"
-#> 
-#> $headers$`Content-Type`
-#> [1] "multipart/form-data; boundary=------------------------83534311b2d1a3ff"
-#> 
-#> $headers$Host
-#> [1] "httpbin.org"
-#> 
-#> $headers$`User-Agent`
-#> [1] "curl/7.37.1 Rcurl/1.95.4.1 httr/0.6.1"
-#> 
-#> 
-#> $json
-#> NULL
-#> 
-#> $origin
-#> [1] "24.21.209.71"
-#> 
-#> $url
-#> [1] "http://httpbin.org/put"
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues) %>%
+  retry(times = 5)
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
+#>   retry (times): 5
+#>   error handler: 
+#>   config:
 ```
+
+Note that this doesn't work in the http request yet.
+
+## Rate limit
+
+Some APIs have rate limiting. That is, they may limit you to X number of requests per some time period, e.g., 1 hr or 24 hrs. Some APIs have multile rate limits for different time periods, e.g., 100 request per hr __and__ 5000 requests per 24 hrs.
+
+In addition, you may want to set a rate limit below that the API defines, and we hope to support that use case too. 
+
+The `rate_limit()` function helps you deal with these rate limits. 
+
+
+```r
+qr <- api('https://api.github.com/') %>%
+ api_path(repos, ropensci, rgbif, issues)
+
+qr %>% rate_limit(value = 5, period = "24 hrs")
+```
+
+```
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 5 @ 24 hrs - on_limit: Rate limit reached
+#>   retry (times): 
+#>   error handler: 
+#>   config:
+```
+
+```r
+qr %>% rate_limit(value = 5000, period = "24 hrs")
+```
+
+```
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 5000 @ 24 hrs - on_limit: Rate limit reached
+#>   retry (times): 
+#>   error handler: 
+#>   config:
+```
+
+```r
+qr %>% rate_limit(value = 10, period = "5 min")
+```
+
+```
+#> <http request> 
+#>   url: https://api.github.com/
+#>   paths: repos/ropensci/rgbif/issues
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 10 @ 5 min - on_limit: Rate limit reached
+#>   retry (times): 
+#>   error handler: 
+#>   config:
+```
+
+Note that this doesn't work in the http request yet.

@@ -2,6 +2,30 @@ httsnap
 =======
 
 ```{r echo=FALSE}
+hook_output <- knitr::knit_hooks$get("output")
+knitr::knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(if (abs(lines[1])>1) more else NULL,
+            x[lines],
+            if (length(x)>lines[abs(length(lines))]) more else NULL
+           )
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+
 knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
@@ -13,7 +37,9 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
 [![codecov.io](https://codecov.io/github/sckott/httsnap/coverage.svg?branch=master)](https://codecov.io/github/sckott/httsnap?branch=master)
 
-`httsnap` is an attempt to replicate the awesomeness of [httpie](https://github.com/jakubroztocil/httpie)
+`httsnap` is DSL for http requests for R, and is inspired by the CLI tool  [httpie](https://github.com/jakubroztocil/httpie). 
+
+`httsnap` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
 
 ## Philosophy
 
@@ -30,7 +56,7 @@ All of the default just mentioned can be changed.
 
 > the new way
 
-![](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
+![thenewway](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
 
 ## Install
 
@@ -39,66 +65,102 @@ install.packages("devtools")
 devtools::install_github("sckott/httsnap")
 ```
 
-And load `dplyr` for parsing data.frame's
-
 ```{r}
-library("dplyr")
 library("httsnap")
 ```
 
-## Even simpler verbs
+## Get request
 
-Playing around with this idea. `httr` is already easy, but `Get()`:
+```{r output.lines = 1:10}
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, commits) %>%
+  http()
+```
 
-* Allows use of an intuitive chaining workflow
-* Parses data for you using `httr` built in format guesser, which should work in most cases
+## Building API routes
 
-A simple GET request
+Works with full or partial URLs
 
 ```{r}
-"http://httpbin.org/get" %>%
-  Get()
+api('https://api.github.com/')
+api('http://api.gbif.org/v1')
+api('api.gbif.org/v1')
 ```
 
-You can buid up options by calling functions
+Works with ports, full or partial
 
-```{r message=TRUE}
-"http://httpbin.org/get" %>%
-  Progress() %>%
-  Verbose()
+```{r}
+api('http://localhost:9200')
+api('localhost:9200')
+api(':9200')
+api('9200')
+api('9200/stuff')
 ```
 
-Then eventually execute the GET request
+Set paths
 
-```{r message=TRUE}
-"http://httpbin.org/get" %>%
-  Progress() %>%
-  Verbose() %>%
-  Get()
+NSE
+
+```{r}
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues)
 ```
 
-## The new setup
+SE
 
-Default
-
-```{r message=TRUE}
-tmp <- "http://api.crossref.org/works" %>%
-  Get() %>%
-  .$message %>%
-  .$items
-sapply(tmp, "[[", "DOI")
+```{r}
+api('https://api.github.com/') %>%
+  api_path_('repos', 'ropensci', 'rgbif', 'issues')
 ```
 
-Use query parameters
+Templating
 
-```{r message=TRUE}
-"http://api.plos.org/search" %>%
-  query(q="*:*", wt="json", fl="id,journal,counter_total_all")
+```{r}
+repo_info <- list(username = 'craigcitro', repo = 'r-travis')
+api('https://api.github.com/') %>%
+  api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
 ```
 
-Use body parameters
+## Paging
 
-```{r message=TRUE}
-"http://httpbin.org/put" %>%
-  body(x = "hello world!")
+This may not work in all scenarios, still a work in progress.
+
+Here, set `limit` (no. records you want) with a known `limit_max` so we know how to do paging for you. Most well documented APIs tell you what the max limit is per request, so that info should be easy to get.
+
+```{r}
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues) %>%
+  api_query(state = open) %>%
+  api_paging(limit = 220, limit_max = 100)
 ```
+
+## Retry
+
+`curl` has a option `--retry` that lets you retry a request X times. This isn't available in `httr`, but I'm working on a helper.
+
+```{r}
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues) %>%
+  retry(times = 5)
+```
+
+Note that this doesn't work in the http request yet.
+
+## Rate limit
+
+Some APIs have rate limiting. That is, they may limit you to X number of requests per some time period, e.g., 1 hr or 24 hrs. Some APIs have multile rate limits for different time periods, e.g., 100 request per hr __and__ 5000 requests per 24 hrs.
+
+In addition, you may want to set a rate limit below that the API defines, and we hope to support that use case too. 
+
+The `rate_limit()` function helps you deal with these rate limits. 
+
+```{r collapse = FALSE}
+qr <- api('https://api.github.com/') %>%
+ api_path(repos, ropensci, rgbif, issues)
+
+qr %>% rate_limit(value = 5, period = "24 hrs")
+qr %>% rate_limit(value = 5000, period = "24 hrs")
+qr %>% rate_limit(value = 10, period = "5 min")
+```
+
+Note that this doesn't work in the http request yet.

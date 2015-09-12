@@ -2,6 +2,8 @@
 #'
 #' FIXME: still need to implement doing this in the request
 #'
+#' @export
+#'
 #' @param .data Result of a call to \code{api}
 #' @param times (integer) Number of times to retry the request
 #'
