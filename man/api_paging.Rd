@@ -34,10 +34,6 @@ quer \%>\%
 quer \%>\%
   api_paging(per_page = 10, page = 2)
 
-# per_size & page
-quer \%>\%
-  api_paging(per_size = 10, page = 2)
-
 # limit & offset
 quer \%>\%
   api_paging(limit = 10, offset = 20)
