@@ -16,7 +16,12 @@ http_client(req)
 Make a HTTP request
 }
 \details{
-By default, a GET request is made.
+By default, a GET request is made. Will fix this soon to easily allow
+a different HTTP verb.
+
+The \code{http} function makes the request and gives back the parsed result.
+Whereas, the \code{http_client} function makes the request, but gives back
+the raw R6 class object, which you can inspect all parts of, modify, etc.
 }
 \examples{
 \dontrun{
@@ -28,9 +33,10 @@ api('https://api.github.com/') \%>\%
 # low level - http_client()
 res <- api('https://api.github.com/') \%>\%
   api_path(repos, ropensci, rgbif, commits) \%>\%
-  api_paging(limit = 220, limit_max = 100) \%>\%
   http_client()
 res$count()
+res$body()
+res$status()
 res$result
 res$links
 res$parse()
