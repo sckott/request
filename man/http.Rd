@@ -5,12 +5,15 @@
 \alias{http_client}
 \title{Make a HTTP request}
 \usage{
-http(req)
+http(req, method = "GET")
 
 http_client(req)
 }
 \arguments{
 \item{req}{A \code{req} class object}
+
+\item{method}{(character) Pick which HTTP method to use. Only GET and
+POST for now. Default: GET}
 }
 \description{
 Make a HTTP request
@@ -47,6 +50,11 @@ api('https://api.github.com/') \%>\%
   api_path(repos, ropensci, rgbif, commits) \%>\%
   api_paging(limit = 220, limit_max = 100) \%>\%
   http()
+
+# Specify HTTP verb - not working yet.
+# api("http://httpbin.org/post") \%>\%
+#   api_body(x = "A simple text string") \%>\%
+#   http("POST")
 }
 }
 

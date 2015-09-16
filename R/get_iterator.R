@@ -1,7 +1,11 @@
 #' Make a HTTP request
 #'
 #' @export
+#'
 #' @param req A \code{req} class object
+#' @param method (character) Pick which HTTP method to use. Only GET and
+#' POST for now. Default: GET
+#'
 #' @details By default, a GET request is made. Will fix this soon to easily allow
 #' a different HTTP verb.
 #'
@@ -31,23 +35,31 @@
 #'   api_path(repos, ropensci, rgbif, commits) %>%
 #'   api_paging(limit = 220, limit_max = 100) %>%
 #'   http()
+#'
+#' # Specify HTTP verb - not working yet.
+#' # api("http://httpbin.org/post") %>%
+#' #   api_body(x = "A simple text string") %>%
+#' #   http("POST")
 #' }
-http <- function(req) {
-  rr <- GetIter$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
-  rr$GET(req)
+http <- function(req, method = "GET") {
+  if (!method %in% c("GET", "POST")) stop("method must be one of GET or POST", call. = FALSE)
+  rr <- RequestIterator$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
+  switch(method,
+    GET = rr$GET(req),
+    POST = rr$POST(req)
+  )
   rr$parse()
 }
 
 #' @export
 #' @rdname http
 http_client <- function(req) {
-  rr <- GetIter$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
+  rr <- RequestIterator$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
   rr$GET(req)
   return(rr)
 }
 
-# GET iterator
-GetIter <- R6::R6Class("GetIter",
+RequestIterator <- R6::R6Class("RequestIterator",
   public = list(
   result = list(),
   limit = NA,
@@ -69,24 +81,30 @@ GetIter <- R6::R6Class("GetIter",
       .data <- as.req(self$links[[1]]$url)
       res <- suppressWarnings(httr::GET(.data$url[1], .data$config, ...))
     }
-
     # error catching
-    if (is.null(.data$error)) {
-      httr::stop_for_status(res)
-    } else {
-      .data$error[[1]](res)
-    }
-
+    self$handle_errors(.data, res)
     # cache links
     self$links <- get_links(res$headers)
-
     # give back result
     self$result <- empty(list(self$result, res))
   },
-  # print = function(...) {
-  #   cat("<http response> ", self$status(), sep = "")
-  #   invisible(self)
-  # },
+  POST = function(.data, ...) {
+    if (length(self$links) == 0) {
+      .data <- as.req(.data)
+      .data$config <- c(httr::user_agent(make_ua()), .data$config)
+      .data$url <- gather_paths(.data)
+      res <- suppressWarnings(httr::POST(.data$url[1], .data$config, body = .data$body, ...))
+    } else {
+      .data <- as.req(self$links[[1]]$url)
+      res <- suppressWarnings(httr::POST(.data$url[1], .data$config, ...))
+    }
+    # error catching
+    self$handle_errors(.data, res)
+    # cache links
+    self$links <- get_links(res$headers)
+    # give back result
+    self$result <- empty(list(self$result, res))
+  },
   body = function() {
     self$result
   },
@@ -116,6 +134,13 @@ GetIter <- R6::R6Class("GetIter",
       length(httr::content(self$result))
     } else {
       sum(sapply(self$result, function(x) length(httr::content(x))))
+    }
+  },
+  handle_errors = function(.data, x) {
+    if (is.null(.data$error)) {
+      httr::stop_for_status(x)
+    } else {
+      .data$error[[1]](x)
     }
   }
 ))

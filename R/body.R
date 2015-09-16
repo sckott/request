@@ -35,13 +35,11 @@
 #' ## SE
 #' dd %>% api_body_(x = "hello", y = "stuff")
 #'
-#' \dontrun{
 #' ###### not working yet
 #' ## NSE
-#' api("http://httpbin.org/post") %>%
-#'    api_body(body_value = FALSE) %>%
-#'    Post()
-#' }
+#' # api("http://httpbin.org/post") %>%
+#' #    api_body(body_value = FALSE) %>%
+#' #    Post()
 api_body <- function(.data, ..., body_value = NULL){
   api_body_(.data, .dots = lazyeval::lazy_dots(...), body_value = body_value)
 }

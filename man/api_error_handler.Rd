@@ -32,17 +32,16 @@ my_stop <- function(x) {
 api("http://httpbin.org/status/404") \%>\%
  api_error_handler(my_stop)
 
-\dontrun{
+# not working yet
 # Error handler
-api("http://httpbin.org/status/404") \%>\%
- api_error_handler(stop_for_status) \%>\%
- Get()
+# api("http://httpbin.org/status/404") \%>\%
+#  api_error_handler(stop_for_status) \%>\%
+#  Get()
 
 # Custom error handling function
-api("http://httpbin.org/status/404") \%>\%
- api_error_handler(my_stop) \%>\%
- Get()
-}
+# api("http://httpbin.org/status/404") \%>\%
+#   api_error_handler(my_stop) \%>\%
+#   Get()
 }
 \seealso{
 Other dsl: \code{\link{api_body}}, \code{\link{api_body_}};

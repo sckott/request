@@ -29,19 +29,18 @@ quer <- api('https://api.github.com/') \%>\%
 quer \%>\%
   api_paging(limit = 220, limit_max = 100)
 
-\dontrun{
+##### Not working yet
 # per_page & page
-quer \%>\%
-  api_paging(per_page = 10, page = 2)
+# quer \%>\%
+#   api_paging(per_page = 10, page = 2)
 
 # limit & offset
-quer \%>\%
-  api_paging(limit = 10, offset = 20)
+# quer \%>\%
+#   api_paging(limit = 10, offset = 20)
 
 # rows & start
-quer \%>\%
-  api_paging(rows = 10, start = 5)
-}
+# quer \%>\%
+#   api_paging(rows = 10, start = 5)
 }
 \seealso{
 Other dsl: \code{\link{api_body}}, \code{\link{api_body_}};

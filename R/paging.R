@@ -16,19 +16,18 @@
 #' quer %>%
 #'   api_paging(limit = 220, limit_max = 100)
 #'
-#' \dontrun{
+#' ##### Not working yet
 #' # per_page & page
-#' quer %>%
-#'   api_paging(per_page = 10, page = 2)
+#' # quer %>%
+#' #   api_paging(per_page = 10, page = 2)
 #'
 #' # limit & offset
-#' quer %>%
-#'   api_paging(limit = 10, offset = 20)
+#' # quer %>%
+#' #   api_paging(limit = 10, offset = 20)
 #'
 #' # rows & start
-#' quer %>%
-#'   api_paging(rows = 10, start = 5)
-#' }
+#' # quer %>%
+#' #   api_paging(rows = 10, start = 5)
 api_paging <- function(.data, limit, limit_max, offset = 0, by = NULL) {
   .data <- as.req(.data)
   stopifnot(is.numeric(limit), is.numeric(limit_max), is.numeric(offset))

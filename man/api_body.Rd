@@ -50,13 +50,11 @@ dd \%>\% api_body(x = hello, y = stuff)
 ## SE
 dd \%>\% api_body_(x = "hello", y = "stuff")
 
-\dontrun{
 ###### not working yet
 ## NSE
-api("http://httpbin.org/post") \%>\%
-   api_body(body_value = FALSE) \%>\%
-   Post()
-}
+# api("http://httpbin.org/post") \%>\%
+#    api_body(body_value = FALSE) \%>\%
+#    Post()
 }
 \seealso{
 Other dsl: \code{\link{api_config}};
