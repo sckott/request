@@ -15,7 +15,8 @@ RequestIterator <- R6::R6Class("RequestIterator",
       .data <- as.req(.data)
       .data$config <- c(httr::user_agent(make_ua()), .data$config)
       .data$url <- gather_paths(.data)
-      res <- suppressWarnings(httr::GET(.data$url[1], .data$config, query = .data$query, ...))
+      res <- suppressWarnings(httr::GET(.data$url[1], .data$config,
+                                        query = as.list(.data$query), ...))
     } else {
       .data <- as.req(self$links[[1]]$url)
       res <- suppressWarnings(httr::GET(.data$url[1], .data$config, ...))
@@ -77,12 +78,30 @@ RequestIterator <- R6::R6Class("RequestIterator",
   },
   handle_errors = function(.data, x) {
     if (is.null(.data$error)) {
-      httr::stop_for_status(x)
+      # httr::stop_for_status(x)
+      try_error(x)
     } else {
       .data$error[[1]](x)
     }
   }
 ))
+
+try_error <- function(x) {
+  if (x$status_code > 201) {
+    one <- tryCatch(content(x), error = function(e) e)
+    if (!is(one, "error")) {
+      two <- tryCatch(one$error, error = function(e) e)
+      if (!is(two, "error")) {
+        msg <- sprintf("%s - %s", x$status_code, two)
+      } else {
+        msg <- http_status(x)$message
+      }
+    } else {
+      msg <- http_status(x)$message
+    }
+    stop(msg, call. = FALSE)
+  }
+}
 
 httr_parse <- function(x) {
   if (grepl("json", x$headers$`content-type`)) {

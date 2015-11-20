@@ -74,9 +74,9 @@ gather_paths <- function(x) {
     stop("Cannot pass use both api_template and api_path", call. = FALSE)
   }
   if (!is.null(x$paths)) {
-    paste0(x$url, paste(unlist(x$paths), collapse = "/"))
+    file.path(x$url, paste(unlist(x$paths), collapse = "/"))
   } else if (!is.null(x$template)) {
-    paste0(x$url, x$template, collapse = "/")
+    file.path(x$url, x$template)
   } else {
     x$url
   }
