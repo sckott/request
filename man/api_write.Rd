@@ -17,6 +17,7 @@ api_write(.data, file, overwrite = FALSE, ...)
 Write helper
 }
 \examples{
+\dontrun{
 ## write to disk
 ff <- tempfile(fileext = ".json")
 api("http://127.0.0.1:8080") \%>\%
@@ -24,5 +25,6 @@ api("http://127.0.0.1:8080") \%>\%
   api_write(ff) \%>\%
   http
 jsonlite::fromJSON(ff)
+}
 }
 

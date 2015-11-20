@@ -49,7 +49,7 @@ api('https://api.github.com/') %>%
   http()
 #> [[1]]
 #> [[1]]$sha
-#> [1] "39792f20d4243a96e267bbbda95efbb6a268aaa7"
+#> [1] "6b9e09397d7682a500576796cf14c96e3c8b3570"
 #> 
 #> [[1]]$commit
 #> [[1]]$commit$author
@@ -106,7 +106,7 @@ api('https://api.github.com/') %>%
 #>   paging: 
 #>   headers: 
 #>   rate limit: 
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -125,7 +125,7 @@ api('https://api.github.com/') %>%
 #>   paging: 
 #>   headers: 
 #>   rate limit: 
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -145,7 +145,7 @@ api('https://api.github.com/') %>%
 #>   paging: 
 #>   headers: 
 #>   rate limit: 
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -170,7 +170,7 @@ api('https://api.github.com/') %>%
 #>   paging: limit=220, limit_max=100, offset=0, by=100
 #>   headers: 
 #>   rate limit: 
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -183,7 +183,7 @@ api('https://api.github.com/') %>%
 ```r
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
-  retry(times = 5)
+  api_retry(n = 5)
 #> <http request> 
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
@@ -192,7 +192,7 @@ api('https://api.github.com/') %>%
 #>   paging: 
 #>   headers: 
 #>   rate limit: 
-#>   retry (times): 5
+#>   retry (n/delay (s)): 5/1
 #>   error handler: 
 #>   config:
 ```
@@ -224,7 +224,7 @@ qr %>% rate_limit(value = 5, period = "24 hrs")
 #>   paging: 
 #>   headers: 
 #>   rate limit: 5 @ 24 hrs - on_limit: Rate limit reached
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -242,7 +242,7 @@ qr %>% rate_limit(value = 5000, period = "24 hrs")
 #>   paging: 
 #>   headers: 
 #>   rate limit: 5000 @ 24 hrs - on_limit: Rate limit reached
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -260,7 +260,7 @@ qr %>% rate_limit(value = 10, period = "5 min")
 #>   paging: 
 #>   headers: 
 #>   rate limit: 10 @ 5 min - on_limit: Rate limit reached
-#>   retry (times): 
+#>   retry (n/delay (s)): /
 #>   error handler: 
 #>   config:
 ```
@@ -270,4 +270,3 @@ Note that this doesn't work in the http request yet.
 ## Meta
 
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
-

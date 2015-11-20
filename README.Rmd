@@ -141,7 +141,7 @@ api('https://api.github.com/') %>%
 ```{r}
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
-  retry(times = 5)
+  api_retry(n = 5)
 ```
 
 Note that this doesn't work in the http request yet.

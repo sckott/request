@@ -48,6 +48,10 @@ strtrim <- function(str) {
   gsub("^\\s+|\\s+$", "", str)
 }
 
+trimslash <- function(str) {
+  gsub("\\/+$", "", str)
+}
+
 combconfig <- function(x) {
   if (is.null(x)) {
     NULL
@@ -58,6 +62,7 @@ combconfig <- function(x) {
 }
 
 gather_paths <- function(x) {
+  x$url <- trimslash(x$url)
   if (!is.null(x$paths) && !is.null(x$template)) {
     stop("Cannot pass use both api_template and api_path", call. = FALSE)
   }
