@@ -13,12 +13,15 @@
 #'
 #' @examples \dontrun{
 #' api('http://127.0.0.1:8080') %>%
-#'    api_retry(n = 5)
+#'    api_path(repos, asdfasdf) %>%
+#'    api_retry(n = 5) %>%
+#'    http
 #'
 #' api('http://127.0.0.1:8080') %>%
-#'    api_retry(n = 5, time = 2)
+#'    api_retry(n = 5, time = 2) %>%
+#'    http
 #' }
 api_retry <- function(.data, n, time = 1) {
   .data <- as.req(.data)
-  modifyList(.data, list(`repeat` = list(n = n, time = time)))
+  modifyList(.data, list(retry = list(n = n, time = time)))
 }

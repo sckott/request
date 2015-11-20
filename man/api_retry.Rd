@@ -24,10 +24,13 @@ retry X times you specify, if the previous call failed.
 \examples{
 \dontrun{
 api('http://127.0.0.1:8080') \%>\%
-   api_retry(n = 5)
+   api_path(repos, asdfasdf) \%>\%
+   api_retry(n = 5) \%>\%
+   http
 
 api('http://127.0.0.1:8080') \%>\%
-   api_retry(n = 5, time = 2)
+   api_retry(n = 5, time = 2) \%>\%
+   http
 }
 }
 

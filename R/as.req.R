@@ -39,8 +39,8 @@ print.req <- function(x, ...){
              print_heads(x$headers)), sep = "\n")
   cat(paste0("  rate limit: ",
              print_rate(x$rate_limit)), sep = "\n")
-  cat(paste0("  retry (times): ",
-             x$retry_times), sep = "\n")
+  cat(paste0("  retry (n/delay (s)): ",
+             paste0(x$retry$n, "/", x$retry$time)), sep = "\n")
   cat(paste0("  error handler: ",
              names(x$error)), sep = "\n")
   cat("  config: ", sep = "\n")

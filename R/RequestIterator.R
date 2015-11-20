@@ -77,6 +77,16 @@ RequestIterator <- R6::R6Class("RequestIterator",
     }
   },
   handle_errors = function(.data, x) {
+    if (!is.null(.data$retry)) {
+      i <- 0
+      while (x$status_code > 201 && i < .data$retry$n) {
+        i <- i + 1
+        message("Retrying request\n")
+        x <- self$GET(.data)
+        Sys.sleep(.data$retry$time)
+      }
+      return(x)
+    }
     if (is.null(.data$error)) {
       # httr::stop_for_status(x)
       try_error(x)
