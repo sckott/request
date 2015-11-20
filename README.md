@@ -6,7 +6,7 @@ httsnap
 [![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
 [![codecov.io](https://codecov.io/github/sckott/httsnap/coverage.svg?branch=master)](https://codecov.io/github/sckott/httsnap?branch=master)
 
-`httsnap` is DSL for http requests for R, and is inspired by the CLI tool  [httpie](https://github.com/jakubroztocil/httpie). 
+`httsnap` is DSL for http requests for R, and is inspired by the CLI tool  [httpie](https://github.com/jakubroztocil/httpie).
 
 `httsnap` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
 
@@ -50,12 +50,12 @@ api('https://api.github.com/') %>%
 #> [[1]]
 #> [[1]]$sha
 #> [1] "6b9e09397d7682a500576796cf14c96e3c8b3570"
-#> 
+#>
 #> [[1]]$commit
 #> [[1]]$commit$author
 #> [[1]]$commit$author$name
 #> [1] "Scott Chamberlain"
-#> 
+#>
 #> [[1]]$commit$author$email
 ...
 ```
@@ -98,16 +98,16 @@ NSE
 ```r
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues)
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -117,16 +117,16 @@ SE
 ```r
 api('https://api.github.com/') %>%
   api_path_('repos', 'ropensci', 'rgbif', 'issues')
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -137,16 +137,16 @@ Templating
 repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') %>%
   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
-#>   paths: 
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   paths:
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -162,16 +162,16 @@ api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
   api_query(state = open) %>%
   api_paging(limit = 220, limit_max = 100)
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
 #>   query: state=open
-#>   body: 
+#>   body:
 #>   paging: limit=220, limit_max=100, offset=0, by=100
-#>   headers: 
-#>   rate limit: 
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -184,16 +184,16 @@ api('https://api.github.com/') %>%
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
   api_retry(n = 5)
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): 5/1
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -203,9 +203,9 @@ Note that this doesn't work in the http request yet.
 
 Some APIs have rate limiting. That is, they may limit you to X number of requests per some time period, e.g., 1 hr or 24 hrs. Some APIs have multile rate limits for different time periods, e.g., 100 request per hr __and__ 5000 requests per 24 hrs.
 
-In addition, you may want to set a rate limit below that the API defines, and we hope to support that use case too. 
+In addition, you may want to set a rate limit below that the API defines, and we hope to support that use case too.
 
-The `rate_limit()` function helps you deal with these rate limits. 
+The `rate_limit()` function helps you deal with these rate limits.
 
 
 ```r
@@ -216,16 +216,16 @@ qr %>% rate_limit(value = 5, period = "24 hrs")
 ```
 
 ```
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
 #>   rate limit: 5 @ 24 hrs - on_limit: Rate limit reached
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -234,16 +234,16 @@ qr %>% rate_limit(value = 5000, period = "24 hrs")
 ```
 
 ```
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
 #>   rate limit: 5000 @ 24 hrs - on_limit: Rate limit reached
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -252,16 +252,16 @@ qr %>% rate_limit(value = 10, period = "5 min")
 ```
 
 ```
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
 #>   rate limit: 10 @ 5 min - on_limit: Rate limit reached
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
