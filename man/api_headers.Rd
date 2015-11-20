@@ -22,10 +22,10 @@ Headers
 \examples{
 \dontrun{
 api('https://api.github.com/') \%>\%
-   api_headers(version = 1.4)
+   api_headers(`X-FARGO-SEASON` = 3)
 
 api('https://api.github.com/') \%>\%
-   api_headers(version = 1.4, hell = world)
+   api_headers(`X-FARGO-SEASON` = 3, `Accept Token` = 5)
 }
 }
 

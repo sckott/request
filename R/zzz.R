@@ -47,3 +47,33 @@ strextract <- function(str, pattern) {
 strtrim <- function(str) {
   gsub("^\\s+|\\s+$", "", str)
 }
+
+combconfig <- function(x) {
+  if (is.null(x)) {
+    NULL
+  } else {
+    req <- do.call("c", x[vapply(x, class, "") == "request"])
+    c(req, x[vapply(x, class, "") != "request"])
+  }
+}
+
+gather_paths <- function(x) {
+  if (!is.null(x$paths) && !is.null(x$template)) {
+    stop("Cannot pass use both api_template and api_path", call. = FALSE)
+  }
+  if (!is.null(x$paths)) {
+    file.path(x$url, paste(unlist(x$paths), collapse = "/"))
+  } else if (!is.null(x$template)) {
+    file.path(x$url, x$template)
+  } else {
+    x$url
+  }
+}
+
+make_ua <- function() {
+  versions <- c(curl = curl::curl_version()$version,
+                curl = as.character(packageVersion("curl")),
+                httr = as.character(packageVersion("httr")),
+                httsnap = as.character(packageVersion("httsnap")))
+  paste0(names(versions), "/", versions, collapse = " ")
+}
