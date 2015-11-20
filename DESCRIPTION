@@ -3,7 +3,7 @@ Title: An http DSL
 Description: Easy 'http' for 'R'. Provides functions for building http queries,
     including query parameters, body requests, paging, authentication, and
     various curl options.
-Version: 0.0.6.9500
+Version: 0.0.7.9000
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
