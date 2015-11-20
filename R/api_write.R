@@ -1,0 +1,19 @@
+#' Write helper
+#'
+#' @export
+#' @param .data Result of a call to \code{api}
+#' @param file (character) Full file path to write to
+#' @param overwrite (logical) Will only overwrite existing path if \code{TRUE}
+#' @examples
+#' ## write to disk
+#' ff <- tempfile(fileext = ".json")
+#' api("http://127.0.0.1:8080") %>%
+#'   api_path(repos) %>%
+#'   api_write(ff) %>%
+#'   http
+#' jsonlite::fromJSON(ff)
+api_write <- function(.data, file, overwrite = FALSE, ...){
+  .data <- as.req(.data)
+  modifyList(.data, list(write =
+                           write_disk(path = file, overwrite = overwrite)))
+}

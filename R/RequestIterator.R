@@ -15,11 +15,12 @@ RequestIterator <- R6::R6Class("RequestIterator",
       .data <- as.req(.data)
       .data$config <- c(httr::user_agent(make_ua()), .data$config)
       .data$url <- gather_paths(.data)
-      res <- suppressWarnings(httr::GET(.data$url[1], .data$config,
-                                        query = as.list(.data$query), ...))
+      .data$query <- if (is.null(.data$query)) NULL else as.list(.data$query)
+      res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write,
+                                        query = .data$query, ...))
     } else {
       .data <- as.req(self$links[[1]]$url)
-      res <- suppressWarnings(httr::GET(.data$url[1], .data$config, ...))
+      res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write, ...))
     }
     # error catching
     self$handle_errors(.data, res)
@@ -115,8 +116,12 @@ try_error <- function(x) {
 
 httr_parse <- function(x) {
   if (grepl("json", x$headers$`content-type`)) {
-    txt <- httr::content(x, "text")
-    jsonlite::fromJSON(txt, parse, flatten = TRUE)
+    if (!is.null(x$request$output$path)) {
+      return(x$request$output$path)
+    } else {
+      txt <- httr::content(x, "text")
+      jsonlite::fromJSON(txt, parse, flatten = TRUE)
+    }
   } else {
     content(x)
   }
