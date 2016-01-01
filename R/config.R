@@ -17,6 +17,7 @@
 #'   Get()
 #' }
 api_config <- function(.data, ...) {
+  pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
   tmp <- list(...)
   tmp <- if (length(tmp) == 1) tmp[[1]] else tmp

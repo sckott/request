@@ -33,6 +33,7 @@ api_query <- function(.data, ...){
 #' @export
 #' @rdname api_query
 api_query_ <- function(.data, ..., .dots){
+  pipe_autoexec(toggle = TRUE)
   dots <- lazyeval::all_dots(.dots, ...)
   args <- sapply(dots, "[[", "expr")
   .data <- as.req(.data)

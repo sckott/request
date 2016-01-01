@@ -18,8 +18,9 @@
 #' }
 #'
 #' @examples \dontrun{
-#' qr <- api('https://api.github.com/') %>%
-#'  api_path(repos, ropensci, rgbif, issues)
+#' api('https://api.github.com/') %>%
+#'  api_path(repos, ropensci, rgbif, issues) %>%
+#'  rate_limit(value = 5, period = "24 hrs")
 #'
 #' qr %>% rate_limit(value = 5, period = "24 hrs")
 #' qr %>% rate_limit(value = 5000, period = "24 hrs")
@@ -27,6 +28,7 @@
 #' qr %>% rate_limit(value = 10, period = "5 min", on_limit = with_wait(1))
 #' }
 rate_limit <- function(.data, value, period, on_limit = with_stop()) {
+  pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
   modifyList(.data, list(
     rate_limit = list(value = value, period = period, on_limit = on_limit))

@@ -33,6 +33,7 @@
 #' #   api_error_handler(my_stop) %>%
 #' #   Get()
 api_error_handler <- function(.data, fun) {
+  pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
   fn_name <- deparse(substitute(fun))
   tmp <- setNames(list(fun), fn_name)

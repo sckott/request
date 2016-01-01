@@ -13,7 +13,7 @@
 #'   api_query(state = open)
 #'
 #' # per_page & page, w/ known max_limit
-#' quer %>%
+#' api('https://api.github.com/') %>%
 #'   api_paging(limit = 220, limit_max = 100)
 #'
 #' ##### Not working yet

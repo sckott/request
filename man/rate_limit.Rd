@@ -28,8 +28,9 @@ FIXME: still need to implement doing this in the request
 }
 \examples{
 \dontrun{
-qr <- api('https://api.github.com/') \%>\%
- api_path(repos, ropensci, rgbif, issues)
+api('https://api.github.com/') \%>\%
+ api_path(repos, ropensci, rgbif, issues) \%>\%
+ rate_limit(value = 5, period = "24 hrs")
 
 qr \%>\% rate_limit(value = 5, period = "24 hrs")
 qr \%>\% rate_limit(value = 5000, period = "24 hrs")

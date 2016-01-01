@@ -7,14 +7,15 @@
 #' @examples \dontrun{
 #' ## write to disk
 #' ff <- tempfile(fileext = ".json")
-#' api("http://127.0.0.1:8080") %>%
-#'   api_path(repos) %>%
-#'   api_write(ff) %>%
-#'   http
+#' api('https://api.github.com/') %>%
+#'   api_path(repos, ropensci, rgbif, issues) %>%
+#'   api_write(ff)
 #' jsonlite::fromJSON(ff)
 #' }
 api_write <- function(.data, file, overwrite = FALSE, ...){
+  pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
-  modifyList(.data, list(write =
-                           write_disk(path = file, overwrite = overwrite)))
+  modifyList(.data, list(
+    write = write_disk(path = file, overwrite = overwrite))
+  )
 }

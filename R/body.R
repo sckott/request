@@ -47,6 +47,8 @@ api_body <- function(.data, ..., body_value = NULL){
 #' @export
 #' @rdname api_body
 api_body_ <- function(.data, ..., .dots, body_value = NULL){
+  ## FIXME - need to toggle on POST by default here when body passed
+  pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
   if (is.null(body_value)) {
     dots <- lazyeval::all_dots(.dots, ...)

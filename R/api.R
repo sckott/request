@@ -37,6 +37,7 @@
 #' api('https://api.github.com/') %>%
 #'   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
 api <- function(x) {
+  pipe_autoexec(toggle = TRUE)
   structure(list(url = as.url(x)), class = "endpoint")
 }
 
@@ -55,6 +56,7 @@ api_path <- function(.data, ..., .dots) {
 #' @export
 #' @rdname api
 api_path_ <- function(.data, ..., .dots) {
+  pipe_autoexec(toggle = TRUE)
   tmp <- lazyeval::all_dots(.dots, ...)
   .data <- as.req(.data)
   modifyList(.data, list(paths = getpaths(tmp)))
@@ -68,6 +70,7 @@ getpaths <- function(x) {
 #' @export
 #' @rdname api
 api_template <- function(.data, template, data) {
+  pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
   temp <- whisker::whisker.render(template, data)
   modifyList(.data, list(template = temp))

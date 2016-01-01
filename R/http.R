@@ -42,6 +42,7 @@
 #' #   http("POST")
 #' }
 http <- function(req, method = "GET") {
+  pipe_autoexec(toggle = FALSE)
   if (!method %in% c("GET", "POST")) stop("method must be one of GET or POST", call. = FALSE)
   rr <- RequestIterator$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
   switch(method,

@@ -21,7 +21,8 @@ Headers
 }
 \examples{
 \dontrun{
-api('https://api.github.com/') \%>\%
+x=api('https://api.github.com/') \%>\%
+   api_config(verbose()) \%>\%
    api_headers(`X-FARGO-SEASON` = 3)
 
 api('https://api.github.com/') \%>\%
