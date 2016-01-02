@@ -1,5 +1,5 @@
-httsnap 0.1.0
-===============
+request 0.1.0
+=============
 
 NEW FEATURES
 
