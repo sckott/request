@@ -4,6 +4,7 @@
 #' @param .data Result of a call to \code{api}
 #' @param file (character) Full file path to write to
 #' @param overwrite (logical) Will only overwrite existing path if \code{TRUE}
+#' @param ... ignored for now
 #' @examples \dontrun{
 #' ## write to disk
 #' ff <- tempfile(fileext = ".json")

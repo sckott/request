@@ -8,10 +8,6 @@ peep(.data)
 }
 \arguments{
 \item{.data}{(list) input, using higher level interface}
-
-\item{x}{print input}
-
-\item{...}{ignored}
 }
 \description{
 Peek at a query

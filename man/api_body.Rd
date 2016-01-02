@@ -33,6 +33,7 @@ a list and passed to whatever http method is used downstream}
 Query construction
 }
 \examples{
+\dontrun{
 ## NSE
 dd <- api("http://httpbin.org/post")
 dd \%>\% api_body(body_value = FALSE)
@@ -55,6 +56,7 @@ dd \%>\% api_body_(x = "hello", y = "stuff")
 # api("http://httpbin.org/post") \%>\%
 #    api_body(body_value = FALSE) \%>\%
 #    Post()
+}
 }
 \seealso{
 Other dsl: \code{\link{api_config}},

@@ -12,6 +12,8 @@ api_write(.data, file, overwrite = FALSE, ...)
 \item{file}{(character) Full file path to write to}
 
 \item{overwrite}{(logical) Will only overwrite existing path if \code{TRUE}}
+
+\item{...}{ignored for now}
 }
 \description{
 Write helper

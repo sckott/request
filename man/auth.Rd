@@ -49,41 +49,39 @@ Authentication configuration/setup
 }
 \examples{
 # simple authentication (user/password)
-api('https://api.github.com/') \%>\%
- api_simple_auth(user = "foo", pwd = "bar")
+api('https://httpbin.org/basic-auth/user/passwd') \%>\%
+ api_simple_auth(user = "user", pwd = "passwd")
 ## different auth type
-api('https://api.github.com/') \%>\%
- api_simple_auth(user = "foo", pwd = "bar", type = "gssnegotiate")
+# api('https://httpbin.org/basic-auth/user/passwd') \%>\%
+#  api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
 
 \dontrun{
 # OAuth setup
 ## using a token
 ### fill in your own token
 # api('https://api.github.com/') \%>\%
-#  api_oauth2(token = "<token>")
+#   api_oauth2(token = "<token>")
 
 # OAuth2
 ## using a app name, key, and secret combination
 ### uses a OAuth app set up by Hadley Wickham, which you'll auth against
 # api('https://api.github.com/') \%>\%
-#  api_oauth2(app_name = "github", key = "56b637a5baffac62cad9",
-#      secret = "8e107541ae1791259e9987d544ca568633da2ebf",
-#      base_url = "https://github.com/login/oauth",
-#      authorize = "authorize", access = "access_token")
+#   api_oauth2(app_name = "github", key = "56b637a5baffac62cad9",
+#       secret = "8e107541ae1791259e9987d544ca568633da2ebf",
+#       base_url = "https://github.com/login/oauth",
+#       authorize = "authorize", access = "access_token")
 
 # OAuth1
 # api('https://api.twitter.com/1.1/statuses/home_timeline.json') \%>\%
 #  api_oauth1(app_name = "twitter", key = "TYrWFPkFAkn4G5BbkWINYw",
 #      secret = "qjOkmKYU9kWfUFWmekJuu5tztE9aEfLbt26WlhZL8",
 #      base_url = "https://api.twitter.com/oauth/",
-#      request = "request_token", authorize = "authenticate", access = "access_token") \%>\%
-# Get()
+#      request = "request_token", authorize = "authenticate", access = "access_token")
 
 # Request some data with oauth2 via Github
 ## put in your username and password
 # api('https://api.github.com/') \%>\%
-#  api_simple_auth(user = "<foo>", pwd = "<bar>") \%>\%
-#  Get()
+#  api_simple_auth(user = "<foo>", pwd = "<bar>")
 }
 }
 \seealso{

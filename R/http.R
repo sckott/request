@@ -37,9 +37,9 @@
 #'   http()
 #'
 #' # Specify HTTP verb - not working yet.
-#' # api("http://httpbin.org/post") %>%
-#' #   api_body(x = "A simple text string") %>%
-#' #   http("POST")
+#' api("http://httpbin.org/post") %>%
+#'    api_body(x = "A simple text string") %>%
+#'    http("POST")
 #' }
 http <- function(req, method = "GET") {
   pipe_autoexec(toggle = FALSE)

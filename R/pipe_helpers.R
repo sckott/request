@@ -1,5 +1,34 @@
 # from @smbache Stefan Milton Bache
 
+#' Toggle Auto Execution On or Off for Pipelines
+#'
+#' A call to \code{pipe_autoexec} allows a function to toggle auto execution of
+#' \code{http} on or off at the end of a pipeline.
+#'
+#' @param toggle logical: \code{TRUE} toggles auto execution on, \code{FALSE}
+#'   toggles auto execution off.
+#'
+#' @details Once auto execution is turned on the \code{result} identifier inside
+#' the pipeline is bound to an "Active Binding". This will not be changed on
+#' toggling auto execution off, but rather the function to be executed is
+#' changed to \code{identity}.
+#'
+#' @noRd
+pipe_autoexec <- function(toggle, method = "GET") {
+  if (!identical(toggle, TRUE) && !identical(toggle, FALSE)) {
+    stop("Argument 'toggle' must be logical.")
+  }
+
+  info <- pipeline_info()
+
+  if (isTRUE(info[["is_piped"]])) {
+    pipeline_on_exit(info$env)
+    info$env$.http_exitfun <- if (toggle) http else identity
+  }
+
+  invisible()
+}
+
 #' Information on Potential Pipeline
 #'
 #' This function figures out whether it is called from within a pipeline.
@@ -23,35 +52,6 @@ pipeline_info <- function() {
 
   list(is_piped = is_piped,
        env      = if (is_piped) sys.frames()[[min(which(is_magrittr_env))]])
-}
-
-#' Toggle Auto Execution On or Off for Pipelines
-#'
-#' A call to \code{pipe_autoexec} allows a function to toggle auto execution of
-#' \code{jq} on or off at the end of a pipeline.
-#'
-#' @param toggle logical: \code{TRUE} toggles auto execution on, \code{FALSE}
-#'   toggles auto execution off.
-#'
-#' @details Once auto execution is turned on the \code{result} identifier inside
-#' the pipeline is bound to an "Active Binding". This will not be changed on
-#' toggling auto execution off, but rather the function to be executed is
-#' changed to \code{identity}.
-#'
-#' @noRd
-pipe_autoexec <- function(toggle) {
-  if (!identical(toggle, TRUE) && !identical(toggle, FALSE)) {
-    stop("Argument 'toggle' must be logical.")
-  }
-
-  info <- pipeline_info()
-
-  if (isTRUE(info[["is_piped"]])) {
-    pipeline_on_exit(info$env)
-    info$env$.http_exitfun <- if (toggle) http else identity
-  }
-
-  invisible()
 }
 
 #' Setup On-Exit Action for a Pipeline

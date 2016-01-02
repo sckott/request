@@ -10,7 +10,7 @@ knitr::knit_hooks$set(output = function(x, options) {
    }
    x <- unlist(strsplit(x, "\n"))
    more <- "..."
-   if (length(lines)==1) {        # first n lines
+   if (length(lines) == 1) {        # first n lines
      if (length(x) > lines) {
        # truncate the output, but add ....
        x <- c(head(x, lines), more)
@@ -47,10 +47,18 @@ knitr::opts_chunk$set(
 * The workflow follows logically, or at least should, from, _hey, I got this url_, to _i need to add some options_, to _execute request_
 * Whenever possible, we transform output to data.frame's - facilitating downstream manipulation via `dplyr`, etc.
 * We do `GET` requests by default. Specify a different type if you don't want `GET`
-* You can use non-standard evaluation to easily pass in query parameters without worrying about `&`'s, URL escaping, etc. (see `query()`)
-* Same for body params (see `body()`)
+* You can use non-standard evaluation to easily pass in query parameters without worrying about `&`'s, URL escaping, etc. (see `api_query()`)
+* Same for body params (see `api_body()`)
 
 All of the default just mentioned can be changed.
+
+## Auto execute http requests with pipes
+
+When using pipes, we autodetect that a pipe is being used within the function calls, and automatically do the appropriate http request on the last piped function call. When you call a function without using pipes, you have to use the `http()` function explicitly to make the http request.
+
+## Peek at a request
+
+The function `peep()` let's you peek at a request without performing the http request.
 
 ## Philosophy in gif
 
@@ -73,8 +81,7 @@ library("httsnap")
 
 ```{r output.lines = 1:10}
 api('https://api.github.com/') %>%
-  api_path(repos, ropensci, rgbif, commits) %>%
-  http()
+  api_path(repos, ropensci, rgbif, commits)
 ```
 
 ## Building API routes
@@ -97,20 +104,34 @@ api('9200')
 api('9200/stuff')
 ```
 
+The above are not passed through a pipe, so simply define a URL, but don't do a request. To make an http request, you can either pipe a url or partial url to e.g., `api()`, or call `http()`:
+
+```{r output.lines = 1:10}
+'https://api.github.com/' %>% api()
+```
+
+Or
+
+```{r output.lines = 1:10}
+api('https://api.github.com/') %>% http()
+```
+
 Set paths
 
 NSE
 
 ```{r}
 api('https://api.github.com/') %>%
-  api_path(repos, ropensci, rgbif, issues)
+  api_path(repos, ropensci, rgbif, issues) %>% 
+  peep
 ```
 
 SE
 
 ```{r}
 api('https://api.github.com/') %>%
-  api_path_('repos', 'ropensci', 'rgbif', 'issues')
+  api_path_('repos', 'ropensci', 'rgbif', 'issues') %>% 
+  peep
 ```
 
 Templating
@@ -118,7 +139,8 @@ Templating
 ```{r}
 repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') %>%
-  api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
+  api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>% 
+  peep
 ```
 
 ## Paging
@@ -131,7 +153,8 @@ Here, set `limit` (no. records you want) with a known `limit_max` so we know how
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
   api_query(state = open) %>%
-  api_paging(limit = 220, limit_max = 100)
+  api_paging(limit = 220, limit_max = 100) %>% 
+  peep
 ```
 
 ## Retry
@@ -141,7 +164,8 @@ api('https://api.github.com/') %>%
 ```{r}
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
-  api_retry(n = 5)
+  api_retry(n = 5) %>% 
+  peep
 ```
 
 Note that this doesn't work in the http request yet.
@@ -155,12 +179,9 @@ In addition, you may want to set a rate limit below that the API defines, and we
 The `rate_limit()` function helps you deal with these rate limits. 
 
 ```{r collapse = FALSE}
-qr <- api('https://api.github.com/') %>%
- api_path(repos, ropensci, rgbif, issues)
-
-qr %>% rate_limit(value = 5, period = "24 hrs")
-qr %>% rate_limit(value = 5000, period = "24 hrs")
-qr %>% rate_limit(value = 10, period = "5 min")
+api('https://api.github.com/') %>% rate_limit(value = 5, period = "24 hrs") %>% peep
+api('https://api.github.com/') %>% rate_limit(value = 5000, period = "24 hrs") %>% peep
+api('https://api.github.com/') %>% rate_limit(value = 10, period = "5 min") %>% peep
 ```
 
 Note that this doesn't work in the http request yet.

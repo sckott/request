@@ -2,8 +2,6 @@
 #'
 #' @export
 #' @param .data (list) input, using higher level interface
-#' @param x print input
-#' @param ... ignored
 #' @examples
 #' api('https://api.github.com/') %>% peep
 #' api('https://api.github.com/') %>%
