@@ -21,11 +21,11 @@ test_that("api_headers works", {
   expect_is(x$url, "url")
   expect_is(y$url, "url")
 
-  expect_is(x$headers, "list")
-  expect_equal(x$headers$`X-FARGO-SEASON`, "3")
+  expect_is(x$headers, "request")
+  expect_named(x$headers$headers, "X-FARGO-SEASON")
 
-  expect_is(y$headers, "list")
-  expect_named(y$headers, c("X-FARGO-SEASON", "Accept Token"))
+  expect_is(y$headers, "request")
+  expect_named(y$headers$headers, c("X-FARGO-SEASON", "Accept Token"))
 
   expect_identical(y, yy)
 })
