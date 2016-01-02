@@ -4,10 +4,10 @@
 #' @importFrom stats setNames
 #' @importFrom utils head modifyList packageVersion
 #' @importFrom R6 R6Class
-#' @import httr
 #' @importFrom curl curl_version
-#' @name httsnap-package
-#' @aliases httsnap
+#' @import httr
+#' @name request-package
+#' @aliases request
 #' @docType package
 #' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
 #' @keywords package

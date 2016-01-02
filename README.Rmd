@@ -1,4 +1,4 @@
-httsnap
+request
 =======
 
 ```{r echo=FALSE}
@@ -34,12 +34,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Build Status](https://travis-ci.org/sckott/httsnap.svg)](https://travis-ci.org/sckott/httsnap)
-[![codecov.io](https://codecov.io/github/sckott/httsnap/coverage.svg?branch=master)](https://codecov.io/github/sckott/httsnap?branch=master)
+[![Build Status](https://travis-ci.org/sckott/request.svg)](https://travis-ci.org/sckott/request)
+[![codecov.io](https://codecov.io/github/sckott/request/coverage.svg?branch=master)](https://codecov.io/github/sckott/request?branch=master)
 
-`httsnap` is DSL for http requests for R, and is inspired by the CLI tool  [httpie](https://github.com/jakubroztocil/httpie). 
+`request` is DSL for http requests for R, and is inspired by the CLI tool [httpie](https://github.com/jakubroztocil/httpie).
 
-`httsnap` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
+`request` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
 
 ## Philosophy
 
@@ -68,18 +68,11 @@ The function `peep()` let's you peek at a request without performing the http re
 
 ```{r eval=FALSE}
 install.packages("devtools")
-devtools::install_github("sckott/httsnap")
+devtools::install_github("sckott/request")
 ```
 
 ```{r}
-library("httsnap")
-```
-
-## Get request
-
-```{r output.lines = 1:10}
-api('https://api.github.com/') %>%
-  api_path(repos, ropensci, rgbif, commits)
+library("request")
 ```
 
 ## Building API routes
@@ -120,7 +113,7 @@ NSE
 
 ```{r}
 api('https://api.github.com/') %>%
-  api_path(repos, ropensci, rgbif, issues) %>% 
+  api_path(repos, ropensci, rgbif, issues) %>%
   peep
 ```
 
@@ -128,7 +121,7 @@ SE
 
 ```{r}
 api('https://api.github.com/') %>%
-  api_path_('repos', 'ropensci', 'rgbif', 'issues') %>% 
+  api_path_('repos', 'ropensci', 'rgbif', 'issues') %>%
   peep
 ```
 
@@ -137,13 +130,13 @@ Templating
 ```{r}
 repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') %>%
-  api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>% 
+  api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>%
   peep
 ```
 
 ## Features coming
 
-These features are not in `httsnap` yet, but are shown here just as examples
+These features are not in `request` yet, but are shown here just as examples
 
 ### Paging
 
@@ -158,7 +151,7 @@ api('https://api.github.com/') %>%
 ```{r eval=FALSE}
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
-  api_retry(n = 5) %>% 
+  api_retry(n = 5) %>%
   peep
 ```
 
