@@ -58,7 +58,7 @@ print_heads <- function(x) {
   if (is.logical(x) || is.null(x) || is.character(x)) {
     return(x)
   } else {
-    print_lazy(x)
+    print_lazy(as.list(x$headers))
   }
 }
 

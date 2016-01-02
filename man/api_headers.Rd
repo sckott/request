@@ -21,12 +21,13 @@ Headers
 }
 \examples{
 \dontrun{
-x=api('https://api.github.com/') \%>\%
-   api_config(verbose()) \%>\%
-   api_headers(`X-FARGO-SEASON` = 3)
-
 api('https://api.github.com/') \%>\%
-   api_headers(`X-FARGO-SEASON` = 3, `Accept Token` = 5)
+   api_config(verbose()) \%>\%
+   api_headers(`X-FARGO-SEASON` = 3) \%>\%
+   peep
+
+api('http://httpbin.org/headers') \%>\%
+   api_headers(`X-FARGO-SEASON` = 3, `X-NARCOS-SEASON` = 5)
 }
 }
 

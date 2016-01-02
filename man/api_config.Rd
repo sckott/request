@@ -16,12 +16,12 @@ Curl settings
 }
 \examples{
 # Config handler
-api('https://api.github.com/') \%>\%
- api_config(verbose()) \%>\%
+api('http://api.crossref.org/works') \%>\%
+ api_config(verbose(), progress()) \%>\%
  peep()
 
-api('https://api.github.com/') \%>\%
-  api_path(repos, ropensci, rgbif, issues) \%>\%
+xx <- api('http://api.crossref.org') \%>\%
+  api_path(works, 10.3897/zookeys.515.9459) \%>\%
   api_config(verbose())
 }
 \seealso{

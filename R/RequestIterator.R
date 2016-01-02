@@ -13,7 +13,7 @@ RequestIterator <- R6::R6Class("RequestIterator",
   GET = function(.data, ...) {
     if (length(self$links) == 0) {
       .data <- as.req(.data)
-      .data$config <- c(httr::user_agent(make_ua()), .data$config)
+      .data$config <- c(httr::user_agent(make_ua()), .data$config, .data$headers)
       .data$url <- gather_paths(.data)
       .data$query <- if (is.null(.data$query)) NULL else as.list(.data$query)
       res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write,

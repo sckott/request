@@ -5,15 +5,15 @@
 #' @param ...	Key value pairs of headers
 #' @param .dots	Used to work around non-standard evaluation
 #' @examples \dontrun{
-#' x=api('https://api.github.com/') %>%
-#'    api_config(verbose()) %>%
-#'    api_headers(`X-FARGO-SEASON` = 3)
-#'
 #' api('https://api.github.com/') %>%
-#'    api_headers(`X-FARGO-SEASON` = 3, `Accept Token` = 5)
+#'    api_config(verbose()) %>%
+#'    api_headers(`X-FARGO-SEASON` = 3) %>%
+#'    peep
+#'
+#' api('http://httpbin.org/headers') %>%
+#'    api_headers(`X-FARGO-SEASON` = 3, `X-NARCOS-SEASON` = 5)
 #' }
 api_headers <- function(.data, ..., .dots) {
-  ## FIXME - headers are lost when used with api_config
   api_headers_(.data, .dots = lazyeval::lazy_dots(...))
 }
 
@@ -27,5 +27,6 @@ api_headers_ <- function(.data, ..., .dots) {
 }
 
 getheads <- function(x) {
-  as.list(sapply(x, function(z) as.character(z$expr)))
+  tmp <- as.list(sapply(x, function(z) as.character(z$expr)))
+  do.call(add_headers, tmp)
 }
