@@ -13,7 +13,11 @@ is_url <- function(x){
 is_port <- function(x) {
   # strip other characters
   x <- strextract(x, "[[:digit:]]+")
-  grepl("[[:digit:]]", x) && nchar(x) == 4
+  if (length(x) == 0) {
+    FALSE
+  } else {
+    grepl("[[:digit:]]", x) && nchar(x) == 4
+  }
 }
 
 add_http <- function(x) {

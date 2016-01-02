@@ -13,7 +13,6 @@ as.url.character <- function(x) {
     x <- paste0("http://localhost:", sub("^:", "", x))
   } else {
     x
-    # stop("url or port not detected", call. = FALSE)
   }
   structure(x, class = "url")
 }
