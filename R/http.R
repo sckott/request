@@ -29,7 +29,7 @@
 #' res$links
 #' res$parse()
 #'
-#' # Specify HTTP verb - not working yet.
+#' # Specify HTTP verb
 #' api("http://httpbin.org/post") %>%
 #'    api_body(x = "A simple text string") %>%
 #'    http("POST")
