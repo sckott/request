@@ -83,6 +83,22 @@ devtools::install_github("sckott/request")
 library("request")
 ```
 
+## NSE and SE
+
+NSE is supported
+
+```{r eval=FALSE}
+api('https://api.github.com/') %>%
+  api_path(repos, ropensci, rgbif, issues)
+```
+
+as well as SE
+
+```{r eval=FALSE}
+api('https://api.github.com/') %>%
+  api_path_('repos', 'ropensci', 'rgbif', 'issues')
+```
+
 ## Building API routes
 
 Works with full or partial URLs
@@ -103,7 +119,9 @@ api('9200')
 api('9200/stuff')
 ```
 
-The above are not passed through a pipe, so simply define a URL, but don't do a request. To make an http request, you can either pipe a url or partial url to e.g., `api()`, or call `http()`:
+## Make HTTP requests 
+
+The above examples with `api()` are not passed through a pipe, so only define a URL, but don't do an HTTP request. To make an HTTP request, you can either pipe a url or partial url to e.g., `api()`, or call `http()` at the end of a string of function calls:
 
 ```{r output.lines = 1:10}
 'https://api.github.com/' %>% api()
@@ -115,25 +133,9 @@ Or
 api('https://api.github.com/') %>% http()
 ```
 
-Set paths
+`http()` is called at the end of a chain of piped commands, so no need to invoke it. However, you can if you like.
 
-NSE
-
-```{r}
-api('https://api.github.com/') %>%
-  api_path(repos, ropensci, rgbif, issues) %>%
-  peep
-```
-
-SE
-
-```{r}
-api('https://api.github.com/') %>%
-  api_path_('repos', 'ropensci', 'rgbif', 'issues') %>%
-  peep
-```
-
-Templating
+## Templating
 
 ```{r}
 repo_info <- list(username = 'craigcitro', repo = 'r-travis')
@@ -142,34 +144,31 @@ api('https://api.github.com/') %>%
   peep
 ```
 
-## Features coming
+## Set paths
 
-These features are not in `request` yet, but are shown here just as examples
+`api_path()` adds paths to the base URL (see `api_query()`) for query parameters
 
-### Paging
-
-```{r eval=FALSE}
+```{r}
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
-  api_paging(limit = 220, limit_max = 100)
-```
-
-### Retry
-
-```{r eval=FALSE}
-api('https://api.github.com/') %>%
-  api_path(repos, ropensci, rgbif, issues) %>%
-  api_retry(n = 5) %>%
   peep
 ```
 
-### Rate limit
+## Query
 
-```{r eval=FALSE}
-api('https://api.github.com/') %>% rate_limit(value = 5, period = "24 hrs") %>% peep
-api('https://api.github.com/') %>% rate_limit(value = 5000, period = "24 hrs") %>% peep
-api('https://api.github.com/') %>% rate_limit(value = 10, period = "5 min") %>% peep
+```{r}
+api("http://api.plos.org/search") %>%
+  api_query(q = ecology, wt = json, fl = 'id,journal') %>%
+  peep
 ```
+
+## ToDo
+
+See [the issues](https://github.com/sckott/request/issues) for discussion of these
+
+* Paging
+* Retry
+* Rate limit
 
 ## Meta
 
