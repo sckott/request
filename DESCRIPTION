@@ -12,6 +12,9 @@ BugReports: https://github.com/sckott/httsnap/issues
 Depends:
     httr (>= 1.0.0)
 Imports:
+    methods,
+    stats,
+    utils,
     curl (>= 0.9.4),
     jsonlite (>= 0.9.19),
     magrittr,
