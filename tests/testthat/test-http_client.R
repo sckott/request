@@ -8,8 +8,6 @@ test_that("http_client works", {
     http_client()
 
   expect_is(aa, "RequestIterator")
-  expect_is(bb, "RequestIterator")
-
   expect_is(aa$body(), "response")
   expect_is(aa$count(), "integer")
   expect_is(aa$parse(), "list")
