@@ -1,6 +1,6 @@
 context("api_headers")
 
-test_that("api works", {
+test_that("api_headers works", {
   skip_on_cran()
 
   x <- api('https://api.github.com/') %>%
@@ -15,8 +15,8 @@ test_that("api works", {
     api_headers_(`X-FARGO-SEASON` = "three", `Accept Token` = "yellow") %>%
     peep
 
-  expect_is(x, "http_peep")
-  expect_is(y, "http_peep")
+  expect_is(x, "req")
+  expect_is(y, "req")
 
   expect_is(x$url, "url")
   expect_is(y$url, "url")
@@ -30,7 +30,7 @@ test_that("api works", {
   expect_identical(y, yy)
 })
 
-test_that("api fails well", {
+test_that("api_headers fails well", {
   skip_on_cran()
 
   expect_error(api_headers(), "argument \".data\" is missing")

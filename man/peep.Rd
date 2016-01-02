@@ -26,9 +26,5 @@ api('https://api.github.com/') \%>\%
 api("http://api.plos.org/search") \%>\%
   api_query(q = ecology, wt = json, fl = id, fl = journal) \%>\%
   peep
-
-api("http://api.plos.org/search") \%>\%
-  api_query(q = ecology, wt = json, fl = id, fl = journal) \%>\%
-  peep
 }
 

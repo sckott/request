@@ -22,13 +22,17 @@ Query construction
 \examples{
 ## NSE
 api("http://api.plos.org/search") \%>\%
-  api_query(q = ecology, wt = json, fl = 'id,journal')
-### Or
+  api_query(q = ecology, wt = json, fl = 'id,journal') \%>\%
+  peep
+
 api("http://api.plos.org/search") \%>\%
-  api_query(q = ecology, wt = json, fl = id, fl = journal)
+  api_query(q = ecology, wt = json, fl = id, fl = journal) \%>\%
+  peep
+
 ## SE
 api("http://api.plos.org/search") \%>\%
-  api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal')
+  api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') \%>\%
+  peep
 
 \dontrun{
 ## NSE
