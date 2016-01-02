@@ -5,3 +5,5 @@ README.html
 .travis.yml
 ^\.httr-oauth$
 ^CONDUCT\.md$
+NEWS.md
+cran-comments.md
