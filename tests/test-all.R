@@ -1,2 +1,2 @@
 library("testthat")
-test_check("httsnap")
+test_check("request")
