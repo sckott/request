@@ -45,8 +45,7 @@ api("http://httpbin.org/status/404") \%>\%
 }
 \seealso{
 Other dsl: \code{\link{api_body}},
-  \code{\link{api_config}}, \code{\link{api_paging}},
-  \code{\link{api_query}}, \code{\link{api}},
-  \code{\link{auth}}
+  \code{\link{api_config}}, \code{\link{api_query}},
+  \code{\link{api}}, \code{\link{auth}}
 }
 

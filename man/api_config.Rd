@@ -17,20 +17,16 @@ Curl settings
 \examples{
 # Config handler
 api('https://api.github.com/') \%>\%
- api_config(verbose())
+ api_config(verbose()) \%>\%
+ peep()
 
-\dontrun{
-# Full examples
 api('https://api.github.com/') \%>\%
   api_path(repos, ropensci, rgbif, issues) \%>\%
-  api_config(verbose()) \%>\%
-  Get()
-}
+  api_config(verbose())
 }
 \seealso{
 Other dsl: \code{\link{api_body}},
-  \code{\link{api_error_handler}},
-  \code{\link{api_paging}}, \code{\link{api_query}},
+  \code{\link{api_error_handler}}, \code{\link{api_query}},
   \code{\link{api}}, \code{\link{auth}}
 }
 

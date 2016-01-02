@@ -19,7 +19,6 @@
 #'
 #' api("http://api.plos.org/search") %>%
 #'   api_query(q = ecology, wt = json, fl = id, fl = journal) %>%
-#'   api_paging(limit = 220, limit_max = 100) %>%
 #'   peep
 peep <- function(.data) {
   pipe_autoexec(toggle = FALSE)

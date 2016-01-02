@@ -33,19 +33,16 @@ api("http://api.plos.org/search") \%>\%
 \dontrun{
 ## NSE
 api("http://api.plos.org/search") \%>\%
-  api_query(q = ecology, wt = json, fl = 'id,journal') \%>\%
-  Get()
+  api_query(q = ecology, wt = json, fl = 'id,journal')
 ## SE
 api("http://api.plos.org/search") \%>\%
-  api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') \%>\%
-  Get()
+  api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal')
 }
 }
 \seealso{
 Other dsl: \code{\link{api_body}},
   \code{\link{api_config}},
-  \code{\link{api_error_handler}},
-  \code{\link{api_paging}}, \code{\link{api}},
+  \code{\link{api_error_handler}}, \code{\link{api}},
   \code{\link{auth}}
 }
 

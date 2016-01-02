@@ -44,17 +44,10 @@ res$result
 res$links
 res$parse()
 
-
-# with paging
-api('https://api.github.com/') \%>\%
-  api_path(repos, ropensci, rgbif, commits) \%>\%
-  api_paging(limit = 220, limit_max = 100) \%>\%
-  http()
-
 # Specify HTTP verb - not working yet.
-# api("http://httpbin.org/post") \%>\%
-#   api_body(x = "A simple text string") \%>\%
-#   http("POST")
+api("http://httpbin.org/post") \%>\%
+   api_body(x = "A simple text string") \%>\%
+   http("POST")
 }
 }
 

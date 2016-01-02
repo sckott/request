@@ -36,32 +36,27 @@ Query construction
 \dontrun{
 ## NSE
 dd <- api("http://httpbin.org/post")
-dd \%>\% api_body(body_value = FALSE)
-dd \%>\% api_body(body_value = "NULL")
-dd \%>\% api_body(body_value = "")
+dd \%>\% api_body(body_value = NULL) \%>\% http("POST")
+dd \%>\% api_body(body_value = "") \%>\% http("POST")
+
+## other named parameters are passed as form values
+dd \%>\% api_body(x = hello) \%>\% http("POST")
 
 # upload a file
 file <- "~/httsnap_test.txt"
 cat("hello, world", file = file)
-dd \%>\% api_body(body_value = upload_file("~/httsnap_test.txt"))
+dd \%>\% api_body(x = upload_file("~/httsnap_test.txt")) \%>\% http("POST")
 
 # A named list
-dd \%>\% api_body(x = hello, y = stuff)
+dd \%>\% api_body(x = hello, y = stuff) \%>\% http("POST")
 
 ## SE
-dd \%>\% api_body_(x = "hello", y = "stuff")
-
-###### not working yet
-## NSE
-# api("http://httpbin.org/post") \%>\%
-#    api_body(body_value = FALSE) \%>\%
-#    Post()
+dd \%>\% api_body_(x = "hello", y = "stuff") \%>\% http("POST")
 }
 }
 \seealso{
 Other dsl: \code{\link{api_config}},
-  \code{\link{api_error_handler}},
-  \code{\link{api_paging}}, \code{\link{api_query}},
+  \code{\link{api_error_handler}}, \code{\link{api_query}},
   \code{\link{api}}, \code{\link{auth}}
 }
 

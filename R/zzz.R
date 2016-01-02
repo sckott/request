@@ -82,3 +82,26 @@ make_ua <- function() {
                 httsnap = as.character(packageVersion("httsnap")))
   paste0(names(versions), "/", versions, collapse = " ")
 }
+
+get_links <- function(w) {
+  lk <- w$link
+  if (is.null(lk)) {
+    NULL
+  } else {
+    if (is(lk, "character")) {
+      links <- strtrim(strsplit(lk, ",")[[1]])
+      lapply(links, each_link)
+    } else {
+      nms <- sapply(w, "[[", "name")
+      tmp <- unlist(w[nms %in% "next"])
+      grep("http", tmp, value = TRUE)
+    }
+  }
+}
+
+each_link <- function(z) {
+  tmp <- strtrim(strsplit(z, ";")[[1]])
+  nm <- gsub("\"|(rel)|=", "", tmp[2])
+  url <- gsub("^<|>$", "", tmp[1])
+  list(name = nm, url = url)
+}

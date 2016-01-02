@@ -29,13 +29,6 @@
 #' res$links
 #' res$parse()
 #'
-#'
-#' # with paging
-#' api('https://api.github.com/') %>%
-#'   api_path(repos, ropensci, rgbif, commits) %>%
-#'   api_paging(limit = 220, limit_max = 100) %>%
-#'   http()
-#'
 #' # Specify HTTP verb - not working yet.
 #' api("http://httpbin.org/post") %>%
 #'    api_body(x = "A simple text string") %>%
@@ -55,6 +48,7 @@ http <- function(req, method = "GET") {
 #' @export
 #' @rdname http
 http_client <- function(req) {
+  pipe_autoexec(toggle = FALSE)
   rr <- RequestIterator$new(limit = req$paging$limit, limit_max = req$paging$limit_max)
   rr$GET(req)
   return(rr)

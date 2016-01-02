@@ -19,12 +19,10 @@
 #' \dontrun{
 #' ## NSE
 #' api("http://api.plos.org/search") %>%
-#'   api_query(q = ecology, wt = json, fl = 'id,journal') %>%
-#'   Get()
+#'   api_query(q = ecology, wt = json, fl = 'id,journal')
 #' ## SE
 #' api("http://api.plos.org/search") %>%
-#'   api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') %>%
-#'   Get()
+#'   api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal')
 #' }
 api_query <- function(.data, ...){
   api_query_(.data, .dots = lazyeval::lazy_dots(...))

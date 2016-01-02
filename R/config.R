@@ -7,15 +7,12 @@
 #' @examples
 #' # Config handler
 #' api('https://api.github.com/') %>%
-#'  api_config(verbose())
+#'  api_config(verbose()) %>%
+#'  peep()
 #'
-#' \dontrun{
-#' # Full examples
 #' api('https://api.github.com/') %>%
 #'   api_path(repos, ropensci, rgbif, issues) %>%
-#'   api_config(verbose()) %>%
-#'   Get()
-#' }
+#'   api_config(verbose())
 api_config <- function(.data, ...) {
   pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
