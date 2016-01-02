@@ -35,6 +35,7 @@ knitr::opts_chunk$set(
 ```
 
 [![Build Status](https://travis-ci.org/sckott/request.svg)](https://travis-ci.org/sckott/request)
+
 [![codecov.io](https://codecov.io/github/sckott/request/coverage.svg?branch=master)](https://codecov.io/github/sckott/request?branch=master)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/request?color=F3B1FF)](https://github.com/metacran/cranlogs.app)
 
@@ -119,7 +120,7 @@ api('9200')
 api('9200/stuff')
 ```
 
-## Make HTTP requests 
+## Make HTTP requests
 
 The above examples with `api()` are not passed through a pipe, so only define a URL, but don't do an HTTP request. To make an HTTP request, you can either pipe a url or partial url to e.g., `api()`, or call `http()` at the end of a string of function calls:
 

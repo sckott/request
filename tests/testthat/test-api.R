@@ -23,5 +23,5 @@ test_that("api fails well", {
 
   expect_error(api(), "argument \"x\" is missing")
   expect_error(api(NULL), "no applicable method")
-  expect_error(5 %>% api(), "Server returned nothing")
+  expect_error(5 %>% api())
 })
