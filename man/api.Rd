@@ -32,6 +32,7 @@ api_template(.data, template, data)
 API base url and endpoint setup
 }
 \examples{
+\dontrun{
 # Set base url
 ## works with full or partial URLs
 api('https://api.github.com/')
@@ -57,6 +58,7 @@ api('https://api.github.com/') \%>\%
 repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') \%>\%
   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
+}
 }
 \seealso{
 Other dsl: \code{\link{api_body}},

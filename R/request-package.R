@@ -12,7 +12,7 @@
 #' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
 #' @keywords package
 #'
-#' @examples
+#' @examples \dontrun{
 #' ## Build API routes
 #' ### Works with full or partial URLs
 #' api('https://api.github.com/')
@@ -47,4 +47,5 @@
 #' api('https://api.github.com/') %>%
 #'   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>%
 #'   peep
+#' }
 NULL

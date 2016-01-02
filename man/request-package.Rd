@@ -9,6 +9,7 @@
 Easy http
 }
 \examples{
+\dontrun{
 ## Build API routes
 ### Works with full or partial URLs
 api('https://api.github.com/')
@@ -43,6 +44,7 @@ repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') \%>\%
   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) \%>\%
   peep
+}
 }
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}

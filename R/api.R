@@ -10,7 +10,7 @@
 #' @param template Template to contstruct API route
 #' @param data Data to pass to the template parameter
 #' @family dsl
-#' @examples
+#' @examples \dontrun{
 #' # Set base url
 #' ## works with full or partial URLs
 #' api('https://api.github.com/')
@@ -36,6 +36,7 @@
 #' repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 #' api('https://api.github.com/') %>%
 #'   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info)
+#' }
 api <- function(x) {
   pipe_autoexec(toggle = TRUE)
   structure(list(url = as.url(x)), class = "endpoint")

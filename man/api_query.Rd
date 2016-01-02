@@ -20,6 +20,7 @@ api_query_(.data, ..., .dots)
 Query construction
 }
 \examples{
+\dontrun{
 ## NSE
 api("http://api.plos.org/search") \%>\%
   api_query(q = ecology, wt = json, fl = 'id,journal') \%>\%
@@ -34,7 +35,6 @@ api("http://api.plos.org/search") \%>\%
   api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') \%>\%
   peep
 
-\dontrun{
 ## NSE
 api("http://api.plos.org/search") \%>\%
   api_query(q = ecology, wt = json, fl = 'id,journal')

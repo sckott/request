@@ -15,6 +15,7 @@ api_config(.data, ...)
 Curl settings
 }
 \examples{
+\dontrun{
 # Config handler
 api('http://api.crossref.org/works') \%>\%
  api_config(verbose(), progress()) \%>\%
@@ -23,6 +24,7 @@ api('http://api.crossref.org/works') \%>\%
 xx <- api('http://api.crossref.org') \%>\%
   api_path(works, 10.3897/zookeys.515.9459) \%>\%
   api_config(verbose())
+}
 }
 \seealso{
 Other dsl: \code{\link{api_body}},

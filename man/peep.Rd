@@ -13,6 +13,7 @@ peep(.data)
 Peek at a query
 }
 \examples{
+\dontrun{
 api('https://api.github.com/') \%>\% peep
 api('https://api.github.com/') \%>\%
   api_path(repos, ropensci, rgbif, issues) \%>\%
@@ -26,5 +27,6 @@ api('https://api.github.com/') \%>\%
 api("http://api.plos.org/search") \%>\%
   api_query(q = ecology, wt = json, fl = id, fl = journal) \%>\%
   peep
+}
 }
 

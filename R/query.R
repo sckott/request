@@ -5,7 +5,7 @@
 #' @param ...	Comma separated list of unquoted variable names
 #' @param .dots	Used to work around non-standard evaluation
 #' @family dsl
-#' @examples
+#' @examples \dontrun{
 #' ## NSE
 #' api("http://api.plos.org/search") %>%
 #'   api_query(q = ecology, wt = json, fl = 'id,journal') %>%
@@ -20,7 +20,6 @@
 #'   api_query_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') %>%
 #'   peep
 #'
-#' \dontrun{
 #' ## NSE
 #' api("http://api.plos.org/search") %>%
 #'   api_query(q = ecology, wt = json, fl = 'id,journal')

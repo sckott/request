@@ -19,7 +19,7 @@
 #' @param type type of HTTP authentication. Should be one of the following types
 #' supported by Curl: basic, digest, digest_ie, gssnegotiate, ntlm, ntlm_vn, any.
 #' Default: "basic" (the most common type)
-#' @examples
+#' @examples \dontrun{
 #' # simple authentication (user/password)
 #' api('https://httpbin.org/basic-auth/user/passwd') %>%
 #'  api_simple_auth(user = "user", pwd = "passwd")
@@ -27,7 +27,6 @@
 #' # api('https://httpbin.org/basic-auth/user/passwd') %>%
 #' #  api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
 #'
-#' \dontrun{
 #' # OAuth setup
 #' ## using a token
 #' ### fill in your own token

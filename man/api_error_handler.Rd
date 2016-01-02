@@ -16,6 +16,7 @@ or name-spaced packges}
 Error handler
 }
 \examples{
+\dontrun{
 # Use functions from httr
 api('https://api.github.com/') \%>\%
  api_error_handler(stop_for_status)
@@ -31,17 +32,7 @@ my_stop <- function(x) {
 }
 api("http://httpbin.org/status/404") \%>\%
  api_error_handler(my_stop)
-
-# not working yet
-# Error handler
-# api("http://httpbin.org/status/404") \%>\%
-#  api_error_handler(stop_for_status) \%>\%
-#  Get()
-
-# Custom error handling function
-# api("http://httpbin.org/status/404") \%>\%
-#   api_error_handler(my_stop) \%>\%
-#   Get()
+}
 }
 \seealso{
 Other dsl: \code{\link{api_body}},

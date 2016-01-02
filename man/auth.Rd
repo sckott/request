@@ -48,6 +48,7 @@ OAuth2.0, leave as NULL.}
 Authentication configuration/setup
 }
 \examples{
+\dontrun{
 # simple authentication (user/password)
 api('https://httpbin.org/basic-auth/user/passwd') \%>\%
  api_simple_auth(user = "user", pwd = "passwd")
@@ -55,7 +56,6 @@ api('https://httpbin.org/basic-auth/user/passwd') \%>\%
 # api('https://httpbin.org/basic-auth/user/passwd') \%>\%
 #  api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
 
-\dontrun{
 # OAuth setup
 ## using a token
 ### fill in your own token
