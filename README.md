@@ -36,9 +36,17 @@ The function `peep()` let's you peek at a request without performing the http re
 
 ## Install
 
+From CRAN
+
 
 ```r
-install.packages("devtools")
+install.packages("request")
+```
+
+Development version from GitHub
+
+
+```r
 devtools::install_github("sckott/request")
 ```
 
