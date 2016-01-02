@@ -19,21 +19,19 @@ httsnap
 * You can use non-standard evaluation to easily pass in query parameters without worrying about `&`'s, URL escaping, etc. (see `api_query()`)
 * Same for body params (see `api_body()`)
 
-All of the default just mentioned can be changed.
+All of the defaults just mentioned can be changed.
 
 ## Auto execute http requests with pipes
 
 When using pipes, we autodetect that a pipe is being used within the function calls, and automatically do the appropriate http request on the last piped function call. When you call a function without using pipes, you have to use the `http()` function explicitly to make the http request.
 
+## low level http
+
+Low level access is available with `http_client()`, which returns an `R6` class with various methods for inspecting http request results.
+
 ## Peek at a request
 
 The function `peep()` let's you peek at a request without performing the http request.
-
-## Philosophy in gif
-
-> the new way
-
-![thenewway](http://media.giphy.com/media/QpebwL6Jr6snu/giphy.gif)
 
 ## Install
 
@@ -172,29 +170,20 @@ api('https://api.github.com/') %>%
 #>   template: repos/craigcitro/r-travis/issues
 ```
 
-## Paging
+## Features coming
 
-This may not work in all scenarios, still a work in progress.
+These features are not in `httsnap` yet, but are shown here just as examples
 
-Here, set `limit` (no. records you want) with a known `limit_max` so we know how to do paging for you. Most well documented APIs tell you what the max limit is per request, so that info should be easy to get.
+### Paging
 
 
 ```r
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
-  api_query(state = open) %>%
-  api_paging(limit = 220, limit_max = 100) %>% 
-  peep
-#> <http query>
-#>   url: https://api.github.com/
-#>   paths: repos ropensci rgbif issues
-#>   query: state:open
-#>   paging: limit:220 limit_max:100 offset:0 by:100
+  api_paging(limit = 220, limit_max = 100)
 ```
 
-## Retry
-
-`curl` has a option `--retry` that lets you retry a request X times. This isn't available in `httr`, but I'm working on a helper.
+### Retry
 
 
 ```r
@@ -202,57 +191,16 @@ api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
   api_retry(n = 5) %>% 
   peep
-#> <http query>
-#>   url: https://api.github.com/
-#>   paths: repos ropensci rgbif issues
-#>   retry: n:5 time:1
 ```
 
-Note that this doesn't work in the http request yet.
-
-## Rate limit
-
-Some APIs have rate limiting. That is, they may limit you to X number of requests per some time period, e.g., 1 hr or 24 hrs. Some APIs have multile rate limits for different time periods, e.g., 100 request per hr __and__ 5000 requests per 24 hrs.
-
-In addition, you may want to set a rate limit below that the API defines, and we hope to support that use case too. 
-
-The `rate_limit()` function helps you deal with these rate limits. 
+### Rate limit
 
 
 ```r
 api('https://api.github.com/') %>% rate_limit(value = 5, period = "24 hrs") %>% peep
-```
-
-```
-#> <http query>
-#>   url: https://api.github.com/
-#>   rate_limit: value:5 period:24 hrs on_limit:list(x = "Rate limit reached", fxn = function (x) 
-#> stop(x, call. = FALSE))
-```
-
-```r
 api('https://api.github.com/') %>% rate_limit(value = 5000, period = "24 hrs") %>% peep
-```
-
-```
-#> <http query>
-#>   url: https://api.github.com/
-#>   rate_limit: value:5000 period:24 hrs on_limit:list(x = "Rate limit reached", fxn = function (x) 
-#> stop(x, call. = FALSE))
-```
-
-```r
 api('https://api.github.com/') %>% rate_limit(value = 10, period = "5 min") %>% peep
 ```
-
-```
-#> <http query>
-#>   url: https://api.github.com/
-#>   rate_limit: value:10 period:5 min on_limit:list(x = "Rate limit reached", fxn = function (x) 
-#> stop(x, call. = FALSE))
-```
-
-Note that this doesn't work in the http request yet.
 
 ## Meta
 
