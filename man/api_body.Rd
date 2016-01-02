@@ -43,9 +43,9 @@ dd \%>\% api_body(body_value = "") \%>\% http("POST")
 dd \%>\% api_body(x = hello) \%>\% http("POST")
 
 # upload a file
-file <- "~/httsnap_test.txt"
+file <- "~/some_test.txt"
 cat("hello, world", file = file)
-dd \%>\% api_body(x = upload_file("~/httsnap_test.txt")) \%>\% http("POST")
+dd \%>\% api_body(x = upload_file("~/some_test.txt")) \%>\% http("POST")
 
 # A named list
 dd \%>\% api_body(x = hello, y = stuff) \%>\% http("POST")

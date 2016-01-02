@@ -79,7 +79,7 @@ make_ua <- function() {
   versions <- c(curl = curl::curl_version()$version,
                 curl = as.character(packageVersion("curl")),
                 httr = as.character(packageVersion("httr")),
-                httsnap = as.character(packageVersion("httsnap")))
+                request = as.character(packageVersion("request")))
   paste0(names(versions), "/", versions, collapse = " ")
 }
 
