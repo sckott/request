@@ -3,6 +3,7 @@
 README.Rmd
 README.html
 .travis.yml
+appveyor.yml
 ^\.httr-oauth$
 ^CONDUCT\.md$
 NEWS.md
