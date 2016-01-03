@@ -4,6 +4,7 @@ request
 
 
 [![Build Status](https://travis-ci.org/sckott/request.svg)](https://travis-ci.org/sckott/request)
+
 [![codecov.io](https://codecov.io/github/sckott/request/coverage.svg?branch=master)](https://codecov.io/github/sckott/request?branch=master)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/request?color=F3B1FF)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/request)](http://cran.rstudio.com/web/packages/request)
@@ -14,7 +15,7 @@ request
 
 ## Philosophy
 
-* The web is increasingly a JSON world, so we set `content-type` and `accept` headers to `applications/json` by default
+* The web is increasingly a JSON world, so we assume `applications/json` by default, but give back other types if not
 * The workflow follows logically, or at least should, from, _hey, I got this url_, to _i need to add some options_, to _execute request_
 * Whenever possible, we transform output to data.frame's - facilitating downstream manipulation via `dplyr`, etc.
 * We do `GET` requests by default. Specify a different type if you don't want `GET`
@@ -104,7 +105,7 @@ api('9200/stuff')
 #> URL: http://localhost:9200/stuff
 ```
 
-## Make HTTP requests 
+## Make HTTP requests
 
 The above examples with `api()` are not passed through a pipe, so only define a URL, but don't do an HTTP request. To make an HTTP request, you can either pipe a url or partial url to e.g., `api()`, or call `http()` at the end of a string of function calls:
 
