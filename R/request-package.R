@@ -1,11 +1,14 @@
 #' Easy http
 #'
+#' @import httr
 #' @importFrom methods is
 #' @importFrom stats setNames
 #' @importFrom utils head modifyList packageVersion
 #' @importFrom R6 R6Class
 #' @importFrom curl curl_version
-#' @import httr
+#' @importFrom whisker whisker.render
+#' @importFrom lazyeval lazy_dots all_dots
+#' @importFrom magrittr %>%
 #' @name request-package
 #' @aliases request
 #' @docType package

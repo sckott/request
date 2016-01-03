@@ -3,7 +3,7 @@ Title: High Level 'HTTP' Client
 Description: High level and easy 'HTTP' client for 'R'. Provides functions for
     building 'HTTP' queries, including query parameters, body requests, headers,
     authentication, and more.
-Version: 0.1.0.9000
+Version: 0.1.0.9200
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE

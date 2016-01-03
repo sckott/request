@@ -1,7 +1,5 @@
 #' API base url and endpoint setup
 #'
-#' @importFrom whisker whisker.render
-#' @importFrom lazyeval lazy_dots all_dots
 #' @export
 #' @param x A URL
 #' @param .data Result of a call to \code{api}
