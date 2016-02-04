@@ -72,9 +72,9 @@ RequestIterator <- R6::R6Class("RequestIterator",
   },
   count = function() {
     if (is(self$result, "response")) {
-      length(httr::content(self$result))
+      length(httr::content(self$result, "text", encoding = "UTF-8"))
     } else {
-      sum(sapply(self$result, function(x) length(httr::content(x))))
+      sum(sapply(self$result, function(x) length(httr::content(x, "text", encoding = "UTF-8"))))
     }
   },
   handle_errors = function(.data, x) {
@@ -99,7 +99,7 @@ RequestIterator <- R6::R6Class("RequestIterator",
 
 try_error <- function(x) {
   if (x$status_code > 201) {
-    one <- tryCatch(content(x), error = function(e) e)
+    one <- tryCatch(content(x, "text", encoding = "UTF-8"), error = function(e) e)
     if (!is(one, "error")) {
       two <- tryCatch(one$error, error = function(e) e)
       if (!is(two, "error")) {
@@ -119,11 +119,11 @@ httr_parse <- function(x) {
     if (!is.null(x$request$output$path)) {
       return(x$request$output$path)
     } else {
-      txt <- httr::content(x, "text")
+      txt <- httr::content(x, "text", encoding = "UTF-8")
       jsonlite::fromJSON(txt, parse, flatten = TRUE)
     }
   } else {
-    content(x)
+    content(x, "text", encoding = "UTF-8")
   }
 }
 
