@@ -22,5 +22,6 @@ Imports:
     whisker (>= 0.3-2),
     R6 (>= 2.1.1)
 Suggests:
-    testthat
+    testthat,
+    covr
 RoxygenNote: 5.0.1
