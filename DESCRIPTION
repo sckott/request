@@ -1,9 +1,10 @@
 Package: request
 Title: High Level 'HTTP' Client
-Description: High level and easy 'HTTP' client for 'R'. Provides functions for
-    building 'HTTP' queries, including query parameters, body requests, headers,
-    authentication, and more.
-Version: 0.1.0.9400
+Description: High level and easy 'HTTP' client for 'R' that makes assumptions
+    that should work in most cases. Provides functions for building 'HTTP'
+    queries, including query parameters, body requests, headers, authentication,
+    and more.
+Version: 0.1.1.9000
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
@@ -20,8 +21,10 @@ Imports:
     magrittr (>= 1.5),
     lazyeval (>= 0.1.10),
     whisker (>= 0.3-2),
-    R6 (>= 2.1.1)
+    R6 (>= 2.1.1),
+    tibble (>= 1.0.5)
 Suggests:
     testthat,
-    covr
+    covr,
+    data.table
 RoxygenNote: 5.0.1
