@@ -7,6 +7,7 @@
 #' @importFrom whisker whisker.render
 #' @importFrom lazyeval lazy_dots all_dots
 #' @importFrom magrittr %>%
+#' @import httr
 #' @name request-package
 #' @aliases request
 #' @docType package
