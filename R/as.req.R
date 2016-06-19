@@ -33,8 +33,10 @@ print.req <- function(x, ...){
              paste(names(x$query), unname(unlist(x$query)), sep = "=", collapse = ", ")), sep = "\n")
   cat(paste0("  body: ",
              print_body(x$body)), sep = "\n")
+  x$paging <- dr_op(x$paging, "size")
   cat(paste0("  paging: ",
-             paste(names(x$paging), unname(unlist(x$paging)), sep = "=", collapse = ", ")), sep = "\n")
+             paste(vapply(x$paging, function(x) names(x), ""),
+                   sapply(x$paging, function(x) x[[1]]$expr), sep = "=", collapse = ", ")), sep = "\n")
   cat(paste0("  headers: ",
              print_heads(x$headers)), sep = "\n")
   cat(paste0("  rate limit: ",

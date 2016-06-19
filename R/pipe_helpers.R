@@ -24,6 +24,7 @@ pipe_autoexec <- function(toggle, method = "GET") {
   if (isTRUE(info[["is_piped"]])) {
     pipeline_on_exit(info$env)
     info$env$.http_exitfun <- if (toggle) http else identity
+    # info$env$.http_exitfun <- if (toggle) http2 else identity
   }
 
   invisible()
