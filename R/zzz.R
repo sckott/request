@@ -6,6 +6,11 @@ pluck <- function(x, name, type) {
   }
 }
 
+dr_op <- function(x, name) {
+  x[name] <- NULL
+  x
+}
+
 is_url <- function(x){
   grepl("https?://", x, ignore.case = TRUE) || grepl("localhost:[0-9]{4}", x, ignore.case = TRUE)
 }
