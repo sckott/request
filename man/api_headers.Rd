@@ -27,6 +27,7 @@ api('https://api.github.com/') \%>\%
    peep
 
 api('http://httpbin.org/headers') \%>\%
+   api_config(verbose()) \%>\%
    api_headers(`X-FARGO-SEASON` = 3, `X-NARCOS-SEASON` = 5)
 }
 }

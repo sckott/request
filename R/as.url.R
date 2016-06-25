@@ -8,11 +8,14 @@ as.url.url <- function(x) {
 
 as.url.character <- function(x) {
   if (is_url(x)) {
-    x <- add_http(x)
+    x <- add_scheme(x)
   } else if ( is_port(x) ) {
     x <- paste0("http://localhost:", sub("^:", "", x))
   } else {
     x
+  }
+  if (!has_scheme(x)) {
+    x <- add_scheme(x)
   }
   structure(x, class = "url")
 }

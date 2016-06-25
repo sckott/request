@@ -51,10 +51,10 @@ Authentication configuration/setup
 \dontrun{
 # simple authentication (user/password)
 api('https://httpbin.org/basic-auth/user/passwd') \%>\%
- api_simple_auth(user = "user", pwd = "passwd")
+  api_simple_auth(user = "user", pwd = "passwd")
 ## different auth type
-# api('https://httpbin.org/basic-auth/user/passwd') \%>\%
-#  api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
+api('https://httpbin.org/basic-auth/user/passwd') \%>\%
+  api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
 
 # OAuth setup
 ## using a token

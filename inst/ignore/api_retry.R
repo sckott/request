@@ -12,10 +12,10 @@
 #' retry X times you specify, if the previous call failed.
 #'
 #' @examples \dontrun{
-#' api('http://127.0.0.1:8080') %>%
+#' api('http://httpbin.org/status/500') %>%
 #'    api_path(repos, asdfasdf) %>%
 #'    api_retry(n = 5) %>%
-#'    http
+#'    peep
 #'
 #' api('http://127.0.0.1:8080') %>%
 #'    api_retry(n = 5, time = 2) %>%

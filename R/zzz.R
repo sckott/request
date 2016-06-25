@@ -25,12 +25,16 @@ is_port <- function(x) {
   }
 }
 
-add_http <- function(x) {
+add_scheme <- function(x) {
   if (!grepl("https?://", x, ignore.case = TRUE)) {
     paste0("http://", x)
   } else {
     x
   }
+}
+
+has_scheme <- function(x) {
+  grepl("https?://", x, ignore.case = TRUE)
 }
 
 comp <- function(l) {
@@ -62,6 +66,7 @@ trimslash <- function(str) {
 }
 
 combconfig <- function(x) {
+  x <- comp(x)
   if (is.null(x)) {
     NULL
   } else {
@@ -113,4 +118,17 @@ each_link <- function(z) {
   nm <- gsub("\"|(rel)|=", "", tmp[2])
   url <- gsub("^<|>$", "", tmp[1])
   list(name = nm, url = url)
+}
+
+get_names <- function(x) {
+  res <- c()
+  for (i in seq_along(x)) {
+    res[i] <-
+      if (inherits(x[[i]], "lazy_dots")) {
+        names(x[[i]])
+      } else {
+        names(x[i])
+      }
+  }
+  return(res)
 }

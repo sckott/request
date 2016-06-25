@@ -22,10 +22,10 @@
 #' @examples \dontrun{
 #' # simple authentication (user/password)
 #' api('https://httpbin.org/basic-auth/user/passwd') %>%
-#'  api_simple_auth(user = "user", pwd = "passwd")
+#'   api_simple_auth(user = "user", pwd = "passwd")
 #' ## different auth type
-#' # api('https://httpbin.org/basic-auth/user/passwd') %>%
-#' #  api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
+#' api('https://httpbin.org/basic-auth/user/passwd') %>%
+#'   api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate")
 #'
 #' # OAuth setup
 #' ## using a token
@@ -61,7 +61,9 @@
 api_simple_auth <- function(.data, user, pwd, type = "basic") {
   pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
-  modifyList(.data, list(config = c(authenticate(user = user, password = pwd, type = type))))
+  #modifyList(.data, list(config = c(authenticate(user = user, password = pwd, type = type))))
+  .data$config <- combconfig(list(.data$config, authenticate(user = user, password = pwd, type = type)))
+  return(.data)
 }
 
 # oauth ------------------------------------
@@ -79,7 +81,8 @@ api_oauth2 <- function(.data, token = NULL, app_name = NULL, key = NULL,
     stop("either token or app_name + key + secret must be provided", call. = FALSE)
   } else {
     if (!is.null(token)) {
-      auth <- config(token = token)
+      #auth <- config(token = token)
+      auth <- add_headers(Authorization = paste0("token ", token))
     } else {
       app <- oauth_app(app_name, key, secret)
       endpts <- oauth_endpoint(authorize = authorize, access = access, base_url = base_url)

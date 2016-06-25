@@ -11,6 +11,7 @@
 #'    peep
 #'
 #' api('http://httpbin.org/headers') %>%
+#'    api_config(verbose()) %>%
 #'    api_headers(`X-FARGO-SEASON` = 3, `X-NARCOS-SEASON` = 5)
 #' }
 api_headers <- function(.data, ..., .dots) {
@@ -23,7 +24,9 @@ api_headers_ <- function(.data, ..., .dots) {
   pipe_autoexec(toggle = TRUE)
   tmp <- lazyeval::all_dots(.dots, ...)
   .data <- as.req(.data)
-  modifyList(.data, list(headers = getheads(tmp)))
+  tmp <- getheads(tmp)
+  .data$config <- combconfig(list(.data$config, tmp))
+  return(.data)
 }
 
 getheads <- function(x) {

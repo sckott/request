@@ -65,9 +65,9 @@ RequestIterator <- R6::R6Class("RequestIterator",
   parse = function(parse = TRUE) {
     x <- self$result
     if (is(x, "response")) {
-      httr_parse(x)
+      httr_parse(x, parse = parse)
     } else {
-      lapply(x, httr_parse)
+      lapply(x, httr_parse, parse = parse)
     }
   },
   count = function() {
@@ -114,13 +114,14 @@ try_error <- function(x) {
   }
 }
 
-httr_parse <- function(x) {
+httr_parse <- function(x, parse) {
   if (grepl("json", x$headers$`content-type`)) {
     if (!is.null(x$request$output$path)) {
       return(x$request$output$path)
     } else {
       txt <- httr::content(x, "text", encoding = "UTF-8")
-      jsonlite::fromJSON(txt, parse, flatten = TRUE)
+      tmp <- jsonlite::fromJSON(txt, parse, flatten = TRUE)
+      if (inherits(tmp, "data.frame")) tibble::as_data_frame(tmp) else tmp
     }
   } else {
     content(x, "text", encoding = "UTF-8")

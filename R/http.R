@@ -37,7 +37,9 @@
 http <- function(req, method = "GET") {
   pipe_autoexec(toggle = FALSE)
   if (!method %in% c("GET", "POST")) stop("method must be one of GET or POST", call. = FALSE)
-  rr <- RequestIterator$new(paging = req$paging)
+  if ('body' %in% names(req)) method <- "POST"
+  #rr <- RequestIterator$new(paging = req$paging)
+  rr <- RequestIterator$new()
   switch(method,
          GET = rr$GET(req),
          POST = rr$POST(req)

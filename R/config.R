@@ -19,5 +19,6 @@ api_config <- function(.data, ...) {
   .data <- as.req(.data)
   tmp <- list(...)
   tmp <- if (length(tmp) == 1) tmp[[1]] else do.call('c', tmp)
-  modifyList(.data, list(config = tmp))
+  .data$config <- combconfig(list(.data$config, tmp))
+  return(.data)
 }
