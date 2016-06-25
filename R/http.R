@@ -77,7 +77,8 @@ http2 <- function(req, method = "GET") {
 #' @rdname http
 http_client <- function(req) {
   pipe_autoexec(toggle = FALSE)
-  rr <- RequestIterator$new(paging = req$paging)
+  # rr <- RequestIterator$new(paging = req$paging)
+  rr <- RequestIterator$new()
   rr$GET(req)
   return(rr)
 }
