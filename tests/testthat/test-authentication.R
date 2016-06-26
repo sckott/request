@@ -26,11 +26,19 @@ test_that("authentication - basic auth works", {
   aaa <- aa %>% http
   expect_is(aaa, "list")
   expect_named(aaa, c("authenticated", "user"))
+})
 
+test_that("authentication - basic auth with differnt auth type", {
+  skip_on_travis()
+  skip_on_cran()
+
+  bb <- api('https://httpbin.org/basic-auth/user/passwd') %>%
+    api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate") %>%
+    peep
   expect_error(bb %>% http, "Client error: \\(401\\) Unauthorized")
 })
 
-test_that("authentication - basic auth works", {
+test_that("authentication - oauth2 works", {
   skip_on_cran()
 
   expect_is(
@@ -48,7 +56,15 @@ test_that("authentication - basic auth works", {
   expect_is(aa$config, "request")
   expect_is(aa$config, "request")
   expect_named(aa$config$headers, "Authorization")
+})
 
+test_that("authentication - oauth2 with differnt auth type", {
+  skip_on_travis()
+  skip_on_cran()
+
+  aa <- api('https://api.github.com/') %>%
+    api_oauth2(token = "<token>") %>%
+    peep
   expect_error(aa %>% http, "Client error: \\(401\\) Unauthorized")
 })
 
