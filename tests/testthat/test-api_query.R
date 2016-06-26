@@ -37,7 +37,5 @@ test_that("api_query works", {
 test_that("api_query fails well", {
   skip_on_cran()
 
-  xx <- api("http://api.plos.org/search")
-
   expect_error(api_query(), "argument \".data\" is missing")
 })
