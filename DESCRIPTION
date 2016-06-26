@@ -4,7 +4,7 @@ Description: High level and easy 'HTTP' client for 'R' that makes assumptions
     that should work in most cases. Provides functions for building 'HTTP'
     queries, including query parameters, body requests, headers, authentication,
     and more.
-Version: 0.1.2.9200
+Version: 0.1.2.9260
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE

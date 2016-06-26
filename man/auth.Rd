@@ -73,8 +73,8 @@ api('https://httpbin.org/basic-auth/user/passwd') \%>\%
 
 # OAuth1
 # api('https://api.twitter.com/1.1/statuses/home_timeline.json') \%>\%
-#  api_oauth1(app_name = "twitter", key = "TYrWFPkFAkn4G5BbkWINYw",
-#      secret = "qjOkmKYU9kWfUFWmekJuu5tztE9aEfLbt26WlhZL8",
+#  api_oauth1(app_name = "twitter", key = "afdafasdfs",
+#      secret = "asdfasdfasfasfsdf",
 #      base_url = "https://api.twitter.com/oauth/",
 #      request = "request_token", authorize = "authenticate", access = "access_token")
 
