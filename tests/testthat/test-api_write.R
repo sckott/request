@@ -17,7 +17,7 @@ test_that("api_write works", {
   expect_is(bb, "req")
 
   expect_is(aa$url, "url")
-  expect_is(bb$write, "request")
+  expect_is(bb$config$output$path, "character")
 
   expect_is(aa %>% http, "character")
   expect_is(bb %>% http, "character")
