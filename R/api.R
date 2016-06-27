@@ -2,11 +2,7 @@
 #'
 #' @export
 #' @param x A URL
-#' @param .data Result of a call to \code{api}
-#' @param ...	Comma separated list of unquoted variable names
-#' @param .dots	Used to work around non-standard evaluation
-#' @param template Template to contstruct API route
-#' @param data Data to pass to the template parameter
+#' @param ...	ignored
 #' @family dsl
 #' @examples \dontrun{
 #' # Set base url

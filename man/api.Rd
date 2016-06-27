@@ -9,15 +9,7 @@ api(x)
 \arguments{
 \item{x}{A URL}
 
-\item{.data}{Result of a call to \code{api}}
-
-\item{...}{Comma separated list of unquoted variable names}
-
-\item{.dots}{Used to work around non-standard evaluation}
-
-\item{template}{Template to contstruct API route}
-
-\item{data}{Data to pass to the template parameter}
+\item{...}{ignored}
 }
 \description{
 API base url and endpoint setup
