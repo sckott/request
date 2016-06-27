@@ -7,10 +7,10 @@
 #' or name-spaced packges
 #' @examples \dontrun{
 #' # Use functions from httr
-#' api('https://api.github.com/') %>%
+#' api('http://httpbin.org/status/503') %>%
 #'  api_error_handler(stop_for_status)
 #'
-#' api('https://api.github.com/') %>%
+#' api('http://httpbin.org/status/404') %>%
 #'  api_error_handler(warn_for_status)
 #'
 #' # Custom error handling functions
