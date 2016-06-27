@@ -90,8 +90,8 @@ gather_paths <- function(x) {
 }
 
 make_ua <- function() {
-  versions <- c(curl = curl::curl_version()$version,
-                curl = as.character(packageVersion("curl")),
+  versions <- c(libcurl = curl::curl_version()$version,
+                `r-curl` = as.character(packageVersion("curl")),
                 httr = as.character(packageVersion("httr")),
                 request = as.character(packageVersion("request")))
   paste0(names(versions), "/", versions, collapse = " ")

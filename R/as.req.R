@@ -38,15 +38,28 @@ print.req <- function(x, ...){
              paste(vapply(x$paging, function(x) names(x), ""),
                    sapply(x$paging, function(x) x[[1]]$expr), sep = "=", collapse = ", ")), sep = "\n")
   cat(paste0("  headers: ",
-             print_heads(x$headers)), sep = "\n")
+             print_heads(x$config)), sep = "\n")
   cat(paste0("  rate limit: ",
              print_rate(x$rate_limit)), sep = "\n")
   cat(paste0("  retry (n/delay (s)): ",
              paste0(x$retry$n, "/", x$retry$time)), sep = "\n")
   cat(paste0("  error handler: ",
              names(x$error)), sep = "\n")
+  cat(paste0("  write: ",
+             print_write(x$config)), sep = "\n")
   cat("  config: ", sep = "\n")
-  if (!is.null(x$config)) print(x$config, sep = "\n")
+  if (!is.null(x$config)) print_config(x$config)
+}
+
+print_config <- function(z) {
+  z$options$debugfunction <- NULL
+  z$headers <- NULL
+  for (i in seq_along(z$options)) {
+    if (!is.null(z$options[[i]])) {
+      cat(sprintf("    %s: %s",
+                  names(z$options)[i], z$options[[i]]), sep = "\n")
+    }
+  }
 }
 
 print_rate <- function(z) {
@@ -61,6 +74,12 @@ print_heads <- function(x) {
     return(x)
   } else {
     print_lazy(as.list(x$headers))
+  }
+}
+
+print_write <- function(z) {
+  if (!is.null(z$output)) {
+    print_lazy(comp(as.list(z$output)))
   }
 }
 

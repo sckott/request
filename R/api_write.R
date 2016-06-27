@@ -16,7 +16,10 @@
 api_write <- function(.data, file, overwrite = FALSE, ...){
   pipe_autoexec(toggle = TRUE)
   .data <- as.req(.data)
-  modifyList(.data, list(
-    write = write_disk(path = file, overwrite = overwrite))
-  )
+  # modifyList(.data, list(
+  #   write = write_disk(path = file, overwrite = overwrite))
+  # )
+  tmp <- write_disk(path = file, overwrite = overwrite)
+  .data$config <- combconfig(list(.data$config, tmp))
+  return(.data)
 }
