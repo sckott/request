@@ -44,33 +44,3 @@ api <- function(x) {
 print.endpoint <- function(x, ...) {
   cat(sprintf("URL: %s", x$url))
 }
-
-# path defintion ------------------------------------
-#' @export
-#' @rdname api
-api_path <- function(.data, ..., .dots) {
-  api_path_(.data, .dots = lazyeval::lazy_dots(...))
-}
-
-#' @export
-#' @rdname api
-api_path_ <- function(.data, ..., .dots) {
-  pipe_autoexec(toggle = TRUE)
-  tmp <- lazyeval::all_dots(.dots, ...)
-  .data <- as.req(.data)
-  modifyList(.data, list(paths = getpaths(tmp)))
-}
-
-getpaths <- function(x) {
-  unname(sapply(x, function(z) as.character(z$expr)))
-}
-
-# api template ------------------------------------
-#' @export
-#' @rdname api
-api_template <- function(.data, template, data) {
-  pipe_autoexec(toggle = TRUE)
-  .data <- as.req(.data)
-  temp <- whisker::whisker.render(template, data)
-  modifyList(.data, list(template = temp))
-}

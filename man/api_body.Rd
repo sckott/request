@@ -56,7 +56,8 @@ dd \%>\% api_body_(x = "hello", y = "stuff") \%>\% http("POST")
 }
 \seealso{
 Other dsl: \code{\link{api_config}},
-  \code{\link{api_error_handler}}, \code{\link{api_query}},
+  \code{\link{api_error_handler}}, \code{\link{api_path}},
+  \code{\link{api_query}}, \code{\link{api_template}},
   \code{\link{api}}, \code{\link{auth}}
 }
 

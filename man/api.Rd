@@ -2,18 +2,9 @@
 % Please edit documentation in R/api.R
 \name{api}
 \alias{api}
-\alias{api_path}
-\alias{api_path_}
-\alias{api_template}
 \title{API base url and endpoint setup}
 \usage{
 api(x)
-
-api_path(.data, ..., .dots)
-
-api_path_(.data, ..., .dots)
-
-api_template(.data, template, data)
 }
 \arguments{
 \item{x}{A URL}
@@ -63,7 +54,8 @@ api('https://api.github.com/') \%>\%
 \seealso{
 Other dsl: \code{\link{api_body}},
   \code{\link{api_config}},
-  \code{\link{api_error_handler}}, \code{\link{api_query}},
+  \code{\link{api_error_handler}}, \code{\link{api_path}},
+  \code{\link{api_query}}, \code{\link{api_template}},
   \code{\link{auth}}
 }
 

@@ -87,7 +87,8 @@ api('https://httpbin.org/basic-auth/user/passwd') \%>\%
 \seealso{
 Other dsl: \code{\link{api_body}},
   \code{\link{api_config}},
-  \code{\link{api_error_handler}}, \code{\link{api_query}},
+  \code{\link{api_error_handler}}, \code{\link{api_path}},
+  \code{\link{api_query}}, \code{\link{api_template}},
   \code{\link{api}}
 }
 
