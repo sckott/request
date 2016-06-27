@@ -3,7 +3,7 @@ context("api_template")
 test_that("api_template works", {
   skip_on_cran()
 
-  expect_is(api_template(api('https://api.github.com')), "req")
+  expect_is(api_template(api('https://api.github.com'), "", ""), "req")
 
   repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 
