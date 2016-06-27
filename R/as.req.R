@@ -3,12 +3,20 @@ as.req <- function(x) {
   UseMethod("as.req")
 }
 
+as.req.default <- function(x) {
+  stop("no as.req method for ", class(x), call. = FALSE)
+}
+
 as.req.req <- function(x) {
   x
 }
 
 as.req.endpoint <- function(x){
   req(x$url)
+}
+
+as.req.url <- function(x){
+  req(x[[1]])
 }
 
 as.req.character <- function(x){
