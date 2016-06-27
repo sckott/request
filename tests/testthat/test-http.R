@@ -14,8 +14,8 @@ test_that("http works", {
   expect_is(aa2, "req")
   expect_identical(aa1, aa2 %>% http)
 
-  expect_identical(http(api("https://api.github.com")),
-    api("https://api.github.com") %>% http
+  expect_identical(http(api_oauth2(api("https://api.github.com"), token = Sys.getenv("GITHUB_PAT"))),
+    api("https://api.github.com") %>% api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>% http
   )
 
   x <- api("http://httpbin.org/post") %>%

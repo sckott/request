@@ -9,6 +9,7 @@ test_that("api_template works", {
 
   aa <- api('https://api.github.com') %>%
     api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
 
   bb <- api("http://api.gbif.org/v1") %>%

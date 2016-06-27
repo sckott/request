@@ -5,14 +5,17 @@ test_that("api_headers works", {
 
   x <- api('https://api.github.com/') %>%
     api_headers(`X-FARGO-SEASON` = 3) %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
 
   y <- api('https://api.github.com/') %>%
     api_headers(`X-FARGO-SEASON` = three, `Accept Token` = yellow) %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
 
   yy <- api('https://api.github.com/') %>%
     api_headers_(`X-FARGO-SEASON` = "three", `Accept Token` = "yellow") %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
 
   expect_is(x, "req")
@@ -22,10 +25,10 @@ test_that("api_headers works", {
   expect_is(y$url, "url")
 
   expect_is(x$config, "request")
-  expect_named(x$config$headers, "X-FARGO-SEASON")
+  expect_named(x$config$headers, c("X-FARGO-SEASON", "Authorization"))
 
   expect_is(y$config, "request")
-  expect_named(y$config$headers, c("X-FARGO-SEASON", "Accept Token"))
+  expect_named(y$config$headers, c("X-FARGO-SEASON", "Accept Token", "Authorization"))
 
   expect_identical(y, yy)
 })

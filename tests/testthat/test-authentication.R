@@ -47,7 +47,7 @@ test_that("authentication - oauth2 works", {
   )
 
   aa <- api('https://api.github.com/') %>%
-    api_oauth2(token = "<token>") %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
 
   expect_is(aa, "req")
@@ -62,8 +62,8 @@ test_that("authentication - oauth2 with differnt auth type", {
   skip_on_travis()
   skip_on_cran()
 
-  aa <- api('https://api.github.com/') %>%
-    api_oauth2(token = "<token>") %>%
+  aa <- api('https://httpbin.org/basic-auth/user/passwd') %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
   expect_error(aa %>% http, "Client error: \\(401\\) Unauthorized")
 })

@@ -90,7 +90,9 @@ api_oauth2 <- function(.data, token = NULL, app_name = NULL, key = NULL,
       auth <- config(token = token)
     }
   }
-  modifyList(.data, list(config = c(auth)))
+  # modifyList(.data, list(config = c(auth)))
+  .data$config <- combconfig(list(.data$config, auth))
+  return(.data)
 }
 
 # oauth1 ------------------------------------
@@ -116,5 +118,7 @@ api_oauth1 <- function(.data, token = NULL, app_name = NULL, key = NULL,
       auth <- config(token = token)
     }
   }
-  modifyList(.data, list(config = c(auth)))
+  # modifyList(.data, list(config = c(auth)))
+  .data$config <- combconfig(list(.data$config, auth))
+  return(.data)
 }

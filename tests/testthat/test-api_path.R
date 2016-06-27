@@ -7,6 +7,7 @@ test_that("api_path works", {
 
   aa <- api('https://api.github.com') %>%
     api_path(repos, ropensci, rgbif, issues) %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
     peep
 
   bb <- api("http://httpbin.org") %>%

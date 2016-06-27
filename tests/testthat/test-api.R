@@ -3,10 +3,13 @@ context("api")
 test_that("api works", {
   skip_on_cran()
 
-  aa <- "https://api.github.com/" %>% api()
+  aa <- "https://api.github.com/" %>% api() %>% api_oauth2(token = Sys.getenv("GITHUB_PAT"))
   bb <- api("https://api.github.com/")
-  bb_get <- bb %>% http()
-  cc <- api("https://api.github.com/") %>% api_config(verbose()) %>% peep()
+  bb_get <- bb %>% api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>% http()
+  cc <- api("https://api.github.com/") %>%
+    api_oauth2(token = Sys.getenv("GITHUB_PAT")) %>%
+    api_config(verbose()) %>%
+    peep()
 
   expect_is(aa, "list")
   expect_is(bb, "endpoint")
