@@ -21,6 +21,12 @@ test_that("api works", {
   expect_true(cc$config$options$verbose)
 })
 
+test_that("print.endpoint works", {
+  bb <- api("https://api.github.com/")
+
+  expect_output(print(bb), "URL: ")
+})
+
 test_that("api fails well", {
   skip_on_cran()
 

@@ -11,6 +11,8 @@ test_that("print.req - character input", {
   expect_output(print(as.req("9200")), "rate limit: ")
   expect_output(print(as.req("9200")), "error handler: ")
   expect_output(print(as.req("9200")), "config: ")
+
+  expect_output(print(api_config(api("http://httpbin.org/get"), verbose())), "verbose: TRUE")
 })
 
 test_that("print.req fails well", {
