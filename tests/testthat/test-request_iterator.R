@@ -51,10 +51,20 @@ test_that("RequestIterator - post initialization w/ data", {
   expect_is(bb$body(), "response")
 })
 
-# test_that("RequestIterator fails well", {
-#   skip_on_cran()
-#
-#   expect_error(http(), "argument \"req\" is missing")
-#   expect_error(http(api("https://api.github.com"), method = "FART"),
-#                "method must be one of GET or POST")
-# })
+test_that("RequestIterator - try_error tester", {
+  skip_on_cran()
+
+  my_stop <- function(x) {
+    if (x$status > 200) {
+      warning("nope, try again", call. = FALSE)
+    }
+  }
+
+  req <- api("http://httpbin.org/status/503") %>% api_error_handler(my_stop) %>% peep
+  bb <- RequestIterator$new()
+  expect_warning(bb$GET(req), "nope, try again")
+
+  req <- api("http://httpbin.org/status/503") %>% peep
+  bb <- RequestIterator$new()
+  expect_error(bb$GET(req), "Service Unavailable")
+})
