@@ -47,31 +47,38 @@ http <- function(req, method = "GET") {
   rr$parse()
 }
 
-http2 <- function(req, method = "GET") {
-  pipe_autoexec(toggle = FALSE)
-  if (!method %in% c("GET", "POST")) stop("method must be one of GET or POST", call. = FALSE)
-  rr <- RequestIterator$new(paging = req$paging)
-  switch(
-    method,
-    GET = {
-      if (!is.null(req$paging)) {
-        if (all(get_names(req$paging) %in% c('page', 'per_page'))) {
-          # pattern: page/per_page
-          rr$GET(req)
-        } else {
-          # pattern: limit
-          tot <- 0
-          while (tot <= get_req_size(req$paging)) {
-            rr$GET(req)
-            tot <- rr$count()
-          }
-        }
-      }
-    },
-    POST = rr$POST(req)
-  )
-  rr$parse()
-}
+# http2 <- function(req, method = "GET") {
+#   pipe_autoexec(toggle = FALSE)
+#   if (!method %in% c("GET", "POST")) stop("method must be one of GET or POST", call. = FALSE)
+#   rr <- RequestIterator$new(paging = req$paging)
+#   switch(
+#     method,
+#     GET = {
+#       if (!is.null(req$paging)) {
+#         if (all(get_names(req$paging) %in% c('page', 'per_page'))) {
+#           # pattern: page/per_page
+#           rr$GET(req)
+#         } else {
+#           # pattern: limit
+#           tot <- 0
+#           while (tot <= get_req_size(req$paging)) {
+#             rr$GET(req)
+#             tot <- rr$count()
+#           }
+#         }
+#       }
+#     },
+#     POST = rr$POST(req)
+#   )
+#   rr$parse()
+# }
+
+# get_req_size <- function(x) {
+#   xx <- sapply(x, function(z) {
+#     as.list(setNames(z[[1]]$expr, names(z)))
+#   })
+#   xx[names(xx) %in% c('size', 'limit', 'max')][[1]]
+# }
 
 #' @export
 #' @rdname http
@@ -81,11 +88,4 @@ http_client <- function(req) {
   rr <- RequestIterator$new()
   rr$GET(req)
   return(rr)
-}
-
-get_req_size <- function(x) {
-  xx <- sapply(x, function(z) {
-    as.list(setNames(z[[1]]$expr, names(z)))
-  })
-  xx[names(xx) %in% c('size', 'limit', 'max')][[1]]
 }
