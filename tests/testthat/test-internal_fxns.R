@@ -27,3 +27,16 @@ test_that("is_port", {
   expect_true(is_port("/9000"))
   expect_false(is_port("/900"))
 })
+
+test_that("each_link", {
+  str <- '<https://api.github.com/organizations/1200269/events?page=2>; rel="next", <https://api.github.com/organizations/1200269/events?page=10>; rel="last"'
+  strs <- strtrim(strsplit(str, ",")[[1]])
+  aa <- lapply(strs, each_link)
+
+  expect_is(aa, "list")
+  expect_named(aa[[1]], c('name', 'url'))
+  expect_is(aa[[1]]$name, "character")
+  expect_is(aa[[1]]$url, "character")
+  expect_equal(aa[[1]]$name, "next")
+  expect_match(aa[[1]]$url, "https")
+})

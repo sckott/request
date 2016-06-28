@@ -120,15 +120,15 @@ each_link <- function(z) {
   list(name = nm, url = url)
 }
 
-get_names <- function(x) {
-  res <- c()
-  for (i in seq_along(x)) {
-    res[i] <-
-      if (inherits(x[[i]], "lazy_dots")) {
-        names(x[[i]])
-      } else {
-        names(x[i])
-      }
-  }
-  return(res)
-}
+# get_names <- function(x) {
+#   res <- c()
+#   for (i in seq_along(x)) {
+#     res[i] <-
+#       if (inherits(x[[i]], "lazy_dots")) {
+#         names(x[[i]])
+#       } else {
+#         names(x[i])
+#       }
+#   }
+#   return(res)
+# }
