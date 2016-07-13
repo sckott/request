@@ -31,7 +31,9 @@
 #' ## using a token
 #' ### fill in your own token
 #' # api('https://api.github.com/') %>%
-#' #   api_oauth2(token = "<token>")
+#' #   api_path(orgs, ropensci, events) %>%
+#' #   api_oauth2(token = "<your token>") %>%
+#' #   api_config(verbose())
 #'
 #' # OAuth2
 #' ## using a app name, key, and secret combination
