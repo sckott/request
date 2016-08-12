@@ -13,6 +13,8 @@ request
 
 `request` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
 
+I gave a poster at User2016, its in my [talks repo](https://github.com/sckott/talks/blob/gh-pages/user2016/request.pdf)
+
 ## Philosophy
 
 * The web is increasingly a JSON world, so we assume `applications/json` by default, but give back other types if not
@@ -114,13 +116,13 @@ The above examples with `api()` are not passed through a pipe, so only define a 
 'https://api.github.com/' %>% api()
 #> $current_user_url
 #> [1] "https://api.github.com/user"
-#> 
+#>
 #> $current_user_authorizations_html_url
 #> [1] "https://github.com/settings/connections/applications{/client_id}"
-#> 
+#>
 #> $authorizations_url
 #> [1] "https://api.github.com/authorizations"
-#> 
+#>
 #> $code_search_url
 ...
 ```
@@ -132,13 +134,13 @@ Or
 api('https://api.github.com/') %>% http()
 #> $current_user_url
 #> [1] "https://api.github.com/user"
-#> 
+#>
 #> $current_user_authorizations_html_url
 #> [1] "https://github.com/settings/connections/applications{/client_id}"
-#> 
+#>
 #> $authorizations_url
 #> [1] "https://api.github.com/authorizations"
-#> 
+#>
 #> $code_search_url
 ...
 ```
@@ -153,16 +155,16 @@ repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') %>%
   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>%
   peep
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
-#>   paths: 
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   paths:
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -175,16 +177,16 @@ api('https://api.github.com/') %>%
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
   peep
-#> <http request> 
+#> <http request>
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query: 
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   query:
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 
@@ -195,16 +197,16 @@ api('https://api.github.com/') %>%
 api("http://api.plos.org/search") %>%
   api_query(q = ecology, wt = json, fl = 'id,journal') %>%
   peep
-#> <http request> 
+#> <http request>
 #>   url: http://api.plos.org/search
-#>   paths: 
+#>   paths:
 #>   query: q=ecology, wt=json, fl=id,journal
-#>   body: 
-#>   paging: 
-#>   headers: 
-#>   rate limit: 
+#>   body:
+#>   paging:
+#>   headers:
+#>   rate limit:
 #>   retry (n/delay (s)): /
-#>   error handler: 
+#>   error handler:
 #>   config:
 ```
 

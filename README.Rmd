@@ -44,6 +44,8 @@ knitr::opts_chunk$set(
 
 `request` is built on `httr`, though may allow using the R packages `RCurl` or `curl` as optional backends at some point.
 
+I gave a poster at User2016, its in my [talks repo](https://github.com/sckott/talks/blob/gh-pages/user2016/request.pdf)
+
 ## Philosophy
 
 * The web is increasingly a JSON world, so we assume `applications/json` by default, but give back other types if not
