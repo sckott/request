@@ -61,7 +61,7 @@ cache_sha <- function(x) {
   url$path <- gather_path(x)
   url$query <- if (is.null(x$query)) NULL else as.list(x$query)
   url <- httr::build_url(url)
-  file.path(cache_path(), paste0(digest(url), ".rds"))
+  file.path(cache_path(), paste0(digest::digest(url), ".rds"))
 }
 
 cache_response <- function(x, file) {
