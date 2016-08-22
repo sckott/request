@@ -1,19 +1,19 @@
-context("as.url")
+context("as.rurl")
 
-test_that("as.url works", {
-  aa <- as.url(5000)
-  bb <- as.url("5000")
-  cc <- as.url(':9200')
-  dd <- as.url('9200')
-  ee <- as.url('9200/stuff')
-  ff <- as.url('api.crossreg.org')
+test_that("as.rurl works", {
+  aa <- as.rurl(5000)
+  bb <- as.rurl("5000")
+  cc <- as.rurl(':9200')
+  dd <- as.rurl('9200')
+  ee <- as.rurl('9200/stuff')
+  ff <- as.rurl('api.crossreg.org')
 
-  expect_is(aa, "url")
-  expect_is(bb, "url")
-  expect_is(cc, "url")
-  expect_is(dd, "url")
-  expect_is(ee, "url")
-  expect_is(ff, "url")
+  expect_is(aa, "rurl")
+  expect_is(bb, "rurl")
+  expect_is(cc, "rurl")
+  expect_is(dd, "rurl")
+  expect_is(ee, "rurl")
+  expect_is(ff, "rurl")
 
   expect_true(grepl("localhost", aa))
   expect_true(grepl("localhost", bb))
@@ -31,5 +31,5 @@ test_that("as.url works", {
 })
 
 test_that("as.url fails well", {
-  expect_error(as.url(), "no applicable method")
+  expect_error(as.rurl(), "no applicable method")
 })

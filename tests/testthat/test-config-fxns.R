@@ -11,7 +11,7 @@ test_that("all config fxns work as expected", {
     peep
 
   expect_is(aa, "req")
-  expect_is(aa$url, "url")
+  expect_is(aa$url, "rurl")
   expect_is(aa$config, "request")
   expect_named(aa$config$headers, "a")
   expect_equal(aa$config$options$userpwd, "adf:af")

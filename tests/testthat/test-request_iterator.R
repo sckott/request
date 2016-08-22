@@ -33,7 +33,7 @@ test_that("RequestIterator - post initialization w/ data", {
   skip_on_cran()
 
   bb <- RequestIterator$new()
-  cc <- bb$GET(api("http://httpbin.org/get"))
+  cc <- bb$GET(as.req(api("http://httpbin.org/get")))
 
   expect_is(cc, "response")
   expect_equal(bb$status(), 200)

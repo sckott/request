@@ -33,7 +33,7 @@
 #' }
 api <- function(x) {
   pipe_autoexec(toggle = TRUE)
-  structure(list(url = as.url(x)), class = "endpoint")
+  structure(list(url = as.rurl(x)), class = "endpoint")
 }
 
 #' @export

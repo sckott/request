@@ -21,7 +21,7 @@ test_that("api_query works", {
   expect_is(bb, "req")
   expect_is(cc, "req")
 
-  expect_is(aa$url, "url")
+  expect_is(aa$url, "rurl")
   expect_is(bb$query, "list")
 
   expect_is(aa %>% http, "list")

@@ -19,7 +19,7 @@ test_that("authentication - basic auth works", {
   expect_is(aa, "req")
   expect_is(bb, "req")
 
-  expect_is(aa$url, "url")
+  expect_is(aa$url, "rurl")
   expect_is(aa$config, "request")
   expect_is(bb$config, "request")
 
@@ -52,7 +52,7 @@ test_that("authentication - oauth2 works", {
 
   expect_is(aa, "req")
 
-  expect_is(aa$url, "url")
+  expect_is(aa$url, "rurl")
   expect_is(aa$config, "request")
   expect_is(aa$config, "request")
   expect_named(aa$config$headers, "Authorization")

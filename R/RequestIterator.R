@@ -11,19 +11,27 @@ RequestIterator <- R6::R6Class("RequestIterator",
     if (!missing(links)) self$links <- links
   },
   GET = function(.data, ...) {
-    if (length(self$links) == 0) {
-      .data <- as.req(.data)
-      .data$config <- c(httr::user_agent(make_ua()), .data$config, .data$headers)
-      .data$url <- gather_paths(.data)
-      .data$query <- if (is.null(.data$query)) NULL else as.list(.data$query)
-      res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write,
-                                        query = .data$query, ...))
+    if (isC(.data)) cache_make(.data$cache_path)
+    if (isC(.data) && file.exists(cache_sha(.data))) {
+      message("Cache Hit \n\n")
+      res <- readRDS(file = cache_sha(.data))
     } else {
-      .data <- as.req(self$links[[1]]$url)
-      res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write, ...))
+      if (length(self$links) == 0) {
+        .data <- as.req(.data)
+        .data$config <- c(httr::user_agent(make_ua()), .data$config, .data$headers)
+        .data$url <- gather_paths(.data)
+        .data$query <- if (is.null(.data$query)) NULL else as.list(.data$query)
+        res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write,
+                                          query = .data$query, ...))
+      } else {
+        .data <- as.req(self$links[[1]]$url)
+        res <- suppressWarnings(httr::GET(.data$url[1], .data$config, .data$write, ...))
+      }
+      # error catching
+      self$handle_errors(.data, res)
+      # caching
+      if (isC(.data)) cache_response(res, cache_sha(.data))
     }
-    # error catching
-    self$handle_errors(.data, res)
     # cache links
     self$links <- get_links(res$headers)
     # give back result

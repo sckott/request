@@ -1,12 +1,10 @@
-as.url <- function(x) {
-  UseMethod("as.url")
+as.rurl <- function(x) {
+  UseMethod("as.rurl")
 }
 
-as.url.url <- function(x) {
-  x
-}
+as.rurl.rurl <- function(x) x
 
-as.url.character <- function(x) {
+as.rurl.character <- function(x) {
   if (is_url(x)) {
     x <- add_scheme(x)
   } else if ( is_port(x) ) {
@@ -17,9 +15,9 @@ as.url.character <- function(x) {
   if (!has_scheme(x)) {
     x <- add_scheme(x)
   }
-  structure(x, class = "url")
+  structure(x, class = "rurl")
 }
 
-as.url.numeric <- function(x) {
-  as.url(as.character(x))
+as.rurl.numeric <- function(x) {
+  as.rurl(as.character(x))
 }

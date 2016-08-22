@@ -19,7 +19,7 @@ test_that("api_template works", {
   expect_is(aa, "req")
   expect_is(bb, "req")
 
-  expect_is(aa$url, "url")
+  expect_is(aa$url, "rurl")
   expect_is(aa$template, "character")
   expect_match(aa$template, "craigcitro")
   expect_equal(length(aa$template), 1)

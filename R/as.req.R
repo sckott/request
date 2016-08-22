@@ -8,25 +8,32 @@ as.req.default <- function(x) {
 }
 
 as.req.req <- function(x) {
+  if (!"cache" %in% names(x)) x$cache <- FALSE
   x
 }
 
 as.req.endpoint <- function(x){
-  req(x$url)
+  x <- req(x$url)
+  if (!"cache" %in% names(x)) x$cache <- FALSE
+  x
 }
 
-as.req.url <- function(x){
-  req(x[[1]])
+as.req.rurl <- function(x){
+  x <- req(x[[1]])
+  if (!"cache" %in% names(x)) x$cache <- FALSE
+  x
 }
 
 as.req.character <- function(x){
-  if (is_url(tryCatch(as.url(x), error = function(e) e))) {
-    req(x)
+  if (is_url(tryCatch(as.rurl(x), error = function(e) e))) {
+    x <- req(x)
+    if (!"cache" %in% names(x)) x$cache <- FALSE
+    x
   } else {
     stop("error ...")
   }
 }
 
 req <- function(x){
-  structure(list(url = as.url(x)), class = "req")
+  structure(list(url = as.rurl(x)), class = "req")
 }

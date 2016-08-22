@@ -21,8 +21,8 @@ test_that("api_headers works", {
   expect_is(x, "req")
   expect_is(y, "req")
 
-  expect_is(x$url, "url")
-  expect_is(y$url, "url")
+  expect_is(x$url, "rurl")
+  expect_is(y$url, "rurl")
 
   expect_is(x$config, "request")
   expect_named(x$config$headers, c("X-FARGO-SEASON", "Authorization"))

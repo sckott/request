@@ -22,7 +22,7 @@ test_that("api_path works", {
   expect_is(bb, "req")
   expect_is(cc, "req")
 
-  expect_is(aa$url, "url")
+  expect_is(aa$url, "rurl")
   expect_is(bb$paths, "character")
   expect_equal(length(bb$paths), 1)
   expect_equal(length(cc$paths), 2)
