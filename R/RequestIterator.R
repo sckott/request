@@ -129,7 +129,21 @@ httr_parse <- function(x, parse) {
     } else {
       txt <- httr::content(x, "text", encoding = "UTF-8")
       tmp <- jsonlite::fromJSON(txt, parse, flatten = TRUE)
-      if (inherits(tmp, "data.frame")) tibble::as_data_frame(tmp) else tmp
+      if (inherits(tmp, "data.frame")) {
+        tibble::as_data_frame(tmp)
+      } else {
+        if (inherits(tmp, "list")) {
+          lapply(tmp, function(z) {
+            if (inherits(z, "data.frame")) {
+              tibble::as_data_frame(z)
+            } else {
+              z
+            }
+          })
+        } else {
+          tmp
+        }
+      }
     }
   } else {
     content(x, "text", encoding = "UTF-8")
