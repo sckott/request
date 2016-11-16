@@ -30,19 +30,32 @@
 #' res$parse()
 #'
 #' # Specify HTTP verb
-#' api("http://httpbin.org/post") %>%
+#' ## POST
+#' api("https://httpbin.org/post") %>%
 #'    api_body(x = "A simple text string") %>%
 #'    http("POST")
+#'
+#' ## PUT
+#' api("https://httpbin.org/put") %>%
+#'    api_body(x = "A simple text string") %>%
+#'    http("PUT")
 #' }
 http <- function(req, method = "GET") {
   pipe_autoexec(toggle = FALSE)
-  if (!method %in% c("GET", "POST")) stop("method must be one of GET or POST", call. = FALSE)
-  if ('body' %in% names(req)) method <- "POST"
+  if (!method %in% c("GET", "POST", "PUT")) {
+    stop("method must be one of GET, POST, or PUT", call. = FALSE)
+  }
+  #if ('body' %in% names(req)) method <- "POST"
+  if ('body' %in% names(req) && method == "GET") {
+    stop("body found - specify method = POST or method = PUT", call. = FALSE)
+  }
   #rr <- RequestIterator$new(paging = req$paging)
   rr <- RequestIterator$new()
-  switch(method,
-         GET = rr$GET(req),
-         POST = rr$POST(req)
+  switch(
+    method,
+    GET = rr$GET(req),
+    POST = rr$POST(req),
+    PUT = rr$PUT(req)
   )
   rr$parse()
 }

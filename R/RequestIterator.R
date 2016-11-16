@@ -10,6 +10,7 @@ RequestIterator <- R6::R6Class("RequestIterator",
     if (!missing(limit_max)) self$limit_max <- limit_max
     if (!missing(links)) self$links <- links
   },
+
   GET = function(.data, ...) {
     if (isC(.data)) cache_make(.data$cache_path)
     if (isC(.data) && file.exists(cache_sha(.data))) {
@@ -37,6 +38,7 @@ RequestIterator <- R6::R6Class("RequestIterator",
     # give back result
     self$result <- empty(list(self$result, res))
   },
+
   POST = function(.data, ...) {
     if (length(self$links) == 0) {
       .data <- as.req(.data)
@@ -54,9 +56,29 @@ RequestIterator <- R6::R6Class("RequestIterator",
     # give back result
     self$result <- empty(list(self$result, res))
   },
+
+  PUT = function(.data, ...) {
+    if (length(self$links) == 0) {
+      .data <- as.req(.data)
+      .data$config <- c(httr::user_agent(make_ua()), .data$config)
+      .data$url <- gather_paths(.data)
+      res <- suppressWarnings(httr::PUT(.data$url[1], .data$config, body = .data$body, ...))
+    } else {
+      .data <- as.req(self$links[[1]]$url)
+      res <- suppressWarnings(httr::PUT(.data$url[1], .data$config, ...))
+    }
+    # error catching
+    self$handle_errors(.data, res)
+    # cache links
+    self$links <- get_links(res$headers)
+    # give back result
+    self$result <- empty(list(self$result, res))
+  },
+
   body = function() {
     self$result
   },
+
   status = function() {
     if (is(self$result, "response")) {
       self$result$status_code

@@ -5,15 +5,15 @@ test_that("api_body works", {
 
   expect_is(api_body(api("http://api.plos.org/search"), a = 5), "req")
 
-  aa <- api("http://httpbin.org/post") %>%
+  aa <- api("https://httpbin.org/post") %>%
     api_body(a = 5, b = "Adfafasd") %>%
     peep
 
-  bb <- api("http://httpbin.org/post") %>%
+  bb <- api("https://httpbin.org/post") %>%
     api_body(a = 5, b = "Adfafasd") %>%
     peep
 
-  cc <- api("http://httpbin.org/post") %>%
+  cc <- api("https://httpbin.org/post") %>%
     api_body_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') %>%
     peep
 
@@ -24,9 +24,9 @@ test_that("api_body works", {
   expect_is(aa$url, "rurl")
   expect_is(bb$body, "list")
 
-  expect_is(aa %>% http, "list")
-  expect_is(bb %>% http, "list")
-  expect_is(cc %>% http, "list")
+  expect_is(aa %>% http("POST"), "list")
+  expect_is(bb %>% http("POST"), "list")
+  expect_is(cc %>% http("POST"), "list")
 })
 
 test_that("api_body fails well", {

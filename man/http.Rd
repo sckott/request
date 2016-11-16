@@ -45,9 +45,15 @@ res$links
 res$parse()
 
 # Specify HTTP verb
-api("http://httpbin.org/post") \%>\%
+## POST
+api("https://httpbin.org/post") \%>\%
    api_body(x = "A simple text string") \%>\%
    http("POST")
+
+## PUT
+api("https://httpbin.org/put") \%>\%
+   api_body(x = "A simple text string") \%>\%
+   http("PUT")
 }
 }
 

@@ -29,5 +29,5 @@ test_that("http fails well", {
 
   expect_error(http(), "argument \"req\" is missing")
   expect_error(http(api("https://api.github.com"), method = "FART"),
-               "method must be one of GET or POST")
+               "method must be one of GET, POST, or PUT")
 })
