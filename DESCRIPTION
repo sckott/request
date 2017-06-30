@@ -4,7 +4,7 @@ Description: High level and easy 'HTTP' client for 'R' that makes assumptions
     that should work in most cases. Provides functions for building 'HTTP'
     queries, including query parameters, body requests, headers, authentication,
     and more.
-Version: 0.1.4.9993
+Version: 0.1.5.9210
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
@@ -29,4 +29,4 @@ Suggests:
     testthat,
     covr,
     data.table
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

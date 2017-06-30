@@ -22,4 +22,3 @@ mtlist <- apply(mtcars, 1, as.list)
 mtlist[[1]]$mpg <- list()
 as_df(mtlist)
 }
-

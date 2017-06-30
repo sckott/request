@@ -39,4 +39,3 @@ x <- api('api.crossref.org') \%>\%
   api_cache()
 }
 }
-

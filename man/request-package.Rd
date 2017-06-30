@@ -2,8 +2,8 @@
 % Please edit documentation in R/request-package.R
 \docType{package}
 \name{request-package}
-\alias{request}
 \alias{request-package}
+\alias{request}
 \title{Easy http}
 \description{
 Easy http
@@ -50,4 +50,3 @@ api('https://api.github.com/') \%>\%
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
 \keyword{package}
-

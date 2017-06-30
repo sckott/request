@@ -56,4 +56,3 @@ api("https://httpbin.org/put") \%>\%
    http("PUT")
 }
 }
-

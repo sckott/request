@@ -31,4 +31,3 @@ api('http://httpbin.org/headers') \%>\%
    api_headers(`X-FARGO-SEASON` = 3, `X-NARCOS-SEASON` = 5)
 }
 }
-

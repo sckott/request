@@ -28,4 +28,3 @@ api('https://api.github.com/') \%>\%
 jsonlite::fromJSON(ff)
 }
 }
-

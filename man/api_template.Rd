@@ -30,4 +30,3 @@ Other dsl: \code{\link{api_body}},
   \code{\link{api_query}}, \code{\link{api}},
   \code{\link{auth}}
 }
-
