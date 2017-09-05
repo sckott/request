@@ -14,7 +14,7 @@ test_that("api_body works", {
     peep
 
   cc <- api("https://httpbin.org/post") %>%
-    api_body_(q = "ecology", wt = "json", fl = 'id', fl = 'journal') %>%
+    api_body_(wt = "json", fl = 'id', fl = 'journal') %>%
     peep
 
   expect_is(aa, "req")

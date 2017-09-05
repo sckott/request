@@ -49,7 +49,8 @@ api_body_ <- function(.data, ..., .dots, body_value = NULL){
   .data <- as.req(.data)
   if (is.null(body_value)) {
     dots <- lazyeval::all_dots(.dots, ...)
-    args <- sapply(dots, "[[", "expr")
+    args <- as.character(sapply(dots, "[[", "expr"))
+    args <- stats::setNames(args, names(dots))
     modifyList(.data, list(body = as.list(args)))
   } else {
     modifyList(.data, list(body = body_value))
