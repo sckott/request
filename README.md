@@ -2,9 +2,8 @@ request
 =======
 
 
-
+[![cran checks](https://cranchecks.info/badges/worst/request)](https://cranchecks.info/pkgs/request)
 [![Build Status](https://travis-ci.org/sckott/request.svg)](https://travis-ci.org/sckott/request)
-
 [![codecov.io](https://codecov.io/github/sckott/request/coverage.svg?branch=master)](https://codecov.io/github/sckott/request?branch=master)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/request?color=F3B1FF)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/request)](https://cran.r-project.org/package=request)
