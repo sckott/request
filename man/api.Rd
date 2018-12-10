@@ -50,3 +50,4 @@ Other dsl: \code{\link{api_body}},
   \code{\link{api_query}}, \code{\link{api_template}},
   \code{\link{auth}}
 }
+\concept{dsl}

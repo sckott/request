@@ -10,6 +10,7 @@ Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
 License: MIT + file LICENSE
 URL: https://github.com/sckott/request
 BugReports: https://github.com/sckott/request/issues
+Encoding: UTF-8
 Depends:
     httr (>= 1.2.0)
 Imports:
@@ -28,4 +29,4 @@ Imports:
 Suggests:
     testthat,
     data.table
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

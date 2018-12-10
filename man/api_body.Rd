@@ -60,3 +60,4 @@ Other dsl: \code{\link{api_config}},
   \code{\link{api_query}}, \code{\link{api_template}},
   \code{\link{api}}, \code{\link{auth}}
 }
+\concept{dsl}
