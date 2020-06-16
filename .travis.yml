@@ -1,17 +1,23 @@
 language: r
-sudo: false
 cache: packages
+os: linux
+dist: xenial
 
-r_github_packages:
-  - jimhester/covr
+r_binary_packages:
+  - covr
 
-r:
-  - oldrel
-  - release
-  - devel
+jobs:
+  include:
+    - os: linux
+      r: oldrel
+    - os: linux
+      r: release
+      env: R_CODECOV=true
+    - os: linux
+      r: devel
 
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
 
 notifications:
   email:
