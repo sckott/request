@@ -3,7 +3,7 @@ cache: packages
 os: linux
 dist: xenial
 
-r_binary_packages:
+r_packages:
   - covr
 
 jobs:
