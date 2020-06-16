@@ -13,7 +13,7 @@ test_that("authentication - basic auth works", {
     peep
 
   bb <- api('https://httpbin.org/basic-auth/user/passwd') %>%
-    api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate") %>%
+    api_simple_auth(user = "user", pwd = "passwd", type = "digest") %>%
     peep
 
   expect_is(aa, "req")
@@ -28,12 +28,12 @@ test_that("authentication - basic auth works", {
   expect_named(aaa, c("authenticated", "user"))
 })
 
-test_that("authentication - basic auth with differnt auth type", {
+test_that("authentication - basic auth with different auth type", {
   skip_on_travis()
   skip_on_cran()
 
   bb <- api('https://httpbin.org/basic-auth/user/passwd') %>%
-    api_simple_auth(user = "user", pwd = "passwd", type = "gssnegotiate") %>%
+    api_simple_auth(user = "user", pwd = "passwd", type = "digest") %>%
     peep
   expect_error(bb %>% http, "Client error: \\(401\\) Unauthorized")
 })
