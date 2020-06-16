@@ -2,6 +2,7 @@ request
 =======
 
 
+
 [![cran checks](https://cranchecks.info/badges/worst/request)](https://cranchecks.info/pkgs/request)
 [![Build Status](https://travis-ci.org/sckott/request.svg)](https://travis-ci.org/sckott/request)
 [![codecov.io](https://codecov.io/github/sckott/request/coverage.svg?branch=master)](https://codecov.io/github/sckott/request?branch=master)
@@ -50,7 +51,7 @@ Development version from GitHub
 
 
 ```r
-devtools::install_github("sckott/request")
+remotes::install_github("sckott/request")
 ```
 
 
@@ -87,7 +88,7 @@ api('https://api.github.com/')
 api('http://api.gbif.org/v1')
 #> URL: http://api.gbif.org/v1
 api('api.gbif.org/v1')
-#> URL: api.gbif.org/v1
+#> URL: http://api.gbif.org/v1
 ```
 
 Works with ports, full or partial
@@ -115,13 +116,13 @@ The above examples with `api()` are not passed through a pipe, so only define a 
 'https://api.github.com/' %>% api()
 #> $current_user_url
 #> [1] "https://api.github.com/user"
-#>
+#> 
 #> $current_user_authorizations_html_url
 #> [1] "https://github.com/settings/connections/applications{/client_id}"
-#>
+#> 
 #> $authorizations_url
 #> [1] "https://api.github.com/authorizations"
-#>
+#> 
 #> $code_search_url
 ...
 ```
@@ -133,13 +134,13 @@ Or
 api('https://api.github.com/') %>% http()
 #> $current_user_url
 #> [1] "https://api.github.com/user"
-#>
+#> 
 #> $current_user_authorizations_html_url
 #> [1] "https://github.com/settings/connections/applications{/client_id}"
-#>
+#> 
 #> $authorizations_url
 #> [1] "https://api.github.com/authorizations"
-#>
+#> 
 #> $code_search_url
 ...
 ```
@@ -154,16 +155,17 @@ repo_info <- list(username = 'craigcitro', repo = 'r-travis')
 api('https://api.github.com/') %>%
   api_template(template = 'repos/{{username}}/{{repo}}/issues', data = repo_info) %>%
   peep
-#> <http request>
+#> <http request> 
 #>   url: https://api.github.com/
-#>   paths:
-#>   query:
-#>   body:
-#>   paging:
-#>   headers:
-#>   rate limit:
+#>   paths: 
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
 #>   retry (n/delay (s)): /
-#>   error handler:
+#>   error handler: 
+#>   write: 
 #>   config:
 ```
 
@@ -176,16 +178,17 @@ api('https://api.github.com/') %>%
 api('https://api.github.com/') %>%
   api_path(repos, ropensci, rgbif, issues) %>%
   peep
-#> <http request>
+#> <http request> 
 #>   url: https://api.github.com/
 #>   paths: repos/ropensci/rgbif/issues
-#>   query:
-#>   body:
-#>   paging:
-#>   headers:
-#>   rate limit:
+#>   query: 
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
 #>   retry (n/delay (s)): /
-#>   error handler:
+#>   error handler: 
+#>   write: 
 #>   config:
 ```
 
@@ -196,16 +199,17 @@ api('https://api.github.com/') %>%
 api("http://api.plos.org/search") %>%
   api_query(q = ecology, wt = json, fl = 'id,journal') %>%
   peep
-#> <http request>
+#> <http request> 
 #>   url: http://api.plos.org/search
-#>   paths:
+#>   paths: 
 #>   query: q=ecology, wt=json, fl=id,journal
-#>   body:
-#>   paging:
-#>   headers:
-#>   rate limit:
+#>   body: 
+#>   paging: 
+#>   headers: 
+#>   rate limit: 
 #>   retry (n/delay (s)): /
-#>   error handler:
+#>   error handler: 
+#>   write: 
 #>   config:
 ```
 
@@ -219,4 +223,6 @@ See [the issues](https://github.com/sckott/request/issues) for discussion of the
 
 ## Meta
 
-* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+* Please note that this project is released with a [Contributor Code of Conduct][coc]. By participating in this project you agree to abide by its terms.
+
+[coc]: https://github.com/sckott/request/blob/master/.github/CODE_OF_CONDUCT.md

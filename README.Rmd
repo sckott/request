@@ -80,7 +80,7 @@ install.packages("request")
 Development version from GitHub
 
 ```{r eval=FALSE}
-devtools::install_github("sckott/request")
+remotes::install_github("sckott/request")
 ```
 
 ```{r}
@@ -176,4 +176,6 @@ See [the issues](https://github.com/sckott/request/issues) for discussion of the
 
 ## Meta
 
-* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+* Please note that this project is released with a [Contributor Code of Conduct][coc]. By participating in this project you agree to abide by its terms.
+
+[coc]: https://github.com/sckott/request/blob/master/.github/CODE_OF_CONDUCT.md
