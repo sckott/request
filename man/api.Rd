@@ -8,8 +8,6 @@ api(x)
 }
 \arguments{
 \item{x}{A URL}
-
-\item{...}{ignored}
 }
 \description{
 API base url and endpoint setup
@@ -44,10 +42,13 @@ api('https://api.github.com/') \%>\%
 }
 }
 \seealso{
-Other dsl: \code{\link{api_body}},
-  \code{\link{api_config}},
-  \code{\link{api_error_handler}}, \code{\link{api_path}},
-  \code{\link{api_query}}, \code{\link{api_template}},
-  \code{\link{auth}}
+Other dsl: 
+\code{\link{api_body}()},
+\code{\link{api_config}()},
+\code{\link{api_error_handler}()},
+\code{\link{api_path}()},
+\code{\link{api_query}()},
+\code{\link{api_template}()},
+\code{\link{auth}}
 }
 \concept{dsl}

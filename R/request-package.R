@@ -1,5 +1,5 @@
-#' Easy http
-#'
+#' @title request
+#' @description Easy http
 #' @importFrom methods is
 #' @importFrom stats setNames
 #' @importFrom utils head modifyList packageVersion

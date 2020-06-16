@@ -2,7 +2,6 @@
 #'
 #' @export
 #' @param x A URL
-#' @param ...	ignored
 #' @family dsl
 #' @examples \dontrun{
 #' # Set base url

@@ -9,12 +9,28 @@
 \usage{
 api_simple_auth(.data, user, pwd, type = "basic")
 
-api_oauth2(.data, token = NULL, app_name = NULL, key = NULL,
-  secret = NULL, base_url = NULL, authorize = NULL, access = NULL)
+api_oauth2(
+  .data,
+  token = NULL,
+  app_name = NULL,
+  key = NULL,
+  secret = NULL,
+  base_url = NULL,
+  authorize = NULL,
+  access = NULL
+)
 
-api_oauth1(.data, token = NULL, app_name = NULL, key = NULL,
-  secret = NULL, base_url = NULL, request = NULL, authorize = NULL,
-  access = NULL)
+api_oauth1(
+  .data,
+  token = NULL,
+  app_name = NULL,
+  key = NULL,
+  secret = NULL,
+  base_url = NULL,
+  request = NULL,
+  authorize = NULL,
+  access = NULL
+)
 }
 \arguments{
 \item{.data}{Result of a call to \code{api}}
@@ -87,10 +103,13 @@ api('https://httpbin.org/basic-auth/user/passwd') \%>\%
 }
 }
 \seealso{
-Other dsl: \code{\link{api_body}},
-  \code{\link{api_config}},
-  \code{\link{api_error_handler}}, \code{\link{api_path}},
-  \code{\link{api_query}}, \code{\link{api_template}},
-  \code{\link{api}}
+Other dsl: 
+\code{\link{api_body}()},
+\code{\link{api_config}()},
+\code{\link{api_error_handler}()},
+\code{\link{api_path}()},
+\code{\link{api_query}()},
+\code{\link{api_template}()},
+\code{\link{api}()}
 }
 \concept{dsl}

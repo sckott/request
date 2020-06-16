@@ -4,7 +4,7 @@
 \name{request-package}
 \alias{request-package}
 \alias{request}
-\title{Easy http}
+\title{request}
 \description{
 Easy http
 }
@@ -24,7 +24,7 @@ api('9200')
 
 ## The above are not passed through a pipe, so simply define a URL, but don't
 ## do a request. To make an http request, you can either pipe a url or
-## partial url to e.g., \\code{\\link{api}}, or call \\code{\\link{http}}
+## partial url to e.g., \code{\link{api}}, or call \code{\link{http}}
 'https://api.github.com/' \%>\% api()
 ### Or
 api('https://api.github.com/') \%>\% http()

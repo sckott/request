@@ -152,12 +152,12 @@ httr_parse <- function(x, parse) {
       txt <- httr::content(x, "text", encoding = "UTF-8")
       tmp <- jsonlite::fromJSON(txt, parse, flatten = TRUE)
       if (inherits(tmp, "data.frame")) {
-        tibble::as_data_frame(tmp)
+        tibble::as_tibble(tmp)
       } else {
         if (inherits(tmp, "list")) {
           lapply(tmp, function(z) {
             if (inherits(z, "data.frame")) {
-              tibble::as_data_frame(z)
+              tibble::as_tibble(z)
             } else {
               z
             }
