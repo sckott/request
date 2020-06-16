@@ -5,6 +5,7 @@ README.html
 .travis.yml
 appveyor.yml
 ^\.httr-oauth$
-^CONDUCT\.md$
 NEWS.md
 cran-comments.md
+.github
+^Makefile$
